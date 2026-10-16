@@ -1,51 +1,9 @@
+import SearchBar from "@/components/SearchBar";
+import { BRANDS } from "@/data/brands";
+import { PRODUCTS } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const brands = [
-  { id: "adidas", name: "Adidas", logo: require("@/assets/images/logo/adidas-logo.png") },
-  { id: "converse", name: "Converse", logo: require("@/assets/images/logo/converse-logo.png") },
-  {
-    id: "newbalance",
-    name: "New Balance",
-    logo: require("@/assets/images/logo/newbalance-logo.png"),
-  },
-  { id: "nike", name: "Nike", logo: require("@/assets/images/logo/nike-logo.png") },
-  { id: "vans", name: "Vans", logo: require("@/assets/images/logo/vans-logo.png") },
-];
-
-const PRODUCTS = [
-  {
-    id: "1",
-    name: "Blondey McCoy X Adidas Superstar 80",
-    price: "₱24,995.00",
-    image: require("@/assets/images/products/adidas/adidas-blondey-mccoy-adidas-superstar-80-white.png"),
-  },
-  {
-    id: "2",
-    name: "Converse Chuck 70 Trippy Heel Men's",
-    price: "₱2,774.87",
-    image: require("@/assets/images/products/converse/converse-chuck-70-trippy-heel-mens.png"),
-  },
-  {
-    id: "3",
-    name: "New Balance 574 Core Men's",
-    price: "₱4,995.00",
-    image: require("@/assets/images/products/new-balance/new-balance-574-core-mens.png"),
-  },
-  {
-    id: "4",
-    name: "Nike SB Ben & Jerry's Dunk Low Pro 2020",
-    price: "₱88,995.00",
-    image: require("@/assets/images/products/nike/nike-sb-ben-and-jerrys-dunk-low-pro-2020.png"),
-  },
-  {
-    id: "5",
-    name: "Vans Old Skool LX Comme Des Garcons",
-    price: "₱8,495.00",
-    image: require("@/assets/images/products/vans/vans-old-skool-lx-comme-des-garcons-black.png"),
-  },
-];
 
 export default function Home() {
   return (
@@ -59,14 +17,7 @@ export default function Home() {
       </View>
 
       {/* Search Bar */}
-      <View style={styles.searchBar}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search..."
-          placeholderTextColor="#9E9E9E"
-        />
-        <Ionicons name="search-outline" size={20} color="#9E9E9E" />
-      </View>
+      <SearchBar />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
@@ -93,7 +44,7 @@ export default function Home() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.brandScrollContainer}
           >
-            {brands.map((brand) => (
+            {BRANDS.map((brand) => (
               <View key={brand.id} style={styles.brandItem}>
                 <Pressable style={styles.brandCard}>
                   <Image source={brand.logo} style={styles.brandLogo} resizeMode="contain" />
@@ -167,21 +118,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 1,
   },
-  // ---------- Search Bar ----------
-  searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    marginHorizontal: 20,
-    marginTop: 10,
-    paddingHorizontal: 16,
-    height: 48,
-    borderRadius: 14,
-  },
-  searchInput: {
-    flex: 1,
-    color: "#000000",
-  },
   // ---------- Hero Section ----------
   heroCard: {
     height: 180,
@@ -198,7 +134,7 @@ const styles = StyleSheet.create({
   },
   heroLabel: {
     fontSize: 12,
-    fontWeight: "semibold",
+    fontWeight: "600",
     color: "#9C2327",
   },
   heroTitle: {
@@ -261,7 +197,7 @@ const styles = StyleSheet.create({
   },
   brandName: {
     fontSize: 12,
-    fontWeight: "semibold",
+    fontWeight: "600",
     color: "#000000",
     marginTop: 6,
   },
