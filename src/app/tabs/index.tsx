@@ -11,8 +11,8 @@ export default function Home() {
       {/* App Bar */}
       <View style={styles.appBar}>
         <Text style={styles.appTitle}>ShoeZam</Text>
-        <Pressable style={styles.shoppingBag}>
-          <Ionicons name="notifications-outline" size={20} color="#9C2327" />
+        <Pressable style={styles.appBarButton}>
+          <Ionicons name="notifications-outline" size={22} color="#9C2327" />
         </Pressable>
       </View>
 
@@ -99,24 +99,19 @@ const styles = StyleSheet.create({
   // ---------- App Bar ----------
   appBar: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
     paddingTop: 12,
   },
-  appTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#000000",
-  },
-  shoppingBag: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: "#FFFFFF",
+  appBarButton: {
     alignItems: "center",
     justifyContent: "center",
-    elevation: 1,
+  },
+  appTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000000",
   },
   // ---------- Hero Section ----------
   heroCard: {
@@ -179,6 +174,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
     paddingHorizontal: 20,
     gap: 12,
+    alignItems: "center",
   },
   brandItem: {
     alignItems: "center",

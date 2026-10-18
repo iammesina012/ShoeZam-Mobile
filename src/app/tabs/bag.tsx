@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Bag() {
   return (
-    <SafeAreaView style={styles.phoneScreen}>
+    <SafeAreaView edges={["top", "left", "right"]} style={styles.phoneScreen}>
       {/* App Bar */}
       <View style={styles.appBar}>
         <Pressable style={styles.appBarButton}>
@@ -92,8 +92,6 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   appBarButton: {
-    width: 36,
-    height: 36,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -102,16 +100,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000000",
   },
-  appBarActions: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
   // ---------- Product Card ----------
   productContainer: {
     flexDirection: "row",
     minHeight: 150,
-    marginTop: 10,
+    marginTop: 16,
     marginHorizontal: 20,
     padding: 16,
     gap: 12,
@@ -176,33 +169,24 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     color: "#000000",
   },
+  // ---------- Summary ----------
   summary: {
     backgroundColor: "#FFFFFF",
     marginTop: 14,
     paddingHorizontal: 20,
     paddingTop: 16,
-    paddingBottom: 12,
-    borderTopWidth: 1,
-    borderTopColor: "#E5E5E5",
+    paddingBottom: 16,
   },
-  // ---------- Summary ----------
   totalRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 16,
   },
 
   totalLabel: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#000000",
-  },
-
-  taxLabel: {
-    fontSize: 10,
-    color: "#777777",
-    marginTop: 2,
   },
 
   totalPrice: {
@@ -213,6 +197,7 @@ const styles = StyleSheet.create({
   checkoutButton: {
     backgroundColor: "#9C2327",
     borderRadius: 4,
+    marginTop: 16,
     paddingVertical: 12,
     alignItems: "center",
     justifyContent: "center",

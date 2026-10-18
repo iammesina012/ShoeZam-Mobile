@@ -1,4 +1,5 @@
 import SearchBar from "@/components/SearchBar";
+import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
@@ -22,6 +23,22 @@ export default function Wishlist() {
 
       {/* Search Bar */}
       <SearchBar />
+
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.brandScrollView}
+        contentContainerStyle={styles.brandScrollContainer}
+      >
+        <Pressable style={styles.brandCard}>
+          <Text style={styles.brandName}>All</Text>
+        </Pressable>
+        {BRANDS.map((brand) => (
+          <Pressable key={brand.id} style={styles.brandCard}>
+            <Text style={styles.brandName}>{brand.name}</Text>
+          </Pressable>
+        ))}
+      </ScrollView>
 
       {/* Product Catalog */}
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -68,8 +85,6 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   appBarButton: {
-    width: 36,
-    height: 36,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -78,10 +93,30 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000000",
   },
-  appBarActions: {
+  // ---------- Brand Carousel ----------
+  brandScrollView: {
+    flexGrow: 0,
+    flexShrink: 0,
+    marginTop: 14,
+  },
+  brandScrollContainer: {
     flexDirection: "row",
+    paddingHorizontal: 20,
+    gap: 12,
     alignItems: "center",
-    gap: 4,
+  },
+  brandCard: {
+    height: 44,
+    paddingHorizontal: 18,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  brandName: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#000000",
   },
   // ---------- Product Catalog ----------
   productGrid: {
