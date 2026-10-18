@@ -15,16 +15,16 @@ export default function Profile() {
         <View style={styles.profileHeader}>
           <View style={styles.profileContainer}>
             <Image
-              source={require("@/assets/images/profile/sheila.jpg")}
+              source={require("@/assets/images/profile/me.jpeg")}
               style={styles.profilePicture}
               resizeMode="cover"
             />
           </View>
           <View style={styles.accountText}>
             <Text style={styles.accountName} numberOfLines={2}>
-              Sheila Mae Malolos
+              Michael William Mesina
             </Text>
-            <Text style={styles.accountEmail}>malolossheilamaemaguad@gmail.com</Text>
+            <Text style={styles.accountEmail}>michaelwilliam.mesina@gmail.com</Text>
           </View>
         </View>
 
