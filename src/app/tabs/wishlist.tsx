@@ -1,7 +1,7 @@
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
-import { TextInput, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Wishlist() {
@@ -9,10 +9,6 @@ export default function Wishlist() {
     <SafeAreaView style={styles.phoneScreen}>
       {/* App Bar */}
       <View style={styles.appBar}>
-        <Pressable style={styles.appBarButton}>
-          <Ionicons name="arrow-back-outline" size={24} color="#000000" />
-        </Pressable>
-
         <Text style={styles.appTitle}>My Wishlist</Text>
 
         <Pressable style={styles.appBarButton}>
@@ -31,14 +27,15 @@ export default function Wishlist() {
         <Ionicons name="search-outline" size={20} color="#9E9E9E" />
       </View>
 
+      {/* Brand Carousel */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.brandScrollView}
         contentContainerStyle={styles.brandScrollContainer}
       >
-        <Pressable style={styles.brandCard}>
-          <Text style={styles.brandName}>All</Text>
+        <Pressable style={styles.allCard}>
+          <Text style={styles.allName}>All</Text>
         </Pressable>
         {BRANDS.map((brand) => (
           <Pressable key={brand.id} style={styles.brandCard}>
@@ -81,14 +78,14 @@ export default function Wishlist() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: "#FFFFFF",
   },
   // ---------- App Bar ----------
   appBar: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingTop: 12,
   },
   appBarButton: {
@@ -104,7 +101,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     marginHorizontal: 20,
     marginTop: 16,
     paddingHorizontal: 16,
@@ -124,14 +121,30 @@ const styles = StyleSheet.create({
   brandScrollContainer: {
     flexDirection: "row",
     paddingHorizontal: 20,
-    gap: 12,
+    gap: 8,
     alignItems: "center",
+  },
+  allCard: {
+    height: 44,
+    paddingHorizontal: 18,
+    borderWidth: 2,
+    borderColor: "#000000",
+    backgroundColor: "#000000",
+    borderRadius: 24,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  allName: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#FFFFFF",
   },
   brandCard: {
     height: 44,
     paddingHorizontal: 18,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: "#000000",
+    borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -155,7 +168,7 @@ const styles = StyleSheet.create({
   productImageContainer: {
     width: "100%",
     height: 150,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",

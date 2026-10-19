@@ -31,13 +31,16 @@ export default function Home() {
         <View style={styles.heroCard}>
           <View style={styles.leftSide}>
             <Text style={styles.heroLabel}>NEW ARRIVAL!</Text>
-            <Text style={styles.heroTitle}>Vans Old Skool LX{"\n"}Comme Des Garcons</Text>
+            <Text style={styles.heroTitle}>New Balance 574{"\n"}Core Men's</Text>
             <Pressable style={styles.heroButton}>
               <Text style={styles.heroButtonText}>View Product</Text>
             </Pressable>
           </View>
 
-          <Image source={require("@/assets/images/hero/vans-hero.png")} style={styles.rightImage} />
+          <Image
+            source={require("@/assets/images/hero/adidas-hero.png")}
+            style={styles.rightImage}
+          />
         </View>
 
         {/* Shop by Brand */}
@@ -101,14 +104,14 @@ export default function Home() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: "#FFFFFF",
   },
   // ---------- App Bar ----------
   appBar: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingTop: 12,
   },
   appBarButton: {
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     marginHorizontal: 20,
     marginTop: 16,
     paddingHorizontal: 16,
@@ -138,10 +141,12 @@ const styles = StyleSheet.create({
   // ---------- Hero Section ----------
   heroCard: {
     height: 180,
-    backgroundColor: "#EFE7DC",
-    marginTop: 16,
-    paddingHorizontal: 20,
     justifyContent: "center",
+    marginTop: 16,
+    marginHorizontal: 20,
+    paddingHorizontal: 20,
+    borderRadius: 14,
+    backgroundColor: "#D12A3E",
     overflow: "hidden",
   },
   // ----- Left Side -----
@@ -152,12 +157,12 @@ const styles = StyleSheet.create({
   heroLabel: {
     fontSize: 12,
     fontWeight: "600",
-    color: "#9C2327",
+    color: "#FFFFFF",
   },
   heroTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#000000",
+    color: "#FFFFFF",
     marginTop: 4,
   },
   heroButton: {
@@ -174,10 +179,11 @@ const styles = StyleSheet.create({
   // ----- Right Side -----
   rightImage: {
     position: "absolute",
-    width: 265,
-    height: 265,
-    right: -5,
-    bottom: 0,
+    width: 150,
+    height: 220,
+    right: 15,
+    bottom: -20,
+    transform: [{ rotate: "10deg" }, { scaleX: -1 }],
   },
   // ---------- Shop by Brand ----------
   brandSection: {
@@ -204,8 +210,8 @@ const styles = StyleSheet.create({
   brandCard: {
     width: 88,
     height: 60,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
+    backgroundColor: "#F2F2F2",
+    borderRadius: 14,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -237,7 +243,7 @@ const styles = StyleSheet.create({
   productImageContainer: {
     width: "100%",
     height: 150,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -268,7 +274,7 @@ const styles = StyleSheet.create({
   wishlistButton: {
     width: 32,
     height: 32,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",

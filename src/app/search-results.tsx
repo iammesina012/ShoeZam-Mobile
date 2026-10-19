@@ -64,7 +64,7 @@ export default function SearchResults() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: "#FFFFFF",
   },
   shopHeader: {
     flexDirection: "row",
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     paddingHorizontal: 16,
     height: 48,
     borderRadius: 14,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   productImageContainer: {
     width: "100%",
     height: 150,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   wishlistButton: {
     width: 32,
     height: 32,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",

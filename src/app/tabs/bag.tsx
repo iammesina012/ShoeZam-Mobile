@@ -8,10 +8,6 @@ export default function Bag() {
     <SafeAreaView edges={["top", "left", "right"]} style={styles.phoneScreen}>
       {/* App Bar */}
       <View style={styles.appBar}>
-        <Pressable style={styles.appBarButton}>
-          <Ionicons name="arrow-back-outline" size={24} color="#000000" />
-        </Pressable>
-
         <Text style={styles.appTitle}>Shopping Bag</Text>
 
         <Pressable style={styles.appBarButton}>
@@ -22,14 +18,11 @@ export default function Bag() {
       {/* Product Container */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {PRODUCTS.map((product) => (
-          <View key={product.id} style={styles.productContainer}>
-            <Pressable>
-              <View style={styles.checkBox}>
-                {/* <Ionicons name="checkmark-outline" size={22} color="#FFFFFF"/> */}
-              </View>
-            </Pressable>
+          <View key={product.id} style={styles.productContainer}>        
 
-            <Image source={product.image} style={styles.productImage} resizeMode="contain" />
+            <View style={styles.productImageContainer}>
+              <Image source={product.image} style={styles.productImage} resizeMode="contain" />
+            </View>
 
             {/* Product Details */}
             <View style={styles.productDetails}>
@@ -88,7 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingTop: 12,
   },
   appBarButton: {
@@ -103,26 +96,25 @@ const styles = StyleSheet.create({
   // ---------- Product Card ----------
   productContainer: {
     flexDirection: "row",
-    minHeight: 150,
+    minHeight: 100,
     marginTop: 16,
     marginHorizontal: 20,
     padding: 16,
     gap: 12,
-    borderRadius: 12,
+    borderRadius: 14,
     backgroundColor: "#FFFFFF",
     alignItems: "center",
   },
-  checkBox: {
-    width: 18,
-    height: 18,
-    borderWidth: 1,
-    borderColor: "#9E9E9E",
-    borderRadius: 4,
-    backgroundColor: "#FFFFFF",
+  productImageContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 14,
+    paddingHorizontal: 8,
+    backgroundColor: "#F2F2F2",
   },
   productImage: {
-    width: 80,
-    height: 80,
+    width: "100%",
+    height: "100%",
   },
   // ---------- Product Details ----------
   productDetails: {
@@ -153,9 +145,9 @@ const styles = StyleSheet.create({
   quantityControls: {
     flexDirection: "row",
     alignItems: "center",
+    padding: 6,
     backgroundColor: "#F2F2F2",
-    borderRadius: 8,
-    padding: 4,
+    borderRadius: 14,
     gap: 10,
   },
   quantityButton: {

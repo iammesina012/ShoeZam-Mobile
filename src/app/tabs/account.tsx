@@ -135,13 +135,11 @@ export default function Account() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: "#FFFFFF",
   },
   // ---------- App Bar ----------
   appBar: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingTop: 12,
   },
   appTitle: {
@@ -158,10 +156,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    borderWidth: 2,
+    borderWidth: 1,
     overflow: "hidden",
     borderColor: "#000000",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2F2F2",
   },
   profilePicture: {
     width: "100%",
@@ -173,7 +171,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   accountName: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: "bold",
     color: "#000000",
   },
@@ -186,7 +184,7 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: "#E5E5EA",
-    marginTop: 20,
+    marginTop: 10,
     marginHorizontal: 20,
   },
   // ---------- Sections ----------
