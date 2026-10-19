@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Profile() {
+export default function Account() {
   return (
     <SafeAreaView style={styles.phoneScreen}>
       {/* App Bar */}

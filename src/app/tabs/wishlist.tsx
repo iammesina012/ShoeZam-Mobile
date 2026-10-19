@@ -1,8 +1,7 @@
-import SearchBar from "@/components/SearchBar";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { TextInput, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Wishlist() {
@@ -22,7 +21,15 @@ export default function Wishlist() {
       </View>
 
       {/* Search Bar */}
-      <SearchBar />
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search..."
+          placeholderTextColor="#9E9E9E"
+        />
+
+        <Ionicons name="search-outline" size={20} color="#9E9E9E" />
+      </View>
 
       <ScrollView
         horizontal
@@ -59,8 +66,8 @@ export default function Wishlist() {
               <View style={styles.productBottomRow}>
                 <Text style={styles.productPrice}>{product.price}</Text>
 
-                <Pressable style={styles.cartButton}>
-                  <Ionicons name="cart-outline" size={18} color="#FFFFFF" />
+                <Pressable style={styles.bagButton}>
+                  <Ionicons name="bag-outline" size={18} color="#FFFFFF" />
                 </Pressable>
               </View>
             </Pressable>
@@ -91,6 +98,21 @@ const styles = StyleSheet.create({
   appTitle: {
     fontSize: 20,
     fontWeight: "bold",
+    color: "#000000",
+  },
+  // ---------- Search Bar ----------
+  searchBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: 20,
+    marginTop: 16,
+    paddingHorizontal: 16,
+    height: 48,
+    borderRadius: 14,
+  },
+  searchInput: {
+    flex: 1,
     color: "#000000",
   },
   // ---------- Brand Carousel ----------
@@ -161,7 +183,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#9C2327",
   },
-  cartButton: {
+  bagButton: {
     width: 32,
     height: 32,
     backgroundColor: "#9C2327",

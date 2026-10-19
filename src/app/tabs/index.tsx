@@ -1,8 +1,7 @@
-import SearchBar from "@/components/SearchBar";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
@@ -17,7 +16,15 @@ export default function Home() {
       </View>
 
       {/* Search Bar */}
-      <SearchBar />
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search..."
+          placeholderTextColor="#9E9E9E"
+        />
+
+        <Ionicons name="search-outline" size={20} color="#9E9E9E" />
+      </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
@@ -58,7 +65,7 @@ export default function Home() {
         {/* Product Catalog */}
         <View style={styles.productCatalogSection}>
           <Text style={styles.sectionTitle}>
-            Step Into Something <Text style={styles.highlightText}>New</Text>
+            Most <Text style={styles.highlightText}>Popular</Text>
           </Text>
 
           <View style={styles.productGrid}>
@@ -111,6 +118,21 @@ const styles = StyleSheet.create({
   appTitle: {
     fontSize: 20,
     fontWeight: "bold",
+    color: "#000000",
+  },
+  // ---------- Search Bar ----------
+  searchBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: 20,
+    marginTop: 16,
+    paddingHorizontal: 16,
+    height: 48,
+    borderRadius: 14,
+  },
+  searchInput: {
+    flex: 1,
     color: "#000000",
   },
   // ---------- Hero Section ----------
