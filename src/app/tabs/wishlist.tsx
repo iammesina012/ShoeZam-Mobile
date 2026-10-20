@@ -1,3 +1,4 @@
+import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
@@ -5,6 +6,8 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Wishlist() {
+  const { wishlistIds, toggleWishlist } = useWishlist();
+
   return (
     <SafeAreaView style={styles.phoneScreen}>
       {/* App Bar */}
@@ -47,7 +50,7 @@ export default function Wishlist() {
       {/* Product Catalog */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.productGrid}>
-          {PRODUCTS.map((product) => (
+          {PRODUCTS.filter((product) => wishlistIds.includes(product.id)).map((product) => (
             <Pressable key={product.id} style={styles.productCard}>
               {/* Top White Image Box */}
               <View style={styles.productImageContainer}>
@@ -63,8 +66,12 @@ export default function Wishlist() {
               <View style={styles.productBottomRow}>
                 <Text style={styles.productPrice}>{product.price}</Text>
 
-                <Pressable style={styles.bagButton}>
-                  <Ionicons name="bag-outline" size={18} color="#FFFFFF" />
+                <Pressable onPress={() => toggleWishlist(product.id)} style={styles.wishListButton}>
+                  <Ionicons
+                    name={wishlistIds.includes(product.id) ? "heart" : "heart-outline"}
+                    size={18}
+                    color={wishlistIds.includes(product.id) ? "red" : "#000000"}
+                  />
                 </Pressable>
               </View>
             </Pressable>
@@ -196,10 +203,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#9C2327",
   },
-  bagButton: {
+  wishListButton: {
     width: 32,
     height: 32,
-    backgroundColor: "#9C2327",
+    backgroundColor: "#F2F2F2",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",

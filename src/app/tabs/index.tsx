@@ -1,3 +1,4 @@
+import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { Ionicons } from "@expo/vector-icons";
@@ -5,11 +6,25 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
+  const { wishlistIds, toggleWishlist } = useWishlist();
+
   return (
     <SafeAreaView style={styles.phoneScreen}>
       {/* App Bar */}
       <View style={styles.appBar}>
-        <Text style={styles.appTitle}>ShoeZam</Text>
+        <View style={styles.appBarLeft}>
+          <View style={styles.profileContainer}>
+            <Image
+              source={require("@/assets/images/profile/me.jpeg")}
+              style={styles.profilePicture}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.appBarText}>
+            <Text style={styles.appBarGreetings}>Welcome!</Text>
+            <Text style={styles.appBarFullName}>Michael William Mesina</Text>
+          </View>
+        </View>
         <Pressable style={styles.appBarButton}>
           <Ionicons name="notifications-outline" size={22} color="#9C2327" />
         </Pressable>
@@ -88,8 +103,15 @@ export default function Home() {
                 <View style={styles.productBottomRow}>
                   <Text style={styles.productPrice}>{product.price}</Text>
 
-                  <Pressable style={styles.wishlistButton}>
-                    <Ionicons name="heart-outline" size={18} color="#000000" />
+                  <Pressable
+                    style={styles.wishListButton}
+                    onPress={() => toggleWishlist(product.id)}
+                  >
+                    <Ionicons
+                      name={wishlistIds.includes(product.id) ? "heart" : "heart-outline"}
+                      size={18}
+                      color={wishlistIds.includes(product.id) ? "red" : "#000000"}
+                    />
                   </Pressable>
                 </View>
               </Pressable>
@@ -114,15 +136,36 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 12,
   },
+  profileContainer: {
+    width: 40,
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#FFFFFF",
+    backgroundColor: "#FFFFFF",
+    overflow: "hidden",
+  },
+  profilePicture: {
+    width: "100%",
+    height: "100%",
+  },
+  appBarLeft: {
+    flexDirection: "row",
+    gap: 12,
+  },
+  appBarText: {},
+  appBarGreetings: {
+    color: "#9E9E9E",
+  },
+  appBarFullName: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   appBarButton: {
     alignItems: "center",
     justifyContent: "center",
   },
-  appTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-  },
+
   // ---------- Search Bar ----------
   searchBar: {
     flexDirection: "row",
@@ -192,7 +235,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#000000",
     marginHorizontal: 20,
   },
   highlightText: {
@@ -222,7 +264,6 @@ const styles = StyleSheet.create({
   brandName: {
     fontSize: 12,
     fontWeight: "600",
-    color: "#000000",
     marginTop: 6,
   },
   // ---------- Product Catalog ----------
@@ -256,7 +297,6 @@ const styles = StyleSheet.create({
   productName: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#000000",
     marginTop: 8,
     minHeight: 38,
   },
@@ -271,7 +311,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#9C2327",
   },
-  wishlistButton: {
+  wishListButton: {
     width: 32,
     height: 32,
     backgroundColor: "#F2F2F2",
