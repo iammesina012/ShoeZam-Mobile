@@ -104,8 +104,8 @@ export default function Home() {
                   <Text style={styles.productPrice}>{product.price}</Text>
 
                   <Pressable
-                    style={styles.wishListButton}
                     onPress={() => toggleWishlist(product.id)}
+                    style={styles.wishListButton}
                   >
                     <Ionicons
                       name={wishlistIds.includes(product.id) ? "heart" : "heart-outline"}
