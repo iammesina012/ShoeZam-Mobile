@@ -1,8 +1,10 @@
 import { useWishlist } from "@/context/WishlistContext";
+import AppBar from "@/components/AppBar";
+import ProductCard from "@/components/ProductCard";
+import SearchBar from "@/components/SearchBar";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
-import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
@@ -11,35 +13,27 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.phoneScreen}>
       {/* App Bar */}
-      <View style={styles.appBar}>
-        <View style={styles.appBarLeft}>
-          <View style={styles.profileContainer}>
-            <Image
-              source={require("@/assets/images/profile/me.jpeg")}
-              style={styles.profilePicture}
-              resizeMode="cover"
-            />
+      <AppBar
+        leftContent={
+          <View style={styles.appBarLeft}>
+            <View style={styles.profileContainer}>
+              <Image
+                source={require("@/assets/images/profile/me.jpeg")}
+                style={styles.profilePicture}
+                resizeMode="cover"
+              />
+            </View>
+            <View style={styles.appBarText}>
+              <Text style={styles.appBarGreetings}>Welcome!</Text>
+              <Text style={styles.appBarFullName}>Michael William Mesina</Text>
+            </View>
           </View>
-          <View style={styles.appBarText}>
-            <Text style={styles.appBarGreetings}>Welcome!</Text>
-            <Text style={styles.appBarFullName}>Michael William Mesina</Text>
-          </View>
-        </View>
-        <Pressable style={styles.appBarButton}>
-          <Ionicons name="notifications-outline" size={22} color="#9C2327" />
-        </Pressable>
-      </View>
+        }
+        rightIcon="notifications-outline"
+      />
 
       {/* Search Bar */}
-      <View style={styles.searchBar}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search..."
-          placeholderTextColor="#9E9E9E"
-        />
-
-        <Ionicons name="search-outline" size={20} color="#9E9E9E" />
-      </View>
+      <SearchBar containerStyle={{ marginHorizontal: 20, marginTop: 16 }} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
@@ -88,33 +82,12 @@ export default function Home() {
 
           <View style={styles.productGrid}>
             {PRODUCTS.map((product) => (
-              <Pressable key={product.id} style={styles.productCard}>
-                {/* Top White Image Box */}
-                <View style={styles.productImageContainer}>
-                  <Image source={product.image} style={styles.productImage} resizeMode="contain" />
-                </View>
-
-                {/* Middle Shoe Title */}
-                <Text style={styles.productName} numberOfLines={2}>
-                  {product.name}
-                </Text>
-
-                {/* Bottom Row: Price (Left) + Heart Button (Right) */}
-                <View style={styles.productBottomRow}>
-                  <Text style={styles.productPrice}>{product.price}</Text>
-
-                  <Pressable
-                    onPress={() => toggleWishlist(product.id)}
-                    style={styles.wishListButton}
-                  >
-                    <Ionicons
-                      name={wishlistIds.includes(product.id) ? "heart" : "heart-outline"}
-                      size={18}
-                      color={wishlistIds.includes(product.id) ? "red" : "#000000"}
-                    />
-                  </Pressable>
-                </View>
-              </Pressable>
+              <ProductCard
+                key={product.id}
+                product={product}
+                isInWishlist={wishlistIds.includes(product.id)}
+                onToggleWishlist={toggleWishlist}
+              />
             ))}
           </View>
         </View>
@@ -127,14 +100,6 @@ const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-  },
-  // ---------- App Bar ----------
-  appBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 12,
   },
   profileContainer: {
     width: 40,
@@ -161,26 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  appBarButton: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
 
-  // ---------- Search Bar ----------
-  searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#F2F2F2",
-    marginHorizontal: 20,
-    marginTop: 16,
-    paddingHorizontal: 16,
-    height: 48,
-    borderRadius: 14,
-  },
-  searchInput: {
-    flex: 1,
-    color: "#000000",
-  },
   // ---------- Hero Section ----------
   heroCard: {
     height: 180,
@@ -277,46 +223,5 @@ const styles = StyleSheet.create({
     marginTop: 14,
     paddingHorizontal: 20,
     rowGap: 20,
-  },
-  productCard: {
-    width: "48%",
-  },
-  productImageContainer: {
-    width: "100%",
-    height: 150,
-    backgroundColor: "#F2F2F2",
-    borderRadius: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 12,
-  },
-  productImage: {
-    width: "100%",
-    height: "100%",
-  },
-  productName: {
-    fontSize: 14,
-    fontWeight: "bold",
-    marginTop: 8,
-    minHeight: 38,
-  },
-  productBottomRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 4,
-  },
-  productPrice: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#9C2327",
-  },
-  wishListButton: {
-    width: 32,
-    height: 32,
-    backgroundColor: "#F2F2F2",
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

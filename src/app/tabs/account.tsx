@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import AppBar from "@/components/AppBar";
 import { Image, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -6,9 +7,7 @@ export default function Account() {
   return (
     <SafeAreaView style={styles.phoneScreen}>
       {/* App Bar */}
-      <View style={styles.appBar}>
-        <Text style={styles.appTitle}>My Account</Text>
-      </View>
+      <AppBar title="My Account" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Profile Header */}
@@ -136,16 +135,6 @@ const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-  },
-  // ---------- App Bar ----------
-  appBar: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-  },
-  appTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
   },
   // ---------- Profile Header ----------
   profileHeader: {

@@ -27,7 +27,7 @@ export default function TabLayout() {
           options={{
             title: "Home",
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home-outline" size={size} color={color} />
+              <Ionicons name="home-outline" size={size} color={color as string} />
             ),
           }}
         />
@@ -36,7 +36,7 @@ export default function TabLayout() {
           options={{
             title: "Wishlist",
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="heart-outline" size={size} color={color} />
+              <Ionicons name="heart-outline" size={size} color={color as string} />
             ),
           }}
         />
@@ -45,7 +45,7 @@ export default function TabLayout() {
           options={{
             title: "Bag",
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="bag-outline" size={size} color={color} />
+              <Ionicons name="bag-outline" size={size} color={color as string} />
             ),
           }}
         />
@@ -54,7 +54,7 @@ export default function TabLayout() {
           options={{
             title: "Account",
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-outline" size={size} color={color} />
+              <Ionicons name="person-outline" size={size} color={color as string} />
             ),
           }}
         />

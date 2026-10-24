@@ -1,4 +1,5 @@
 import { PRODUCTS } from "@/data/products";
+import AppBar from "@/components/AppBar";
 import { Ionicons } from "@expo/vector-icons";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,13 +8,7 @@ export default function Bag() {
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={styles.phoneScreen}>
       {/* App Bar */}
-      <View style={styles.appBar}>
-        <Text style={styles.appTitle}>Shopping Bag</Text>
-
-        <Pressable style={styles.appBarButton}>
-          <Ionicons name="create-outline" size={22} color="#9C2327" />
-        </Pressable>
-      </View>
+      <AppBar title="Shopping Bag" rightIcon="create-outline" />
 
       {/* Product Container */}
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -75,23 +70,6 @@ const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
     backgroundColor: "#F2F2F2",
-  },
-  // ---------- App Bar ----------
-  appBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 12,
-  },
-  appBarButton: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  appTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
   },
   // ---------- Product Card ----------
   productContainer: {

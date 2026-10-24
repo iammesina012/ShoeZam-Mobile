@@ -1,34 +1,25 @@
 import { useWishlist } from "@/context/WishlistContext";
+import AppBar from "@/components/AppBar";
+import ProductCard from "@/components/ProductCard";
+import SearchBar from "@/components/SearchBar";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
+import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Wishlist() {
   const { wishlistIds, toggleWishlist } = useWishlist();
+  const isEmpty = wishlistIds.length === 0;
 
   return (
     <SafeAreaView style={styles.phoneScreen}>
       {/* App Bar */}
-      <View style={styles.appBar}>
-        <Text style={styles.appTitle}>My Wishlist</Text>
-
-        <Pressable style={styles.appBarButton}>
-          <Ionicons name="create-outline" size={22} color="#9C2327" />
-        </Pressable>
-      </View>
+      <AppBar title="My Wishlist" rightIcon="create-outline" />
 
       {/* Search Bar */}
-      <View style={styles.searchBar}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search..."
-          placeholderTextColor="#9E9E9E"
-        />
-
-        <Ionicons name="search-outline" size={20} color="#9E9E9E" />
-      </View>
+      <SearchBar containerStyle={{ marginHorizontal: 20, marginTop: 16 }} />
 
       {/* Brand Carousel */}
       <ScrollView
@@ -47,37 +38,38 @@ export default function Wishlist() {
         ))}
       </ScrollView>
 
-      {/* Product Catalog */}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.productGrid}>
-          {PRODUCTS.filter((product) => wishlistIds.includes(product.id)).map((product) => (
-            <Pressable key={product.id} style={styles.productCard}>
-              {/* Top White Image Box */}
-              <View style={styles.productImageContainer}>
-                <Image source={product.image} style={styles.productImage} resizeMode="contain" />
-              </View>
-
-              {/* Middle Shoe Title */}
-              <Text style={styles.productName} numberOfLines={2}>
-                {product.name}
-              </Text>
-
-              {/* Bottom Row: Price (Left) + Heart Button (Right) */}
-              <View style={styles.productBottomRow}>
-                <Text style={styles.productPrice}>{product.price}</Text>
-
-                <Pressable onPress={() => toggleWishlist(product.id)} style={styles.wishListButton}>
-                  <Ionicons
-                    name={wishlistIds.includes(product.id) ? "heart" : "heart-outline"}
-                    size={18}
-                    color={wishlistIds.includes(product.id) ? "red" : "#000000"}
-                  />
+      {/* Product Catalog / Empty State */}
+      <View style={styles.catalogWrapper}>
+        {isEmpty ? (
+          <View style={styles.emptyWrapper}>
+            <View style={styles.emptyContainer}>
+              <View style={styles.emptyContent}>
+                <Ionicons name="heart-outline" size={80} color="#9E9E9E" />
+                <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
+                <Text style={styles.emptySubtitle}>
+                  Start adding your favorite shoes to your wishlist.
+                </Text>
+                <Pressable style={styles.emptyButton} onPress={() => router.replace("/tabs")}>
+                  <Text style={styles.emptyButtonText}>Browse Products</Text>
                 </Pressable>
               </View>
-            </Pressable>
-          ))}
-        </View>
-      </ScrollView>
+            </View>
+          </View>
+        ) : (
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.productGrid}>
+              {PRODUCTS.filter((product) => wishlistIds.includes(product.id)).map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  isInWishlist={wishlistIds.includes(product.id)}
+                  onToggleWishlist={toggleWishlist}
+                />
+              ))}
+            </View>
+          </ScrollView>
+        )}
+      </View>
     </SafeAreaView>
   );
 }
@@ -86,38 +78,6 @@ const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-  },
-  // ---------- App Bar ----------
-  appBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 12,
-  },
-  appBarButton: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  appTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-  },
-  // ---------- Search Bar ----------
-  searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#F2F2F2",
-    marginHorizontal: 20,
-    marginTop: 16,
-    paddingHorizontal: 16,
-    height: 48,
-    borderRadius: 14,
-  },
-  searchInput: {
-    flex: 1,
-    color: "#000000",
   },
   // ---------- Brand Carousel ----------
   brandScrollView: {
@@ -169,46 +129,48 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     rowGap: 20,
   },
-  productCard: {
-    width: "48%",
+  // ---------- Empty State ----------
+  catalogWrapper: {
+    flex: 1,
   },
-  productImageContainer: {
-    width: "100%",
-    height: 150,
-    backgroundColor: "#F2F2F2",
-    borderRadius: 12,
+  emptyWrapper: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 12,
   },
-  productImage: {
-    width: "100%",
-    height: "100%",
+  emptyContainer: {
+    alignItems: "center",
+    paddingHorizontal: 40,
   },
-  productName: {
-    fontSize: 14,
+  emptyContent: {
+    alignItems: "center",
+  },
+  emptyTitle: {
+    fontSize: 20,
     fontWeight: "bold",
     color: "#000000",
-    marginTop: 8,
-    minHeight: 38,
+    marginTop: 16,
+    textAlign: "center",
   },
-  productBottomRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 4,
+  emptySubtitle: {
+    fontSize: 14,
+    color: "#9E9E9E",
+    textAlign: "center",
+    marginTop: 6,
+    lineHeight: 20,
   },
-  productPrice: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#9C2327",
-  },
-  wishListButton: {
-    width: 32,
-    height: 32,
-    backgroundColor: "#F2F2F2",
-    borderRadius: 10,
+  emptyButton: {
+    backgroundColor: "#000000",
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 24,
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  emptyButtonText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "600",
   },
 });
