@@ -27,8 +27,12 @@ export default function TabLayout() {
           name="index"
           options={{
             title: "Home",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home-outline" size={size} color={color as string} />
+            tabBarIcon: ({ focused, size, color }) => (
+              <Ionicons
+                name={focused ? "home" : "home-outline"}
+                size={size}
+                color={color as string}
+              />
             ),
           }}
         />
@@ -36,8 +40,12 @@ export default function TabLayout() {
           name="wishlist"
           options={{
             title: "Wishlist",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="heart-outline" size={size} color={color as string} />
+            tabBarIcon: ({ color, focused, size }) => (
+              <Ionicons
+                name={focused ? "heart" : "heart-outline"}
+                size={size}
+                color={color as string}
+              />
             ),
           }}
         />
@@ -45,8 +53,12 @@ export default function TabLayout() {
           name="bag"
           options={{
             title: "Bag",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="bag-outline" size={size} color={color as string} />
+            tabBarIcon: ({ color, focused, size }) => (
+              <Ionicons
+                name={focused ? "bag" : "bag-outline"}
+                size={size}
+                color={color as string}
+              />
             ),
           }}
         />
@@ -54,8 +66,12 @@ export default function TabLayout() {
           name="account"
           options={{
             title: "Account",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-outline" size={size} color={color as string} />
+            tabBarIcon: ({ color, focused, size }) => (
+              <Ionicons
+                name={focused ? "person" : "person-outline"}
+                size={size}
+                color={color as string}
+              />
             ),
           }}
         />

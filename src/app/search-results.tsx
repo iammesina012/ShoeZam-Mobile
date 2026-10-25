@@ -8,7 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SearchResults() {
   return (
-    <SafeAreaView style={styles.phoneScreen}>
+    <SafeAreaView style={styles.screen}>
       {/* Search Bar + Sort & Filter Button */}
       <View style={styles.shopHeader}>
         <SearchBar containerStyle={{ flex: 1 }} />
@@ -39,7 +39,7 @@ export default function SearchResults() {
 }
 
 const styles = StyleSheet.create({
-  phoneScreen: {
+  screen: {
     flex: 1,
     backgroundColor: colors.background,
   },
