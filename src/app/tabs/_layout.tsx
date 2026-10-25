@@ -1,4 +1,5 @@
 import { WishlistProvider } from "@/context/WishlistContext";
+import { colors } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -8,10 +9,10 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: "#9C2327",
-          tabBarInactiveTintColor: "#9E9E9E",
+          tabBarActiveTintColor: colors.brand,
+          tabBarInactiveTintColor: colors.textSecondary,
           tabBarStyle: {
-            backgroundColor: "#FFFFFF",
+            backgroundColor: colors.background,
             height: 80,
             paddingTop: 8,
             paddingBottom: 8,

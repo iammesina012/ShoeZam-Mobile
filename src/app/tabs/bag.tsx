@@ -1,6 +1,7 @@
 import { PRODUCTS } from "@/data/products";
 import AppBar from "@/components/AppBar";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/theme/colors";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -33,13 +34,13 @@ export default function Bag() {
                 {/* Quantity Controls */}
                 <View style={styles.quantityControls}>
                   <Pressable style={styles.quantityButton}>
-                    <Ionicons name="remove-outline" size={16} color="#000000" />
+                    <Ionicons name="remove-outline" size={16} color={colors.textPrimary} />
                   </Pressable>
 
                   <Text style={styles.quantityText}>1</Text>
 
                   <Pressable style={styles.quantityButton}>
-                    <Ionicons name="add-outline" size={16} color="#000000" />
+                    <Ionicons name="add-outline" size={16} color={colors.textPrimary} />
                   </Pressable>
                 </View>
               </View>
@@ -69,7 +70,7 @@ export default function Bag() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
   },
   // ---------- Product Card ----------
   productContainer: {
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 12,
     borderRadius: 14,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background,
     alignItems: "center",
   },
   productImageContainer: {
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 14,
     paddingHorizontal: 8,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
   },
   productImage: {
     width: "100%",
@@ -101,11 +102,11 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontWeight: "bold",
-    color: "#000000",
+    color: colors.textPrimary,
   },
   productBrand: {
     fontWeight: "normal",
-    color: "#9E9E9E",
+    color: colors.textSecondary,
   },
   // ---------- Bottom Row ----------
   productBottomRow: {
@@ -117,14 +118,14 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#9C2327",
+    color: colors.brand,
     flexShrink: 1,
   },
   quantityControls: {
     flexDirection: "row",
     alignItems: "center",
     padding: 6,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
     borderRadius: 14,
     gap: 10,
   },
@@ -137,11 +138,11 @@ const styles = StyleSheet.create({
   quantityText: {
     fontSize: 14,
     fontWeight: "normal",
-    color: "#000000",
+    color: colors.textPrimary,
   },
   // ---------- Summary ----------
   summary: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background,
     marginTop: 14,
     paddingHorizontal: 20,
     paddingTop: 16,
@@ -156,16 +157,16 @@ const styles = StyleSheet.create({
   totalLabel: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#000000",
+    color: colors.textPrimary,
   },
 
   totalPrice: {
     fontSize: 18,
-    color: "#000000",
+    color: colors.textPrimary,
   },
 
   checkoutButton: {
-    backgroundColor: "#9C2327",
+    backgroundColor: colors.brand,
     borderRadius: 4,
     marginTop: 16,
     paddingVertical: 12,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
   },
 
   checkoutButtonText: {
-    color: "#FFFFFF",
+    color: colors.background,
     fontSize: 14,
     fontWeight: "500",
   },

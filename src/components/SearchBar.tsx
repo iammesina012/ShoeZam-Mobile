@@ -1,5 +1,6 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/theme/colors";
 
 export type SearchBarProps = {
   placeholder?: string;
@@ -21,13 +22,13 @@ export default function SearchBar({
       <TextInput
         style={styles.searchInput}
         placeholder={placeholder}
-        placeholderTextColor="#9E9E9E"
+        placeholderTextColor={colors.textSecondary}
         value={value}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmitEditing}
       />
 
-      <Ionicons name="search-outline" size={20} color="#9E9E9E" />
+      <Ionicons name="search-outline" size={20} color={colors.textSecondary} />
     </View>
   );
 }
@@ -36,13 +37,13 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
     height: 48,
     borderRadius: 14,
     paddingHorizontal: 16,
   },
   searchInput: {
     flex: 1,
-    color: "#000000",
+    color: colors.textPrimary,
   },
 });

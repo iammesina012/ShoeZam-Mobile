@@ -6,6 +6,7 @@ import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/theme/colors";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -44,7 +45,7 @@ export default function Wishlist() {
           <View style={styles.emptyWrapper}>
             <View style={styles.emptyContainer}>
               <View style={styles.emptyContent}>
-                <Ionicons name="heart-outline" size={80} color="#9E9E9E" />
+                <Ionicons name="heart-outline" size={80} color={colors.textSecondary} />
                 <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
                 <Text style={styles.emptySubtitle}>
                   Start adding your favorite shoes to your wishlist.
@@ -77,7 +78,7 @@ export default function Wishlist() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background,
   },
   // ---------- Brand Carousel ----------
   brandScrollView: {
@@ -95,8 +96,8 @@ const styles = StyleSheet.create({
     height: 44,
     paddingHorizontal: 18,
     borderWidth: 2,
-    borderColor: "#000000",
-    backgroundColor: "#000000",
+    borderColor: colors.textPrimary,
+    backgroundColor: colors.textPrimary,
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
@@ -104,13 +105,13 @@ const styles = StyleSheet.create({
   allName: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#FFFFFF",
+    color: colors.background,
   },
   brandCard: {
     height: 44,
     paddingHorizontal: 18,
     borderWidth: 2,
-    borderColor: "#000000",
+    borderColor: colors.textPrimary,
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
   brandName: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#000000",
+    color: colors.textPrimary,
   },
   // ---------- Product Catalog ----------
   productGrid: {
@@ -148,19 +149,19 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#000000",
+    color: colors.textPrimary,
     marginTop: 16,
     textAlign: "center",
   },
   emptySubtitle: {
     fontSize: 14,
-    color: "#9E9E9E",
+    color: colors.textSecondary,
     textAlign: "center",
     marginTop: 6,
     lineHeight: 20,
   },
   emptyButton: {
-    backgroundColor: "#000000",
+    backgroundColor: colors.textPrimary,
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 24,
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   emptyButtonText: {
-    color: "#FFFFFF",
+    color: colors.background,
     fontSize: 14,
     fontWeight: "600",
   },

@@ -1,5 +1,6 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/theme/colors";
 
 export type Product = {
   id: string;
@@ -43,12 +44,12 @@ export default function ProductCard({
             <Ionicons
               name={isFilled ? "heart" : "heart-outline"}
               size={18}
-              color={isFilled ? "red" : "#000000"}
+              color={isFilled ? "red" : colors.textPrimary}
             />
           </Pressable>
         ) : (
           <Pressable style={styles.wishlistButton}>
-            <Ionicons name="heart-outline" size={18} color="#000000" />
+            <Ionicons name="heart-outline" size={18} color={colors.textPrimary} />
           </Pressable>
         )}
       </View>
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   productImageContainer: {
     width: "100%",
     height: 150,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   productName: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#000000",
+    color: colors.textPrimary,
     marginTop: 8,
     minHeight: 38,
   },
@@ -89,12 +90,12 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#9C2327",
+    color: colors.brand,
   },
   wishListButton: {
     width: 32,
     height: 32,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   wishlistButton: {
     width: 32,
     height: 32,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",

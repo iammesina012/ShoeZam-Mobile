@@ -1,129 +1,99 @@
-import { Ionicons } from "@expo/vector-icons";
 import AppBar from "@/components/AppBar";
+import MenuItem from "@/components/MenuItem";
+import { colors } from "@/theme/colors";
+import { Ionicons } from "@expo/vector-icons";
 import { Image, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Account() {
   return (
-    <SafeAreaView style={styles.phoneScreen}>
+    <SafeAreaView style={styles.screen}>
       {/* App Bar */}
       <AppBar title="My Account" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Profile Header */}
-        <View style={styles.profileHeader}>
-          <View style={styles.profileContainer}>
+        {/* Profile Section */}
+        <View style={styles.profileSection}>
+          <View style={styles.profileImageContainer}>
             <Image
               source={require("@/assets/images/profile/me.jpeg")}
-              style={styles.profilePicture}
+              style={styles.profileImage}
               resizeMode="cover"
             />
           </View>
-          <View style={styles.accountText}>
-            <Text style={styles.accountName} numberOfLines={2}>
+          <View style={styles.profileInfo}>
+            <Text style={styles.profileName} numberOfLines={2}>
               Michael William Mesina
             </Text>
-            <Text style={styles.accountEmail}>michaelwilliam.mesina@gmail.com</Text>
+            <Text style={styles.profileEmail}>michaelwilliam.mesina@gmail.com</Text>
           </View>
         </View>
 
-        <View style={styles.divider} />
+        <View style={styles.sectionDivider} />
 
         {/* My Orders */}
-        <View style={styles.menuSection}>
-          <Text style={styles.menuHeading}>My Orders</Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>My Orders</Text>
 
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="receipt-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Order History</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
+          <MenuItem icon="receipt-outline" label="Order History" />
         </View>
 
-        <View style={styles.divider} />
+        <View style={styles.sectionDivider} />
 
         {/* Account Settings */}
-        <View style={styles.menuSection}>
-          <Text style={styles.menuHeading}>Account Settings</Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Account Settings</Text>
 
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="person-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Profile</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
+          <MenuItem icon="person-outline" label="Profile" />
 
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="lock-closed-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Change Password</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
+          <MenuItem icon="lock-closed-outline" label="Change Password" />
 
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="location-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Addresses</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
+          <MenuItem icon="location-outline" label="Addresses" />
 
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="card-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Payment Methods</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
+          <MenuItem icon="card-outline" label="Payment Methods" />
         </View>
 
-        <View style={styles.divider} />
+        <View style={styles.sectionDivider} />
 
         {/* Preferences */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Preferences</Text>
 
-        <View style={styles.menuSection}>
-          <Text style={styles.menuHeading}>Preferences</Text>
-
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="moon-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Dark Mode</Text>
+          <Pressable style={styles.darkModeRow}>
+            <Ionicons name="moon-outline" size={22} color={colors.textPrimary} />
+            <Text style={styles.darkModeText}>Dark Mode</Text>
             <Switch
               value={false}
               trackColor={{
                 false: "#D5D5D5",
-                true: "#9C2327",
+                true: colors.brand,
               }}
-              thumbColor="#FFFFFF"
+              thumbColor={colors.background}
             />
           </Pressable>
 
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="notifications-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Notifications</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
+          <View style={styles.notificationsContainer}>
+            <MenuItem icon="notifications-outline" label="Notifications" />
+          </View>
         </View>
 
-        <View style={styles.divider} />
+        <View style={styles.sectionDivider} />
 
         {/* Support */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Support</Text>
 
-        <View style={styles.menuSection}>
-          <Text style={styles.menuHeading}>Preferences</Text>
+          <MenuItem icon="help-circle-outline" label="Help Center" />
 
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="help-circle-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Help Center</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
-
-          <Pressable style={styles.menuItem}>
-            <Ionicons name="document-text-outline" size={22} color="#000000" />
-            <Text style={styles.menuSubHeading}>Terms & Privacy</Text>
-            <Ionicons name="chevron-forward-outline" size={22} color="#9E9E9E" />
-          </Pressable>
+          <MenuItem icon="document-text-outline" label="Terms & Privacy" />
         </View>
 
-        <View style={styles.divider} />
+        <View style={styles.sectionDivider} />
 
-        <View style={styles.logOutContainer}>
-          <Pressable style={styles.logOutButton}>
-            <Ionicons name="log-out-outline" size={22} color="#9C2327" />
-            <Text style={styles.logOutText}>Log Out</Text>
+        <View style={styles.logoutContainer}>
+          <Pressable style={styles.logoutButton}>
+            <Ionicons name="log-out-outline" size={22} color={colors.brand} />
+            <Text style={styles.logoutText}>Log Out</Text>
           </Pressable>
         </View>
       </ScrollView>
@@ -132,79 +102,81 @@ export default function Account() {
 }
 
 const styles = StyleSheet.create({
-  phoneScreen: {
+  screen: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background,
   },
-  // ---------- Profile Header ----------
-  profileHeader: {
+  // ---------- Profile Section ----------
+  profileSection: {
     alignItems: "center",
-    marginTop: 16,
+    paddingVertical: 20,
   },
-  profileContainer: {
+  profileImageContainer: {
     width: 100,
     height: 100,
     borderRadius: 50,
     borderWidth: 1,
     overflow: "hidden",
-    borderColor: "#000000",
-    backgroundColor: "#F2F2F2",
+    borderColor: colors.textPrimary,
+    backgroundColor: colors.surface,
   },
-  profilePicture: {
+  profileImage: {
     width: "100%",
     height: "100%",
   },
-  accountText: {
-    marginTop: 10,
+  profileInfo: {
+    marginTop: 20,
     paddingHorizontal: 20,
     alignItems: "center",
   },
-  accountName: {
+  profileName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#000000",
+    color: colors.textPrimary,
   },
-  accountEmail: {
+  profileEmail: {
     fontSize: 14,
     fontWeight: "normal",
-    color: "#000000",
+    color: colors.textPrimary,
   },
-  // ---------- Divider Line ----------
-  divider: {
+  // ---------- Divider ----------
+  sectionDivider: {
     height: 1,
     backgroundColor: "#E5E5EA",
-    marginTop: 10,
     marginHorizontal: 20,
   },
   // ---------- Sections ----------
-  menuSection: {
-    marginTop: 16,
+  section: {
+    paddingVertical: 20,
     paddingHorizontal: 20,
   },
-  menuHeading: {
+  sectionTitle: {
     fontSize: 18,
     fontWeight: 600,
-    color: "#000000",
+    color: colors.textPrimary,
   },
-  menuItem: {
+  darkModeRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 16,
+    marginTop: 4,
     gap: 12,
   },
-  menuSubHeading: {
+  darkModeText: {
     flex: 1,
     fontSize: 14,
     fontWeight: "normal",
-    color: "#000000",
+    color: colors.textPrimary,
+  },
+  notificationsContainer: {
+    marginTop: -12,
   },
   // ---------- Log Out Button ----------
-  logOutContainer: {
+  logoutContainer: {
     alignItems: "center",
     paddingHorizontal: 20,
   },
-  logOutButton: {
+  logoutButton: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -214,10 +186,10 @@ const styles = StyleSheet.create({
     height: 44,
     borderWidth: 1,
     borderRadius: 24,
-    borderColor: "#9C2327",
+    borderColor: colors.brand,
     gap: 8,
   },
-  logOutText: {
-    color: "#9C2327",
+  logoutText: {
+    color: colors.brand,
   },
 });

@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/theme/colors";
 
 export type AppBarProps = {
   title?: string;
@@ -14,7 +15,7 @@ export default function AppBar({
   leftContent,
   rightIcon,
   onRightPress,
-  rightIconColor = "#9C2327",
+  rightIconColor = colors.brand,
 }: AppBarProps) {
   return (
     <View style={[styles.appBar, rightIcon && styles.appBarFlex]}>
@@ -46,6 +47,6 @@ const styles = StyleSheet.create({
   appTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#000000",
+    color: colors.textPrimary,
   },
 });

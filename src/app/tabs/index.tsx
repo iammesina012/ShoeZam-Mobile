@@ -1,9 +1,10 @@
-import { useWishlist } from "@/context/WishlistContext";
 import AppBar from "@/components/AppBar";
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
+import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
+import { colors } from "@/theme/colors";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -23,7 +24,7 @@ export default function Home() {
                 resizeMode="cover"
               />
             </View>
-            <View style={styles.appBarText}>
+            <View>
               <Text style={styles.appBarGreetings}>Welcome!</Text>
               <Text style={styles.appBarFullName}>Michael William Mesina</Text>
             </View>
@@ -99,15 +100,15 @@ export default function Home() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background,
   },
   profileContainer: {
     width: 40,
     height: 40,
     borderWidth: 1,
     borderRadius: 20,
-    borderColor: "#FFFFFF",
-    backgroundColor: "#FFFFFF",
+    borderColor: colors.background,
+    backgroundColor: colors.background,
     overflow: "hidden",
   },
   profilePicture: {
@@ -118,9 +119,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 12,
   },
-  appBarText: {},
   appBarGreetings: {
-    color: "#9E9E9E",
+    color: colors.textSecondary,
   },
   appBarFullName: {
     fontSize: 16,
@@ -146,23 +146,23 @@ const styles = StyleSheet.create({
   heroLabel: {
     fontSize: 12,
     fontWeight: "600",
-    color: "#FFFFFF",
+    color: colors.background,
   },
   heroTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: colors.background,
     marginTop: 4,
   },
   heroButton: {
-    backgroundColor: "#000000",
+    backgroundColor: colors.textPrimary,
     paddingHorizontal: 18,
     paddingVertical: 10,
     borderRadius: 24,
     marginTop: 12,
   },
   heroButtonText: {
-    color: "#FFFFFF",
+    color: colors.background,
     fontSize: 12,
   },
   // ----- Right Side -----
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   highlightText: {
-    color: "#9C2327",
+    color: colors.brand,
   },
   brandScrollContainer: {
     marginTop: 14,
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   brandCard: {
     width: 88,
     height: 60,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colors.surface,
     borderRadius: 14,
     justifyContent: "center",
     alignItems: "center",

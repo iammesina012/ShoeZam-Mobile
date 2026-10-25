@@ -2,6 +2,7 @@ import { PRODUCTS } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/theme/colors";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -12,7 +13,7 @@ export default function SearchResults() {
       <View style={styles.shopHeader}>
         <SearchBar containerStyle={{ flex: 1 }} />
         <Pressable style={styles.sortAndFilterButton}>
-          <Ionicons name="options-outline" size={22} color="#9C2327" />
+          <Ionicons name="options-outline" size={22} color={colors.brand} />
         </Pressable>
       </View>
 
@@ -40,7 +41,7 @@ export default function SearchResults() {
 const styles = StyleSheet.create({
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background,
   },
   shopHeader: {
     flexDirection: "row",
