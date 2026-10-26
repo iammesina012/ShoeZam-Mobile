@@ -1,6 +1,5 @@
-import AppBar from "@/components/AppBar";
+import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
-import SearchBar from "@/components/SearchBar";
 import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
@@ -14,29 +13,10 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.screen}>
       {/* App Bar */}
-      <AppBar
-        leftContent={
-          <View style={styles.appBarLeft}>
-            <View style={styles.profileContainer}>
-              <Image
-                source={require("@/assets/images/profile/me.jpeg")}
-                style={styles.profilePicture}
-                resizeMode="cover"
-              />
-            </View>
-            <View>
-              <Text style={styles.appBarGreetings}>Welcome!</Text>
-              <Text style={styles.appBarFullName}>Michael William Mesina</Text>
-            </View>
-          </View>
-        }
-        rightIcon="notifications-outline"
-      />
-
-      {/* Search Bar */}
-      <SearchBar containerStyle={{ marginHorizontal: 20, marginTop: 16 }} />
+      <Header showLogo showNotification />
 
       <ScrollView showsVerticalScrollIndicator={false}>
+
         {/* Hero Section */}
         <View style={styles.heroCard}>
           <View style={styles.leftSide}>
@@ -47,10 +27,7 @@ export default function Home() {
             </Pressable>
           </View>
 
-          <Image
-            source={require("@/assets/images/hero/adidas-hero.png")}
-            style={styles.rightImage}
-          />
+          <Image source={require("@/assets/images/hero/adidas-hero.png")} style={styles.rightImage} />
         </View>
 
         {/* Shop by Brand */}
@@ -59,11 +36,7 @@ export default function Home() {
             Shop by <Text style={styles.highlightText}>Brand</Text>
           </Text>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.brandScrollContainer}
-          >
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.brandScrollContainer}>
             {BRANDS.map((brand) => (
               <View key={brand.id} style={styles.brandItem}>
                 <Pressable style={styles.brandCard}>

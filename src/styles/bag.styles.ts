@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
-import { colors } from "@/theme/colors";
+import { COLORS } from "@/theme/colors";
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.surface,
+    backgroundColor: COLORS.surface,
   },
   // ---------- Product Card ----------
   productContainer: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     padding: 16,
     gap: 12,
     borderRadius: 14,
-    backgroundColor: colors.background,
+    backgroundColor: COLORS.background,
     alignItems: "center",
   },
   productImageContainer: {
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     height: 100,
     borderRadius: 14,
     paddingHorizontal: 8,
-    backgroundColor: colors.surface,
+    backgroundColor: COLORS.surface,
   },
   productImage: {
     width: "100%",
@@ -36,11 +36,11 @@ export const styles = StyleSheet.create({
   },
   productName: {
     fontWeight: "bold",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
   productBrand: {
     fontWeight: "normal",
-    color: colors.textSecondary,
+    color: COLORS.secondary,
   },
   // ---------- Bottom Row ----------
   productBottomRow: {
@@ -52,14 +52,14 @@ export const styles = StyleSheet.create({
   productPrice: {
     fontSize: 14,
     fontWeight: "bold",
-    color: colors.brand,
+    color: COLORS.accent,
     flexShrink: 1,
   },
   quantityControls: {
     flexDirection: "row",
     alignItems: "center",
     padding: 6,
-    backgroundColor: colors.surface,
+    backgroundColor: COLORS.surface,
     borderRadius: 14,
     gap: 10,
   },
@@ -72,11 +72,11 @@ export const styles = StyleSheet.create({
   quantityText: {
     fontSize: 14,
     fontWeight: "normal",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
   // ---------- Summary ----------
   summary: {
-    backgroundColor: colors.background,
+    backgroundColor: COLORS.background,
     marginTop: 14,
     paddingHorizontal: 20,
     paddingTop: 16,
@@ -91,16 +91,16 @@ export const styles = StyleSheet.create({
   totalLabel: {
     fontSize: 14,
     fontWeight: "bold",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
 
   totalPrice: {
     fontSize: 18,
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
 
   checkoutButton: {
-    backgroundColor: colors.brand,
+    backgroundColor: COLORS.accent,
     borderRadius: 4,
     marginTop: 16,
     paddingVertical: 12,
@@ -109,7 +109,7 @@ export const styles = StyleSheet.create({
   },
 
   checkoutButtonText: {
-    color: colors.background,
+    color: COLORS.background,
     fontSize: 14,
     fontWeight: "500",
   },

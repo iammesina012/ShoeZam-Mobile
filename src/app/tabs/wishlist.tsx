@@ -1,13 +1,13 @@
-import { useWishlist } from "@/context/WishlistContext";
-import AppBar from "@/components/AppBar";
+import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
+import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
-import { router } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import { colors } from "@/theme/colors";
 import { styles } from "@/styles/wishlist.styles";
+import { COLORS } from "@/theme/colors";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -18,7 +18,7 @@ export default function Wishlist() {
   return (
     <SafeAreaView style={styles.screen}>
       {/* App Bar */}
-      <AppBar title="My Wishlist" rightIcon="create-outline" />
+      <Header title="My Wishlist" showEdit />
 
       {/* Search Bar */}
       <SearchBar containerStyle={{ marginHorizontal: 20, marginTop: 16 }} />
@@ -46,11 +46,9 @@ export default function Wishlist() {
           <View style={styles.emptyWrapper}>
             <View style={styles.emptyContainer}>
               <View style={styles.emptyContent}>
-                <Ionicons name="heart-outline" size={80} color={colors.textSecondary} />
+                <Ionicons name="heart-outline" size={80} color={COLORS.secondary} />
                 <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
-                <Text style={styles.emptySubtitle}>
-                  Start adding your favorite shoes to your wishlist.
-                </Text>
+                <Text style={styles.emptySubtitle}>Start adding your favorite shoes to your wishlist.</Text>
                 <Pressable style={styles.emptyButton} onPress={() => router.replace("/tabs")}>
                   <Text style={styles.emptyButtonText}>Browse Products</Text>
                 </Pressable>

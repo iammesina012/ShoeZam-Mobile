@@ -1,36 +1,11 @@
+import { COLORS } from "@/theme/colors";
 import { StyleSheet } from "react-native";
-import { colors } from "@/theme/colors";
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: COLORS.background,
   },
-  profileContainer: {
-    width: 40,
-    height: 40,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: colors.background,
-    backgroundColor: colors.background,
-    overflow: "hidden",
-  },
-  profilePicture: {
-    width: "100%",
-    height: "100%",
-  },
-  appBarLeft: {
-    flexDirection: "row",
-    gap: 12,
-  },
-  appBarGreetings: {
-    color: colors.textSecondary,
-  },
-  appBarFullName: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-
   // ---------- Hero Section ----------
   heroCard: {
     height: 180,
@@ -50,23 +25,23 @@ export const styles = StyleSheet.create({
   heroLabel: {
     fontSize: 12,
     fontWeight: "600",
-    color: colors.background,
+    color: COLORS.background,
   },
   heroTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: colors.background,
+    color: COLORS.background,
     marginTop: 4,
   },
   heroButton: {
-    backgroundColor: colors.textPrimary,
+    backgroundColor: COLORS.primary,
     paddingHorizontal: 18,
     paddingVertical: 10,
     borderRadius: 24,
     marginTop: 12,
   },
   heroButtonText: {
-    color: colors.background,
+    color: COLORS.background,
     fontSize: 12,
   },
   // ----- Right Side -----
@@ -88,7 +63,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   highlightText: {
-    color: colors.brand,
+    color: COLORS.accent,
   },
   brandScrollContainer: {
     marginTop: 14,
@@ -102,7 +77,7 @@ export const styles = StyleSheet.create({
   brandCard: {
     width: 88,
     height: 60,
-    backgroundColor: colors.surface,
+    backgroundColor: COLORS.surface,
     borderRadius: 14,
     justifyContent: "center",
     alignItems: "center",

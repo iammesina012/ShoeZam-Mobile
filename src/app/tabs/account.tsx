@@ -1,7 +1,7 @@
-import AppBar from "@/components/AppBar";
+import Header from "@/components/Header";
 import MenuItem from "@/components/MenuItem";
 import { styles } from "@/styles/account.styles";
-import { colors } from "@/theme/colors";
+import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Image, Pressable, ScrollView, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,17 +10,13 @@ export default function Account() {
   return (
     <SafeAreaView style={styles.screen}>
       {/* App Bar */}
-      <AppBar title="My Account" />
+      <Header title="My Account" centerTitle />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Profile Section */}
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
-            <Image
-              source={require("@/assets/images/profile/me.jpeg")}
-              style={styles.profileImage}
-              resizeMode="cover"
-            />
+            <Image source={require("@/assets/images/profile/me.jpeg")} style={styles.profileImage} resizeMode="cover" />
           </View>
           <View style={styles.profileInfo}>
             <Text style={styles.profileName} numberOfLines={2}>
@@ -61,15 +57,15 @@ export default function Account() {
           <Text style={styles.sectionTitle}>Preferences</Text>
 
           <Pressable style={styles.darkModeRow}>
-            <Ionicons name="moon-outline" size={22} color={colors.textPrimary} />
+            <Ionicons name="moon-outline" size={22} color={COLORS.primary} />
             <Text style={styles.darkModeText}>Dark Mode</Text>
             <Switch
               value={false}
               trackColor={{
                 false: "#D5D5D5",
-                true: colors.brand,
+                true: COLORS.accent,
               }}
-              thumbColor={colors.background}
+              thumbColor={COLORS.background}
             />
           </Pressable>
 
@@ -93,7 +89,7 @@ export default function Account() {
 
         <View style={styles.logoutContainer}>
           <Pressable style={styles.logoutButton}>
-            <Ionicons name="log-out-outline" size={22} color={colors.brand} />
+            <Ionicons name="log-out-outline" size={22} color={COLORS.accent} />
             <Text style={styles.logoutText}>Log Out</Text>
           </Pressable>
         </View>

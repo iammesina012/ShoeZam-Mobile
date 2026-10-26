@@ -1,8 +1,8 @@
+import Header from "@/components/Header";
 import { PRODUCTS } from "@/data/products";
-import AppBar from "@/components/AppBar";
-import { Ionicons } from "@expo/vector-icons";
-import { colors } from "@/theme/colors";
 import { styles } from "@/styles/bag.styles";
+import { COLORS } from "@/theme/colors";
+import { Ionicons } from "@expo/vector-icons";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -10,13 +10,12 @@ export default function Bag() {
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={styles.screen}>
       {/* App Bar */}
-      <AppBar title="Shopping Bag" rightIcon="create-outline" />
+      <Header title="My Shopping Bag" showEdit/>
 
       {/* Product Container */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {PRODUCTS.map((product) => (
-          <View key={product.id} style={styles.productContainer}>        
-
+          <View key={product.id} style={styles.productContainer}>
             <View style={styles.productImageContainer}>
               <Image source={product.image} style={styles.productImage} resizeMode="contain" />
             </View>
@@ -35,13 +34,13 @@ export default function Bag() {
                 {/* Quantity Controls */}
                 <View style={styles.quantityControls}>
                   <Pressable style={styles.quantityButton}>
-                    <Ionicons name="remove-outline" size={16} color={colors.textPrimary} />
+                    <Ionicons name="remove-outline" size={16} color={COLORS.primary} />
                   </Pressable>
 
                   <Text style={styles.quantityText}>1</Text>
 
                   <Pressable style={styles.quantityButton}>
-                    <Ionicons name="add-outline" size={16} color={colors.textPrimary} />
+                    <Ionicons name="add-outline" size={16} color={COLORS.primary} />
                   </Pressable>
                 </View>
               </View>

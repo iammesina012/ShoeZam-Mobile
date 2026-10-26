@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
-import { colors } from "@/theme/colors";
+import { COLORS } from "@/theme/colors";
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: COLORS.background,
   },
   // ---------- Brand Carousel ----------
   brandScrollView: {
@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
     height: 44,
     paddingHorizontal: 18,
     borderWidth: 2,
-    borderColor: colors.textPrimary,
-    backgroundColor: colors.textPrimary,
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.primary,
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
@@ -31,13 +31,13 @@ export const styles = StyleSheet.create({
   allName: {
     fontSize: 14,
     fontWeight: "600",
-    color: colors.background,
+    color: COLORS.background,
   },
   brandCard: {
     height: 44,
     paddingHorizontal: 18,
     borderWidth: 2,
-    borderColor: colors.textPrimary,
+    borderColor: COLORS.primary,
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   brandName: {
     fontSize: 14,
     fontWeight: "600",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
   // ---------- Product Catalog ----------
   productGrid: {
@@ -75,19 +75,19 @@ export const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: colors.textPrimary,
+    color: COLORS.primary,
     marginTop: 16,
     textAlign: "center",
   },
   emptySubtitle: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: COLORS.secondary,
     textAlign: "center",
     marginTop: 6,
     lineHeight: 20,
   },
   emptyButton: {
-    backgroundColor: colors.textPrimary,
+    backgroundColor: COLORS.primary,
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 24,
@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   emptyButtonText: {
-    color: colors.background,
+    color: COLORS.background,
     fontSize: 14,
     fontWeight: "600",
   },

@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
-import { colors } from "@/theme/colors";
+import { COLORS } from "@/theme/colors";
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: COLORS.background,
   },
   // ---------- Profile Section ----------
   profileSection: {
@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 1,
     overflow: "hidden",
-    borderColor: colors.textPrimary,
-    backgroundColor: colors.surface,
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.surface,
   },
   profileImage: {
     width: "100%",
@@ -32,12 +32,12 @@ export const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
   profileEmail: {
     fontSize: 14,
     fontWeight: "normal",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
   // ---------- Divider ----------
   sectionDivider: {
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 600,
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
   darkModeRow: {
     flexDirection: "row",
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     fontWeight: "normal",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
   notificationsContainer: {
     marginTop: -12,
@@ -86,10 +86,10 @@ export const styles = StyleSheet.create({
     height: 44,
     borderWidth: 1,
     borderRadius: 24,
-    borderColor: colors.brand,
+    borderColor: COLORS.accent,
     gap: 8,
   },
   logoutText: {
-    color: colors.brand,
+    color: COLORS.accent,
   },
 });

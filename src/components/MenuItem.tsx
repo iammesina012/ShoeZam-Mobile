@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { colors } from "@/theme/colors";
+import { COLORS } from "@/theme/colors";
 
 export type MenuItemProps = {
   icon: string;
@@ -15,9 +15,9 @@ export default function MenuItem({
 }: MenuItemProps) {
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <Ionicons name={icon as any} size={22} color={colors.textPrimary} />
+      <Ionicons name={icon as any} size={22} color={COLORS.primary} />
       <Text style={styles.label}>{label}</Text>
-      <Ionicons name="chevron-forward-outline" size={22} color={colors.textSecondary} />
+      <Ionicons name="chevron-forward-outline" size={22} color={COLORS.secondary} />
     </Pressable>
   );
 }
@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   label: {
-    flex: 1, 
+    flex: 1,
     fontSize: 14,
     fontWeight: "normal",
-    color: colors.textPrimary,
+    color: COLORS.primary,
   },
 });
