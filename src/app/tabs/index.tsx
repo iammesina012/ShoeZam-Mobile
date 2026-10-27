@@ -4,6 +4,7 @@ import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { styles } from "@/styles/home.styles";
+import { router } from "expo-router";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -16,7 +17,6 @@ export default function Home() {
       <Header showLogo showNotification />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-
         {/* Hero Section */}
         <View style={styles.heroCard}>
           <View style={styles.leftSide}>
@@ -61,6 +61,7 @@ export default function Home() {
                 product={product}
                 isInWishlist={wishlistIds.includes(product.id)}
                 onToggleWishlist={toggleWishlist}
+                onPress={() => router.push(`/product/${product.id}`)}
               />
             ))}
           </View>

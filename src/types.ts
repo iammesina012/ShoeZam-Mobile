@@ -4,6 +4,7 @@ export type HeaderProps = {
   showSearch?: boolean;
   showNotification?: boolean;
   showEdit?: boolean;
+  showCart?: boolean;
   showLogo?: boolean;
   centerTitle?: boolean;
 };
@@ -20,4 +21,19 @@ export type SearchBarProps = {
 export type WishlistContextType = {
   wishlistIds: string[];
   toggleWishlist: (productId: string) => void;
+};
+
+export type Product = {
+  id: string;
+  name: string;
+  brand: string;
+  price: string;
+  image: number;
+};
+
+export type ProductCardProps = {
+  product: Product;
+  isInWishlist?: boolean;
+  onToggleWishlist?: (productId: string) => void;
+  onPress?: () => void;
 };

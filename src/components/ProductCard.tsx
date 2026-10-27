@@ -1,30 +1,13 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/theme/colors";
+import type { ProductCardProps } from "@/types";
+import { Ionicons } from "@expo/vector-icons";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-export type Product = {
-  id: string;
-  name: string;
-  brand: string;
-  price: string;
-  image: number;
-};
-
-export type ProductCardProps = {
-  product: Product;
-  isInWishlist?: boolean;
-  onToggleWishlist?: (productId: string) => void;
-};
-
-export default function ProductCard({
-  product,
-  isInWishlist = false,
-  onToggleWishlist,
-}: ProductCardProps) {
+export default function ProductCard({ product, isInWishlist = false, onToggleWishlist, onPress }: ProductCardProps) {
   const isFilled = isInWishlist;
 
   return (
-    <Pressable style={styles.productCard}>
+    <Pressable style={styles.productCard} onPress={onPress} >
       <View style={styles.productImageContainer}>
         <Image source={product.image} style={styles.productImage} resizeMode="contain" />
       </View>
@@ -37,15 +20,8 @@ export default function ProductCard({
         <Text style={styles.productPrice}>{product.price}</Text>
 
         {onToggleWishlist ? (
-          <Pressable
-            onPress={() => onToggleWishlist(product.id)}
-            style={styles.wishListButton}
-          >
-            <Ionicons
-              name={isFilled ? "heart" : "heart-outline"}
-              size={18}
-              color={isFilled ? "red" : COLORS.primary}
-            />
+          <Pressable onPress={() => onToggleWishlist(product.id)} style={styles.wishListButton}>
+            <Ionicons name={isFilled ? "heart" : "heart-outline"} size={18} color={isFilled ? "red" : COLORS.primary} />
           </Pressable>
         ) : (
           <Pressable style={styles.wishlistButton}>
