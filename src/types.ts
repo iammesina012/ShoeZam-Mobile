@@ -15,3 +15,9 @@ export type SearchBarProps = {
   onSubmitEditing?: () => void;
   containerStyle?: any;
 };
+
+// just describes what is inside the box: a list of IDs and a toggle button
+export type WishlistContextType = {
+  wishlistIds: string[];
+  toggleWishlist: (productId: string) => void;
+};

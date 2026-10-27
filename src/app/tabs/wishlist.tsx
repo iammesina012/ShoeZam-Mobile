@@ -43,17 +43,13 @@ export default function Wishlist() {
       {/* Product Catalog / Empty State */}
       <View style={styles.catalogWrapper}>
         {isEmpty ? (
-          <View style={styles.emptyWrapper}>
-            <View style={styles.emptyContainer}>
-              <View style={styles.emptyContent}>
-                <Ionicons name="heart-outline" size={80} color={COLORS.secondary} />
-                <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
-                <Text style={styles.emptySubtitle}>Start adding your favorite shoes to your wishlist.</Text>
-                <Pressable style={styles.emptyButton} onPress={() => router.replace("/tabs")}>
-                  <Text style={styles.emptyButtonText}>Browse Products</Text>
-                </Pressable>
-              </View>
-            </View>
+          <View style={styles.emptyState}>
+            <Ionicons name="heart-outline" size={80} color={COLORS.secondary} />
+            <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
+            <Text style={styles.emptySubtitle}>Start adding your favorite shoes to your wishlist.</Text>
+            <Pressable style={styles.emptyButton} onPress={() => router.replace("/tabs")}>
+              <Text style={styles.emptyButtonText}>Browse Products</Text>
+            </Pressable>
           </View>
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>

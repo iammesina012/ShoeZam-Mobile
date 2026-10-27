@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
 import { COLORS } from "@/theme/colors";
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   screen: {
@@ -56,21 +56,15 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     rowGap: 20,
   },
-  // ---------- Empty State ----------
   catalogWrapper: {
     flex: 1,
   },
-  emptyWrapper: {
+  // ---------- Empty State ----------
+  emptyState: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  emptyContainer: {
-    alignItems: "center",
-    paddingHorizontal: 40,
-  },
-  emptyContent: {
-    alignItems: "center",
+    paddingHorizontal: 20,
   },
   emptyTitle: {
     fontSize: 20,

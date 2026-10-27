@@ -1,19 +1,14 @@
+import type { WishlistContextType } from "@/types";
 import { createContext, useContext, useState, type ReactNode } from "react";
-
-// just describes what is inside the box: a list of IDs and a toggle button
-type WishlistContextType = {
-  wishlistIds: string[]; // wishlistIds must be an array of string
-  toggleWishlist: (productId: string) => void; // toggleWishlist must be string and can't return a value
-};
 
 // make an empty box (it starts with nothing inside)
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
-//it is the component or function that owns the wishlist and shares it with everything inside its tags
+// it is the component or function that owns the wishlist and shares it with everything inside its tags
 export function WishlistProvider({ children }: { children: ReactNode }) {
   // list of hearted IDs, the one who sets the new array, and the array starts empty
   const [wishlistIds, setWishlistIds] = useState<string[]>([]);
-  
+
   // the wishlist button logic
   function toggleWishlist(productId: string) {
     setWishlistIds(
