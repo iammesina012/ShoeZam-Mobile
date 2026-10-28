@@ -29,6 +29,11 @@ export type Product = {
   brand: string;
   price: string;
   image: number;
+  colors: {
+    name: string;
+    swatch: string;
+  }[];
+  sizes: string[];
 };
 
 export type ProductCardProps = {

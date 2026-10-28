@@ -5,6 +5,12 @@ export const PRODUCTS = [
     brand: "Adidas",
     price: "₱24,995.00",
     image: require("@/assets/images/products/adidas/adidas-blondey-mccoy-adidas-superstar-80-white.png"),
+    colors: [
+      { name: "Cloud White", swatch: "#F5F5F0" },
+      { name: "Core Black", swatch: "#202020" },
+      { name: "Red", swatch: "#C62828" },
+    ],
+    sizes: ["6.5", "7", "7.5", "8", "8.5", "9", "9.5"],
   },
   {
     id: "2",
@@ -12,6 +18,12 @@ export const PRODUCTS = [
     brand: "Converse",
     price: "₱2,774.87",
     image: require("@/assets/images/products/converse/converse-chuck-70-trippy-heel-mens.png"),
+    colors: [
+      { name: "Cream", swatch: "#E8DDC7" },
+      { name: "Charcoal", swatch: "#414141" },
+      { name: "Blue", swatch: "#4169A1" },
+    ],
+    sizes: ["7", "7.5", "8", "8.5", "9", "9.5", "10"],
   },
   {
     id: "3",
@@ -19,6 +31,12 @@ export const PRODUCTS = [
     brand: "New Balance",
     price: "₱4,995.00",
     image: require("@/assets/images/products/new-balance/new-balance-574-core-mens.png"),
+    colors: [
+      { name: "Black", swatch: "#111111" },
+      { name: "Iron Grey", swatch: "#9CA3AF" },
+      { name: "Blue", swatch: "#1E3A8A" },
+    ],
+    sizes: ["7", "7.5", "8", "8.5", "9", "9.5", "10"],
   },
   {
     id: "4",
@@ -26,6 +44,12 @@ export const PRODUCTS = [
     brand: "Nike",
     price: "₱88,995.00",
     image: require("@/assets/images/products/nike/nike-sb-ben-and-jerrys-dunk-low-pro-2020.png"),
+    colors: [
+      { name: "Mint", swatch: "#73C6A5" },
+      { name: "Pink", swatch: "#E88CA8" },
+      { name: "Yellow", swatch: "#F2C94C" },
+    ],
+    sizes: ["7", "7.5", "8", "8.5", "9", "9.5", "10"],
   },
   {
     id: "5",
@@ -33,5 +57,11 @@ export const PRODUCTS = [
     brand: "Vans",
     price: "₱8,495.00",
     image: require("@/assets/images/products/vans/vans-old-skool-lx-comme-des-garcons-black.png"),
+    colors: [
+      { name: "Black", swatch: "#202020" },
+      { name: "Burgundy", swatch: "#7A263A" },
+      { name: "Olive", swatch: "#6B7043" },
+    ],
+    sizes: ["7", "7.5", "8", "8.5", "9", "9.5", "10"],
   },
 ];
