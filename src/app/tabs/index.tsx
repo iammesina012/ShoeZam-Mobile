@@ -5,6 +5,7 @@ import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { styles } from "@/styles/home.styles";
 import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -13,6 +14,7 @@ export default function Home() {
 
   return (
     <SafeAreaView style={styles.screen}>
+      <StatusBar style="dark" />
       {/* App Bar */}
       <Header showLogo showNotification />
 

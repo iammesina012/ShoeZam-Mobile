@@ -3,12 +3,14 @@ import MenuItem from "@/components/MenuItem";
 import { styles } from "@/styles/account.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 import { Image, Pressable, ScrollView, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Account() {
   return (
     <SafeAreaView style={styles.screen}>
+      <StatusBar style="dark" />
       {/* App Bar */}
       <Header title="My Account" centerTitle />
 

@@ -4,19 +4,38 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function Header({ title, centerTitle, showNotification, showEdit, showCart, showLogo, showBack }: HeaderProps) {
+export default function Header({
+  title,
+  centerTitle,
+  showNotification,
+  showEdit,
+  showCart,
+  showLogo,
+  showBack,
+  backgroundColor = "transparent",
+}: HeaderProps) {
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, { backgroundColor }]}>
       {showBack && (
         <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back-outline" size={24} color={COLORS.primary} />
+          <Ionicons
+            name="arrow-back-outline"
+            size={24}
+            color={COLORS.primary}
+          />
         </TouchableOpacity>
       )}
 
       {showLogo ? (
-        <Image source={require("@/assets/logo.png")} style={styles.logo} resizeMode="contain"></Image>
+        <Image
+          source={require("@/assets/logo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        ></Image>
       ) : (
-        <Text style={[styles.title, centerTitle && styles.centerTitle]}>{title}</Text>
+        <Text style={[styles.title, centerTitle && styles.centerTitle]}>
+          {title}
+        </Text>
       )}
 
       {showCart && (
@@ -27,7 +46,11 @@ export default function Header({ title, centerTitle, showNotification, showEdit,
 
       {showNotification && (
         <TouchableOpacity>
-          <Ionicons name="notifications-outline" size={24} color={COLORS.accent} />
+          <Ionicons
+            name="notifications-outline"
+            size={24}
+            color={COLORS.accent}
+          />
         </TouchableOpacity>
       )}
 

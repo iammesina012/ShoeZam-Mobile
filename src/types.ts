@@ -1,12 +1,13 @@
 export type HeaderProps = {
   title?: string;
+  backgroundColor?: string;
+  centerTitle?: boolean;
   showBack?: boolean;
   showSearch?: boolean;
   showNotification?: boolean;
   showEdit?: boolean;
   showCart?: boolean;
   showLogo?: boolean;
-  centerTitle?: boolean;
 };
 
 export type SearchBarProps = {

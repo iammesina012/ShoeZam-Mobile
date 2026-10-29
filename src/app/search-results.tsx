@@ -3,12 +3,14 @@ import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/theme/colors";
+import { StatusBar } from "expo-status-bar";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SearchResults() {
   return (
     <SafeAreaView style={styles.screen}>
+      <StatusBar style="dark" />
       {/* Search Bar + Sort & Filter Button */}
       <View style={styles.shopHeader}>
         <SearchBar containerStyle={{ flex: 1 }} />

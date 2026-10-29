@@ -8,6 +8,7 @@ import { styles } from "@/styles/wishlist.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -17,6 +18,7 @@ export default function Wishlist() {
 
   return (
     <SafeAreaView style={styles.screen}>
+      <StatusBar style="dark" />
       {/* App Bar */}
       <Header title="My Wishlist" showEdit />
 

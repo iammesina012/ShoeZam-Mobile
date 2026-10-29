@@ -3,12 +3,14 @@ import { PRODUCTS } from "@/data/products";
 import { styles } from "@/styles/bag.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Bag() {
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={styles.screen}>
+      <StatusBar style="dark" />
       {/* App Bar */}
       <Header title="My Shopping Bag" showEdit/>
 
