@@ -107,6 +107,7 @@ export const styles = StyleSheet.create({
   descriptionText: {
     fontWeight: 100,
     textAlign: "justify",
+    marginTop: 12,
   },
   // ---------- Add to Bag button ----------
   addToBagButton: {

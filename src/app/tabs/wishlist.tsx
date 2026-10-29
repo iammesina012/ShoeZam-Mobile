@@ -11,8 +11,10 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
 
 export default function Wishlist() {
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const { wishlistIds, toggleWishlist } = useWishlist();
   const isEmpty = wishlistIds.length === 0;
 
@@ -32,12 +34,39 @@ export default function Wishlist() {
         style={styles.brandScrollView}
         contentContainerStyle={styles.brandScrollContainer}
       >
-        <Pressable style={styles.allCard}>
-          <Text style={styles.allName}>All</Text>
+        <Pressable
+          style={[
+            styles.allCard,
+            selectedBrand === null && styles.selectedBrand,
+          ]}
+          onPress={() => setSelectedBrand(null)}
+        >
+          <Text
+            style={[
+              styles.allName,
+              selectedBrand === null && styles.selectedBrandName,
+            ]}
+          >
+            All
+          </Text>
         </Pressable>
         {BRANDS.map((brand) => (
-          <Pressable key={brand.id} style={styles.brandCard}>
-            <Text style={styles.brandName}>{brand.name}</Text>
+          <Pressable
+            key={brand.id}
+            onPress={() => setSelectedBrand(brand.id)}
+            style={[
+              styles.brandCard,
+              selectedBrand === brand.id && styles.selectedBrand,
+            ]}
+          >
+            <Text
+              style={[
+                styles.brandName,
+                selectedBrand === brand.id && styles.selectedBrandName,
+              ]}
+            >
+              {brand.name}
+            </Text>
           </Pressable>
         ))}
       </ScrollView>
@@ -48,15 +77,22 @@ export default function Wishlist() {
           <View style={styles.emptyState}>
             <Ionicons name="heart-outline" size={80} color={COLORS.secondary} />
             <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
-            <Text style={styles.emptySubtitle}>Start adding your favorite shoes to your wishlist.</Text>
-            <Pressable style={styles.emptyButton} onPress={() => router.replace("/tabs")}>
+            <Text style={styles.emptySubtitle}>
+              Start adding your favorite shoes to your wishlist.
+            </Text>
+            <Pressable
+              style={styles.emptyButton}
+              onPress={() => router.replace("/tabs")}
+            >
               <Text style={styles.emptyButtonText}>Browse Products</Text>
             </Pressable>
           </View>
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.productGrid}>
-              {PRODUCTS.filter((product) => wishlistIds.includes(product.id)).map((product) => (
+              {PRODUCTS.filter((product) =>
+                wishlistIds.includes(product.id),
+              ).map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}

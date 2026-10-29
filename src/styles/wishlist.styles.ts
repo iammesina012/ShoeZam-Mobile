@@ -23,7 +23,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 18,
     borderWidth: 2,
     borderColor: COLORS.primary,
-    backgroundColor: COLORS.primary,
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
@@ -31,7 +30,7 @@ export const styles = StyleSheet.create({
   allName: {
     fontSize: 14,
     fontWeight: "600",
-    color: COLORS.background,
+    color: COLORS.primary,
   },
   brandCard: {
     height: 44,
@@ -46,6 +45,12 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: COLORS.primary,
+  },
+  selectedBrand: {
+    backgroundColor: COLORS.primary,
+  },
+  selectedBrandName: {
+    color: COLORS.background,
   },
   // ---------- Product Catalog ----------
   productGrid: {
