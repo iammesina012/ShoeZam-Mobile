@@ -6,6 +6,40 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.surface,
   },
+  emptyState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: COLORS.primary,
+    marginTop: 16,
+    textAlign: "center",
+  },
+  emptySubtitle: {
+    fontSize: 14,
+    color: COLORS.secondary,
+    textAlign: "center",
+    marginTop: 6,
+    lineHeight: 20,
+  },
+  emptyButton: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 24,
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyButtonText: {
+    color: COLORS.background,
+    fontSize: 14,
+    fontWeight: "600",
+  },
   // ---------- Product Card ----------
   productContainer: {
     flexDirection: "row",

@@ -18,6 +18,20 @@ export default function Wishlist() {
   const { wishlistIds, toggleWishlist } = useWishlist();
   const isEmpty = wishlistIds.length === 0;
 
+  const selectedBrandName = BRANDS.find(
+    (brand) => brand.id === selectedBrand,
+  )?.name;
+
+  const wishlistedProducts = PRODUCTS.filter(
+    (product) =>
+      wishlistIds.includes(product.id) &&
+      (selectedBrandName === undefined || product.brand === selectedBrandName),
+  ).sort(
+    (firstProduct, secondProduct) =>
+      wishlistIds.indexOf(secondProduct.id) -
+      wishlistIds.indexOf(firstProduct.id),
+  );
+
   return (
     <SafeAreaView style={styles.screen}>
       <StatusBar style="dark" />
@@ -90,9 +104,7 @@ export default function Wishlist() {
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.productGrid}>
-              {PRODUCTS.filter((product) =>
-                wishlistIds.includes(product.id),
-              ).map((product) => (
+              {wishlistedProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}
