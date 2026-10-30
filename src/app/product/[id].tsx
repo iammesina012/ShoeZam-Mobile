@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import { useWishlist } from "@/context/WishlistContext";
+import { useBag } from "@/context/BagContext";
 import { PRODUCTS } from "@/data/products";
 import { styles } from "@/styles/product.styles";
 import { COLORS } from "@/theme/colors";
@@ -8,6 +9,7 @@ import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -21,6 +23,7 @@ export default function ProductDetails() {
   const { wishlistIds, toggleWishlist } = useWishlist();
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const { addToBag } = useBag();
 
   // the id from the [id].tsx gets that ID
   const { id } = useLocalSearchParams();
@@ -30,6 +33,20 @@ export default function ProductDetails() {
 
   if (!product) {
     return <Text>Product not found</Text>;
+  }
+
+  const productId = product.id;
+
+  function handleAddToBag() {
+    if (!selectedColor || !selectedSize) {
+      Alert.alert(
+        "Choose options",
+        "Please select a color and size before adding this shoe to your bag.",
+      );
+      return;
+    }
+
+    addToBag(productId, selectedColor, selectedSize);
   }
 
   const isInWishlist = wishlistIds.includes(product.id);
@@ -124,7 +141,10 @@ export default function ProductDetails() {
       </ScrollView>
 
       <SafeAreaView edges={["bottom"]} style={styles.addToBagFooter}>
-        <TouchableOpacity style={styles.addToBagButton}>
+        <TouchableOpacity
+          style={styles.addToBagButton}
+          onPress={handleAddToBag}
+        >
           <Ionicons name="bag-outline" size={24} color={COLORS.background} />
           <Text style={styles.addToBagText}>Add to Bag</Text>
         </TouchableOpacity>

@@ -18,12 +18,6 @@ export type SearchBarProps = {
   containerStyle?: any;
 };
 
-// just describes what is inside the box: a list of IDs and a toggle button
-export type WishlistContextType = {
-  wishlistIds: string[];
-  toggleWishlist: (productId: string) => void;
-};
-
 export type Product = {
   id: string;
   name: string;
@@ -42,4 +36,22 @@ export type ProductCardProps = {
   isInWishlist?: boolean;
   onToggleWishlist?: (productId: string) => void;
   onPress?: () => void;
+};
+
+// just describes what is inside the box: a list of IDs and a toggle button
+export type WishlistContextType = {
+  wishlistIds: string[];
+  toggleWishlist: (productId: string) => void;
+};
+
+export type BagItem = {
+  productId: string;
+  color: string;
+  size: string;
+  quantity: number;
+};
+
+export type BagContextType = {
+  bagItems: BagItem[];
+  addToBag: (productId: string, color: string, size: string) => void;
 };

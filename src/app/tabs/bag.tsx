@@ -3,12 +3,15 @@ import { styles } from "@/styles/bag.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { useBag } from "@/context/BagContext";
+import { PRODUCTS } from "@/data/products";
 
 export default function Bag() {
-  const isBagEmpty = true;
+  const { bagItems } = useBag();
+  const isBagEmpty = bagItems.length === 0;
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={styles.screen}>
@@ -33,43 +36,67 @@ export default function Bag() {
       ) : (
         <>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.productContainer}>
-              <View style={styles.productImageContainer}>
-                {/* <Image source={product.image} style={styles.productImage} resizeMode="contain" /> */}
-              </View>
+            {bagItems.map((bagItem) => {
+              const product = PRODUCTS.find(
+                (shoe) => shoe.id === bagItem.productId,
+              );
 
-              {/* Product Details */}
-              <View style={styles.productDetails}>
-                <Text style={styles.productName} numberOfLines={3}></Text>
-                <Text style={styles.productBrand}></Text>
+              if (!product) return null;
 
-                {/* Bottom Row */}
-                <View style={styles.productBottomRow}>
-                  <Text style={styles.productPrice}></Text>
+              return (
+                <View
+                  key={`${bagItem.productId}-${bagItem.color}-${bagItem.size}`}
+                  style={styles.productContainer}
+                >
+                  <View style={styles.productImageContainer}>
+                    <Image
+                      source={product.image}
+                      style={styles.productImage}
+                      resizeMode="contain"
+                    />
+                  </View>
 
-                  {/* Quantity Controls */}
-                  <View style={styles.quantityControls}>
-                    <Pressable style={styles.quantityButton}>
-                      <Ionicons
-                        name="remove-outline"
-                        size={16}
-                        color={COLORS.primary}
-                      />
-                    </Pressable>
+                  {/* Product Details */}
+                  <View style={styles.productDetails}>
+                    <Text style={styles.productName} numberOfLines={3}>
+                      {product.name}
+                    </Text>
+                    <Text style={styles.productBrand}>{product.brand}</Text>
+                    <Text style={styles.productBrand}>
+                      {bagItem.color} · Size {bagItem.size}
+                    </Text>
 
-                    <Text style={styles.quantityText}>1</Text>
+                    {/* Bottom Row */}
+                    <View style={styles.productBottomRow}>
+                      <Text style={styles.productPrice}>{product.price}</Text>
 
-                    <Pressable style={styles.quantityButton}>
-                      <Ionicons
-                        name="add-outline"
-                        size={16}
-                        color={COLORS.primary}
-                      />
-                    </Pressable>
+                      {/* Quantity Controls */}
+                      <View style={styles.quantityControls}>
+                        <Pressable style={styles.quantityButton}>
+                          <Ionicons
+                            name="remove-outline"
+                            size={16}
+                            color={COLORS.primary}
+                          />
+                        </Pressable>
+
+                        <Text style={styles.quantityText}>
+                          {bagItem.quantity}
+                        </Text>
+
+                        <Pressable style={styles.quantityButton}>
+                          <Ionicons
+                            name="add-outline"
+                            size={16}
+                            color={COLORS.primary}
+                          />
+                        </Pressable>
+                      </View>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </View>
+              );
+            })}
           </ScrollView>
 
           {/* Bottom Summary */}
