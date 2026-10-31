@@ -26,13 +26,67 @@ export function BagProvider({ children }: { children: ReactNode }) {
         );
       }
 
-      // else, append a new item with quantity 1.
+      // if does not exist, append a new item with quantity 1.
       return [...currentBagItems, { productId, color, size, quantity: 1 }];
     });
   }
 
+  function increaseQuantity(productId: string, color: string, size: string) {
+    setBagItems((currentBagItems) => {
+      const existingBagItem = currentBagItems.find(
+        (item) =>
+          item.productId === productId &&
+          item.color === color &&
+          item.size === size,
+      );
+
+      // if the item exists, update its quantity.
+      if (existingBagItem) {
+        return currentBagItems.map((item) =>
+          item === existingBagItem
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+      }
+
+      // if the item doesn't exist, return the original array.
+      return currentBagItems;
+    });
+  }
+
+  function decreaseQuantity(productId: string, color: string, size: string) {
+    setBagItems((currentBagItems) => {
+      const existingBagItem = currentBagItems.find(
+        (item) =>
+          item.productId === productId &&
+          item.color === color &&
+          item.size === size,
+      );
+
+      // if the item exists and if the current item is equal to 1, remove the product
+
+      if (existingBagItem) {
+        if (existingBagItem.quantity === 1) {
+          return currentBagItems.filter((item) => item !== existingBagItem);
+        }
+
+        // if the item exists, update its quantity (decrease by 1).
+        return currentBagItems.map((item) =>
+          item === existingBagItem
+            ? { ...item, quantity: item.quantity - 1 }
+            : item,
+        );
+      }
+
+      // if the item doesn't exist, return the original array.
+      return currentBagItems;
+    });
+  }
+
   return (
-    <BagContext.Provider value={{ bagItems, addToBag }}>
+    <BagContext.Provider
+      value={{ bagItems, addToBag, increaseQuantity, decreaseQuantity }}
+    >
       {children}
     </BagContext.Provider>
   );

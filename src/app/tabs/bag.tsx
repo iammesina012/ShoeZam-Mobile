@@ -3,14 +3,21 @@ import { styles } from "@/styles/bag.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useBag } from "@/context/BagContext";
 import { PRODUCTS } from "@/data/products";
 
 export default function Bag() {
-  const { bagItems } = useBag();
+  const { bagItems, increaseQuantity, decreaseQuantity } = useBag();
   const isBagEmpty = bagItems.length === 0;
 
   return (
@@ -36,16 +43,16 @@ export default function Bag() {
       ) : (
         <>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {bagItems.map((bagItem) => {
+            {bagItems.map((item) => {
               const product = PRODUCTS.find(
-                (shoe) => shoe.id === bagItem.productId,
+                (shoe) => shoe.id === item.productId,
               );
 
               if (!product) return null;
 
               return (
                 <View
-                  key={`${bagItem.productId}-${bagItem.color}-${bagItem.size}`}
+                  key={`${item.productId}-${item.color}-${item.size}`}
                   style={styles.productContainer}
                 >
                   <View style={styles.productImageContainer}>
@@ -62,7 +69,7 @@ export default function Bag() {
                       {product.name}
                     </Text>
                     <Text style={styles.productBrand}>
-                      {product.brand} · {bagItem.color} · Size: {bagItem.size}
+                      {product.brand} · {item.color} · Size: {item.size}
                     </Text>
 
                     {/* Bottom Row */}
@@ -71,25 +78,41 @@ export default function Bag() {
 
                       {/* Quantity Controls */}
                       <View style={styles.quantityControls}>
-                        <Pressable style={styles.quantityButton}>
+                        <TouchableOpacity
+                          style={styles.quantityButton}
+                          onPress={() =>
+                            decreaseQuantity(
+                              item.productId,
+                              item.color,
+                              item.size,
+                            )
+                          }
+                        >
                           <Ionicons
                             name="remove-outline"
                             size={16}
                             color={COLORS.primary}
                           />
-                        </Pressable>
+                        </TouchableOpacity>
 
-                        <Text style={styles.quantityText}>
-                          {bagItem.quantity}
-                        </Text>
+                        <Text style={styles.quantityText}>{item.quantity}</Text>
 
-                        <Pressable style={styles.quantityButton}>
+                        <TouchableOpacity
+                          style={styles.quantityButton}
+                          onPress={() =>
+                            increaseQuantity(
+                              item.productId,
+                              item.color,
+                              item.size,
+                            )
+                          }
+                        >
                           <Ionicons
                             name="add-outline"
                             size={16}
                             color={COLORS.primary}
                           />
-                        </Pressable>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
