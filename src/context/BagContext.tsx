@@ -9,7 +9,7 @@ export function BagProvider({ children }: { children: ReactNode }) {
   function addToBag(productId: string, color: string, size: string) {
     // use the latest bag state to check whether this exact shoe option is already in it.
     setBagItems((currentBagItems) => {
-      const matchingItem = currentBagItems.find(
+      const existingBagItem = currentBagItems.find(
         (item) =>
           item.productId === productId &&
           item.color === color &&
@@ -17,9 +17,9 @@ export function BagProvider({ children }: { children: ReactNode }) {
       );
 
       // if it exists, create a new array and increase only that item's quantity.
-      if (matchingItem) {
+      if (existingBagItem) {
         return currentBagItems.map((item) =>
-          item === matchingItem
+          item === existingBagItem
             ? // Copy its other properties and replace quantity with the increased value.
               { ...item, quantity: item.quantity + 1 }
             : item,

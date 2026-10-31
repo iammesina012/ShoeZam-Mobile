@@ -9,7 +9,6 @@ import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
-  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -23,6 +22,7 @@ export default function ProductDetails() {
   const { wishlistIds, toggleWishlist } = useWishlist();
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [showOptionsError, setShowOptionsError] = useState(false);
   const { addToBag } = useBag();
 
   // the id from the [id].tsx gets that ID
@@ -39,10 +39,7 @@ export default function ProductDetails() {
 
   function handleAddToBag() {
     if (!selectedColor || !selectedSize) {
-      Alert.alert(
-        "Choose options",
-        "Please select a color and size before adding this shoe to your bag.",
-      );
+      setShowOptionsError(true);
       return;
     }
 
@@ -92,6 +89,9 @@ export default function ProductDetails() {
                   onPress={() => setSelectedColor(color.name)}
                   style={[
                     styles.colorOption,
+                    showOptionsError &&
+                      !selectedColor &&
+                      styles.missingColorOption,
                     selectedColor === color.name && styles.selectedColor,
                   ]}
                 >
@@ -117,6 +117,9 @@ export default function ProductDetails() {
                     onPress={() => setSelectedSize(size)}
                     style={[
                       styles.sizeOption,
+                      showOptionsError &&
+                        !selectedSize &&
+                        styles.missingSizeOption,
                       selectedSize === size && styles.selectedSize,
                     ]}
                   >
@@ -125,6 +128,15 @@ export default function ProductDetails() {
                 ))}
               </View>
             </ScrollView>
+            {showOptionsError && (!selectedColor || !selectedSize) && (
+              <Text style={styles.optionsError}>
+                {!selectedColor && !selectedSize
+                  ? "Please select a color and size to continue."
+                  : !selectedColor
+                    ? "Please select a color to continue."
+                    : "Please select a size to continue."}
+              </Text>
+            )}
           </View>
 
           {/* Description */}

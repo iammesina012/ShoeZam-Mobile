@@ -64,6 +64,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  missingColorOption: {
+    borderColor: COLORS.accent,
+  },
   selectedColor: {
     borderWidth: 2,
     borderColor: COLORS.accent,
@@ -91,6 +94,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  missingSizeOption: {
+    borderWidth: 1,
+    borderColor: COLORS.accent,
+  },
   selectedSize: {
     borderWidth: 2,
     borderColor: COLORS.accent,
@@ -98,6 +105,11 @@ export const styles = StyleSheet.create({
   },
   sizeText: {
     fontWeight: 600,
+  },
+  optionsError: {
+    color: COLORS.accent,
+    fontWeight: 500,
+    marginTop: 10,
   },
   // ----- Description -----
   productDescription: {
