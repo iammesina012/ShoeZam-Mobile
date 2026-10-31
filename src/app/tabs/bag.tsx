@@ -61,9 +61,8 @@ export default function Bag() {
                     <Text style={styles.productName} numberOfLines={3}>
                       {product.name}
                     </Text>
-                    <Text style={styles.productBrand}>{product.brand}</Text>
                     <Text style={styles.productBrand}>
-                      {bagItem.color} · Size {bagItem.size}
+                      {product.brand} · {bagItem.color} · Size: {bagItem.size}
                     </Text>
 
                     {/* Bottom Row */}

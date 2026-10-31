@@ -9,7 +9,7 @@ export default function Header({
   centerTitle,
   showNotification,
   showEdit,
-  showCart,
+  showBag,
   showLogo,
   showBack,
   backgroundColor = "transparent",
@@ -38,9 +38,9 @@ export default function Header({
         </Text>
       )}
 
-      {showCart && (
-        <TouchableOpacity>
-          <Ionicons name="cart-outline" size={24} color={COLORS.accent} />
+      {showBag && (
+        <TouchableOpacity onPress={() => router.push("/tabs/bag")}>
+          <Ionicons name="bag-outline" size={24} color={COLORS.accent} />
         </TouchableOpacity>
       )}
 

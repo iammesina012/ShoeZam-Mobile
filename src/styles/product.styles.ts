@@ -141,4 +141,23 @@ export const styles = StyleSheet.create({
   addToBagFooter: {
     backgroundColor: COLORS.background,
   },
+  // ---------- Add to Bag Success Toast ----------
+  addedToast: {
+    position: "absolute",
+    bottom: 100,
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 24,
+    zIndex: 1,
+    elevation: 4,
+  },
+  addedToastText: {
+    color: COLORS.background,
+    fontWeight: 600,
+  },
 });

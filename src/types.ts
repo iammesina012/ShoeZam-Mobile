@@ -6,7 +6,7 @@ export type HeaderProps = {
   showSearch?: boolean;
   showNotification?: boolean;
   showEdit?: boolean;
-  showCart?: boolean;
+  showBag?: boolean;
   showLogo?: boolean;
 };
 

@@ -7,7 +7,7 @@ import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Image,
   Pressable,
@@ -19,16 +19,26 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ProductDetails() {
+  // Context and route values
+  const { addToBag } = useBag();
   const { wishlistIds, toggleWishlist } = useWishlist();
+  const { id } = useLocalSearchParams();
+
+  // Screen state
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [showOptionsError, setShowOptionsError] = useState(false);
-  const { addToBag } = useBag();
+  const [showAddedToast, setShowAddedToast] = useState(false);
+  const toastTime = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // the id from the [id].tsx gets that ID
-  const { id } = useLocalSearchParams();
+  // Clean up the toast timer if the user leaves this screen
+  useEffect(() => {
+    return () => {
+      if (toastTime.current) clearTimeout(toastTime.current);
+    };
+  }, []);
 
-  // the PRODUCTS array will find the shoe based on
+  // Find the product for this route
   const product = PRODUCTS.find((shoe) => shoe.id === id);
 
   if (!product) {
@@ -37,6 +47,14 @@ export default function ProductDetails() {
 
   const productId = product.id;
 
+  // Button handlers
+  function showToast() {
+    setShowAddedToast(true);
+
+    if (toastTime.current) clearTimeout(toastTime.current);
+    toastTime.current = setTimeout(() => setShowAddedToast(false), 3000);
+  }
+
   function handleAddToBag() {
     if (!selectedColor || !selectedSize) {
       setShowOptionsError(true);
@@ -44,14 +62,16 @@ export default function ProductDetails() {
     }
 
     addToBag(productId, selectedColor, selectedSize);
+    showToast();
   }
 
+  // Values used by the rendered screen
   const isInWishlist = wishlistIds.includes(product.id);
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "left", "right"]}>
       <StatusBar style="dark" />
-      <Header showBack showCart backgroundColor={COLORS.surface} />
+      <Header showBack showBag backgroundColor={COLORS.surface} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Product Image Section */}
@@ -161,6 +181,17 @@ export default function ProductDetails() {
           <Text style={styles.addToBagText}>Add to Bag</Text>
         </TouchableOpacity>
       </SafeAreaView>
+
+      {showAddedToast && (
+        <View pointerEvents="none" style={styles.addedToast}>
+          <Ionicons
+            name="checkmark-circle"
+            size={20}
+            color={COLORS.background}
+          />
+          <Text style={styles.addedToastText}>Added to bag</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
