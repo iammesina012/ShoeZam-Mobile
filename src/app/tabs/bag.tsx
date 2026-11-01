@@ -23,15 +23,24 @@ export default function Bag() {
   const [isRemoveModalVisible, setIsRemoveModalVisible] = useState(false);
   const [selectedItemToRemove, setSelectedItemToRemove] =
     useState<BagItem | null>(null);
+
   const { bagItems, increaseQuantity, decreaseQuantity } = useBag();
   const isBagEmpty = bagItems.length === 0;
 
+  const totalPrice = bagItems.reduce((total, bagItem) => {
+    const product = PRODUCTS.find((shoe) => shoe.id === bagItem.productId); // find a shoes that matches the id and productid
+
+    if (!product) return total; // if the product doesn't exist, keep the current total, and continue processing the remaining bag items
+
+    return total + product.price * bagItem.quantity; // if the product exist, compute the total
+  }, 0);
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={styles.screen}>
       <StatusBar style="dark" />
       {/* App Bar */}
       <Header title="My Shopping Bag" showEdit />
 
+      {/* Remove Modal */}
       <Modal visible={isRemoveModalVisible} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
@@ -46,8 +55,8 @@ export default function Bag() {
               <TouchableOpacity
                 style={styles.cancelButton}
                 onPress={() => {
-                  setIsRemoveModalVisible(false);
-                  setSelectedItemToRemove(null);
+                  setIsRemoveModalVisible(false); // hide the modal
+                  setSelectedItemToRemove(null); // reset the selected item to null
                 }}
               >
                 <Text style={styles.cancelButtonText}>No</Text>
@@ -58,6 +67,7 @@ export default function Bag() {
                 onPress={() => {
                   if (selectedItemToRemove) {
                     decreaseQuantity(
+                      // the reason there are 3 arguments here, because we need to identify which item in the bag we want to decrease or remove
                       selectedItemToRemove.productId,
                       selectedItemToRemove.color,
                       selectedItemToRemove.size,
@@ -74,6 +84,7 @@ export default function Bag() {
         </View>
       </Modal>
 
+      {/* Empty state */}
       {isBagEmpty ? (
         <View style={styles.emptyState}>
           <Ionicons name="bag-outline" size={80} color={COLORS.secondary} />
@@ -92,11 +103,15 @@ export default function Bag() {
         <>
           <ScrollView showsVerticalScrollIndicator={false}>
             {bagItems.map((item) => {
+              // check every current items in the bag
               const product = PRODUCTS.find(
+                // find a shoe that PRODUCTS.id is equal to bagItems.productId
                 (shoe) => shoe.id === item.productId,
               );
 
-              if (!product) return null;
+              if (!product) return null; // if no matching product is found, nothing will be displayed
+
+              const itemPrice = product.price * item.quantity;
 
               return (
                 <View
@@ -117,12 +132,18 @@ export default function Bag() {
                       {product.name}
                     </Text>
                     <Text style={styles.productBrand}>
-                      {product.brand} · {item.color} · Size: {item.size}
+                      {product.brand} · {item.color} · {item.size}
                     </Text>
 
                     {/* Bottom Row */}
                     <View style={styles.productBottomRow}>
-                      <Text style={styles.productPrice}>{product.price}</Text>
+                      <Text style={styles.productPrice}>
+                        {itemPrice.toLocaleString("en-ph", {
+                          //converts a number into a formatted string, use the english ph locale
+                          style: "currency", // format the number as money, rather than ordinary number
+                          currency: "PHP", // use the peso currency
+                        })}
+                      </Text>
 
                       {/* Quantity Controls */}
                       <View style={styles.quantityControls}>
@@ -181,7 +202,12 @@ export default function Bag() {
                 <Text style={styles.totalLabel}>Total price</Text>
               </View>
 
-              <Text style={styles.totalPrice}>₱0.00</Text>
+              <Text style={styles.totalPrice}>
+                {totalPrice.toLocaleString("en-ph", {
+                  style: "currency",
+                  currency: "PHP",
+                })}
+              </Text>
             </View>
 
             <Pressable style={styles.checkoutButton}>

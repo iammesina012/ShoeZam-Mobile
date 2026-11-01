@@ -14,8 +14,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalContainer: {
-    width: "100%",
-    maxWidth: 340,
+    width: 300,
     backgroundColor: COLORS.background,
     borderRadius: 16,
     padding: 20,
@@ -190,7 +189,7 @@ export const styles = StyleSheet.create({
 
   totalPrice: {
     fontSize: 18,
-    color: COLORS.primary,
+    color: COLORS.accent,
   },
 
   checkoutButton: {

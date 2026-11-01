@@ -97,7 +97,12 @@ export default function ProductDetails() {
           </View>
 
           <Text style={styles.productName}>{product.name}</Text>
-          <Text style={styles.productPrice}>{product.price}</Text>
+          <Text style={styles.productPrice}>
+            {product.price.toLocaleString("en-ph", {
+              style: "currency",
+              currency: "PHP",
+            })}
+          </Text>
 
           {/* Colors */}
           <View>
