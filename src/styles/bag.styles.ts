@@ -6,6 +6,66 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.surface,
   },
+  // ---------- Remove Confirmation Modal ----------
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: "100%",
+    maxWidth: 340,
+    backgroundColor: COLORS.background,
+    borderRadius: 16,
+    padding: 20,
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: COLORS.primary,
+    textAlign: "center",
+  },
+  modalMessage: {
+    color: COLORS.secondary,
+    textAlign: "center",
+    lineHeight: 20,
+    marginTop: 8,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    width: "100%",
+    gap: 12,
+    marginTop: 24,
+  },
+  cancelButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 8,
+    backgroundColor: COLORS.surface,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  confirmButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 8,
+    backgroundColor: COLORS.accent,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cancelButtonText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: COLORS.primary,
+  },
+  confirmButtonText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: COLORS.background,
+  },
+  // ---------- Empty State ----------
   emptyState: {
     flex: 1,
     justifyContent: "center",
