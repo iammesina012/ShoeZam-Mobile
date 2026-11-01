@@ -56,4 +56,5 @@ export type BagContextType = {
   addToBag: (productId: string, color: string, size: string) => void;
   increaseQuantity: (productId: string, color: string, size: string) => void;
   decreaseQuantity: (productId: string, color: string, size: string) => void;
+  removeFromBag: (productId: string, color: string, size: string) => void;
 };

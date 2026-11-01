@@ -83,9 +83,26 @@ export function BagProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  function removeFromBag(productId: string, color: string, size: string) {
+    setBagItems((currentBagItems) =>
+      currentBagItems.filter(
+        (item) =>
+          item.productId !== productId ||
+          item.color !== color ||
+          item.size !== size,
+      ),
+    );
+  }
+
   return (
     <BagContext.Provider
-      value={{ bagItems, addToBag, increaseQuantity, decreaseQuantity }}
+      value={{
+        bagItems,
+        addToBag,
+        increaseQuantity,
+        decreaseQuantity,
+        removeFromBag,
+      }}
     >
       {children}
     </BagContext.Provider>

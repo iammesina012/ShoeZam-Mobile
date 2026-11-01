@@ -18,13 +18,15 @@ import { useBag } from "@/context/BagContext";
 import { PRODUCTS } from "@/data/products";
 import { useState } from "react";
 import type { BagItem } from "@/types";
+import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 
 export default function Bag() {
   const [isRemoveModalVisible, setIsRemoveModalVisible] = useState(false);
   const [selectedItemToRemove, setSelectedItemToRemove] =
     useState<BagItem | null>(null);
 
-  const { bagItems, increaseQuantity, decreaseQuantity } = useBag();
+  const { bagItems, increaseQuantity, decreaseQuantity, removeFromBag } =
+    useBag();
   const isBagEmpty = bagItems.length === 0;
 
   const totalPrice = bagItems.reduce((total, bagItem) => {
@@ -38,7 +40,7 @@ export default function Bag() {
     <SafeAreaView edges={["top", "left", "right"]} style={styles.screen}>
       <StatusBar style="dark" />
       {/* App Bar */}
-      <Header title="My Shopping Bag" showEdit />
+      <Header title="My Shopping Bag" />
 
       {/* Remove Modal */}
       <Modal visible={isRemoveModalVisible} transparent animationType="fade">
@@ -114,83 +116,116 @@ export default function Bag() {
               const itemPrice = product.price * item.quantity;
 
               return (
-                <View
+                // Swipeable Card
+                <ReanimatedSwipeable
                   key={`${item.productId}-${item.color}-${item.size}`}
-                  style={styles.productContainer}
+                  containerStyle={{
+                    //style for both container and delete action
+                    marginTop: 16,
+                    marginHorizontal: 20,
+                    borderRadius: 14,
+                  }}
+                  overshootRight={false} // prevents the card from stretching beyond the delete action
+                  renderRightActions={() => (
+                    // tells what to display on the right side when swiped to the left
+                    <Pressable
+                      style={styles.deleteAction}
+                      onPress={() => {
+                        setSelectedItemToRemove(item);
+                        setIsRemoveModalVisible(true);
+                      }}
+                    >
+                      <Ionicons
+                        name="trash-outline"
+                        size={22}
+                        color={COLORS.background}
+                      />
+                      <Text style={styles.deleteText}>Delete</Text>
+                    </Pressable>
+                  )}
                 >
-                  <View style={styles.productImageContainer}>
-                    <Image
-                      source={product.image}
-                      style={styles.productImage}
-                      resizeMode="contain"
-                    />
-                  </View>
+                  <Pressable
+                    style={styles.productContainer}
+                    onPress={() => {
+                      router.push(`/product/${item.productId}`);
+                    }}
+                  >
+                    <View style={styles.productImageContainer}>
+                      <Image
+                        source={product.image}
+                        style={styles.productImage}
+                        resizeMode="contain"
+                      />
+                    </View>
 
-                  {/* Product Details */}
-                  <View style={styles.productDetails}>
-                    <Text style={styles.productName} numberOfLines={3}>
-                      {product.name}
-                    </Text>
-                    <Text style={styles.productBrand}>
-                      {product.brand} · {item.color} · {item.size}
-                    </Text>
-
-                    {/* Bottom Row */}
-                    <View style={styles.productBottomRow}>
-                      <Text style={styles.productPrice}>
-                        {itemPrice.toLocaleString("en-ph", {
-                          //converts a number into a formatted string, use the english ph locale
-                          style: "currency", // format the number as money, rather than ordinary number
-                          currency: "PHP", // use the peso currency
-                        })}
+                    {/* Product Details */}
+                    <View style={styles.productDetails}>
+                      <Text style={styles.productName} numberOfLines={3}>
+                        {product.name}
+                      </Text>
+                      <Text style={styles.productBrand}>
+                        {product.brand} · {item.color} · {item.size}
                       </Text>
 
-                      {/* Quantity Controls */}
-                      <View style={styles.quantityControls}>
-                        <TouchableOpacity
-                          style={styles.quantityButton}
-                          onPress={() => {
-                            if (item.quantity > 1) {
-                              decreaseQuantity(
+                      {/* Bottom Row */}
+                      <View style={styles.productBottomRow}>
+                        <Text style={styles.productPrice}>
+                          {itemPrice.toLocaleString("en-ph", {
+                            //converts a number into a formatted string, use the english ph locale
+                            style: "currency", // format the number as money, rather than ordinary number
+                            currency: "PHP", // use the peso currency
+                          })}
+                        </Text>
+
+                        {/* Quantity Controls */}
+                        <View style={styles.quantityControls}>
+                          <TouchableOpacity
+                            style={styles.quantityButton}
+                            onPress={() => {
+                              if (item.quantity > 1) {
+                                decreaseQuantity(
+                                  item.productId,
+                                  item.color,
+                                  item.size,
+                                );
+                              } else {
+                                setSelectedItemToRemove(item);
+                                setIsRemoveModalVisible(true);
+                              }
+                            }}
+                          >
+                            <Ionicons
+                              name="remove-outline"
+                              size={16}
+                              color={COLORS.primary}
+                            />
+                          </TouchableOpacity>
+
+                          <Text style={styles.quantityText}>
+                            {item.quantity}
+                          </Text>
+
+                          <TouchableOpacity
+                            style={styles.quantityButton}
+                            onPress={() =>
+                              increaseQuantity(
                                 item.productId,
                                 item.color,
                                 item.size,
-                              );
-                            } else {
-                              setSelectedItemToRemove(item);
-                              setIsRemoveModalVisible(true);
+                              )
                             }
-                          }}
-                        >
-                          <Ionicons
-                            name="remove-outline"
-                            size={16}
-                            color={COLORS.primary}
-                          />
-                        </TouchableOpacity>
-
-                        <Text style={styles.quantityText}>{item.quantity}</Text>
-
-                        <TouchableOpacity
-                          style={styles.quantityButton}
-                          onPress={() =>
-                            increaseQuantity(
-                              item.productId,
-                              item.color,
-                              item.size,
-                            )
-                          }
-                        >
-                          <Ionicons
-                            name="add-outline"
-                            size={16}
-                            color={COLORS.primary}
-                          />
-                        </TouchableOpacity>
+                          >
+                            <Ionicons
+                              name="add-outline"
+                              size={16}
+                              color={COLORS.primary}
+                            />
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </View>
+                  </Pressable>
+                </ReanimatedSwipeable>
               );
             })}
           </ScrollView>

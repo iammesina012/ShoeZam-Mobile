@@ -103,11 +103,8 @@ export const styles = StyleSheet.create({
   productContainer: {
     flexDirection: "row",
     minHeight: 100,
-    marginTop: 16,
-    marginHorizontal: 20,
     padding: 16,
     gap: 12,
-    borderRadius: 14,
     backgroundColor: COLORS.background,
     alignItems: "center",
   },
@@ -166,6 +163,19 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "normal",
     color: COLORS.primary,
+  },
+  // Swipeable Card
+  deleteAction: {
+    backgroundColor: COLORS.accent,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100,
+    gap: 4,
+  },
+  deleteText: {
+    color: COLORS.background,
+    fontSize: 12,
+    fontWeight: "600",
   },
   // ---------- Summary ----------
   summary: {
