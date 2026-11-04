@@ -17,7 +17,10 @@ export default function Header({
   return (
     <View style={[styles.header, { backgroundColor }]}>
       {showBack && (
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.headerButton}
+          onPress={() => router.back()}
+        >
           <Ionicons
             name="arrow-back-outline"
             size={24}
@@ -39,13 +42,16 @@ export default function Header({
       )}
 
       {showBag && (
-        <TouchableOpacity onPress={() => router.push("/tabs/bag")}>
+        <TouchableOpacity
+          style={styles.headerButton}
+          onPress={() => router.push("/tabs/bag")}
+        >
           <Ionicons name="bag-outline" size={24} color={COLORS.accent} />
         </TouchableOpacity>
       )}
 
       {showNotification && (
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.headerButton}>
           <Ionicons
             name="notifications-outline"
             size={24}
@@ -55,7 +61,7 @@ export default function Header({
       )}
 
       {showEdit && (
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.headerButton}>
           <Ionicons name="create-outline" size={24} color={COLORS.accent} />
         </TouchableOpacity>
       )}
@@ -69,6 +75,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 10,
     paddingHorizontal: 20,
+  },
+  headerButton: {
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
   },
   logo: {
     width: 150,
