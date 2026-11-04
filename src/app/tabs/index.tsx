@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
+import SearchBar from "@/components/SearchBar";
 import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
@@ -8,8 +9,10 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
   const { wishlistIds, toggleWishlist } = useWishlist();
 
   return (
@@ -17,6 +20,21 @@ export default function Home() {
       <StatusBar style="dark" />
       {/* App Bar */}
       <Header showLogo showNotification />
+
+      <SearchBar
+        containerStyle={{ marginHorizontal: 20, marginTop: 16 }}
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        onSubmitEditing={() => {
+          const query = searchQuery.trim();
+          if (!query) return;
+
+          router.push({
+            pathname: "/search-results",
+            params: { query },
+          });
+        }}
+      />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}

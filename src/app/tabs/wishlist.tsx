@@ -110,6 +110,7 @@ export default function Wishlist() {
                   product={product}
                   isInWishlist={wishlistIds.includes(product.id)}
                   onToggleWishlist={toggleWishlist}
+                  onPress={() => router.push(`/product/${product.id}`)}
                 />
               ))}
             </View>

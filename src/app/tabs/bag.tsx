@@ -68,8 +68,7 @@ export default function Bag() {
                 style={styles.confirmButton}
                 onPress={() => {
                   if (selectedItemToRemove) {
-                    decreaseQuantity(
-                      // the reason there are 3 arguments here, because we need to identify which item in the bag we want to decrease or remove
+                    removeFromBag(
                       selectedItemToRemove.productId,
                       selectedItemToRemove.color,
                       selectedItemToRemove.size,

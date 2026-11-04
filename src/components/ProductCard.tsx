@@ -57,6 +57,11 @@ export default function ProductCard({
 const styles = StyleSheet.create({
   productCard: {
     width: "48%",
+    padding: 10,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: "#E5E5EA",
+    borderRadius: 16,
   },
   productImageContainer: {
     width: "100%",
