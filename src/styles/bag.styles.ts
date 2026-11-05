@@ -4,7 +4,7 @@ import { COLORS } from "@/theme/colors";
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.background,
   },
   // ---------- Remove Confirmation Modal ----------
   modalOverlay: {
@@ -106,6 +106,8 @@ export const styles = StyleSheet.create({
     padding: 16,
     gap: 12,
     backgroundColor: COLORS.background,
+    borderWidth: 1.5,
+    borderColor: "#D6D6D6",
     alignItems: "center",
   },
   productImageContainer: {
@@ -184,6 +186,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 16,
+    borderTopWidth: 1,
+    borderTopColor: "#D6D6D6",
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 4,
   },
   totalRow: {
     flexDirection: "row",

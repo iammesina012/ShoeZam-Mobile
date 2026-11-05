@@ -57,13 +57,33 @@ export default function Home() {
           </Text>
 
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.brandScrollContainer}>
-            {BRANDS.map((brand) => (
-              <View key={brand.id} style={styles.brandItem}>
-                <Pressable style={styles.brandCard}>
-                  <Image source={brand.logo} style={styles.brandLogo} resizeMode="contain" />
-                </Pressable>
-                <Text style={styles.brandName}>{brand.name}</Text>
+            <Pressable
+              style={styles.brandItem}
+              accessibilityRole="button"
+              accessibilityLabel="Shop all products"
+              onPress={() => router.push("/shop")}
+            >
+              <View style={styles.brandCard}>
+                <Text style={styles.shopAllCardText}>ALL</Text>
               </View>
+              <Text style={styles.brandName}>Shop All</Text>
+            </Pressable>
+            {BRANDS.map((brand) => (
+              <Pressable
+                key={brand.id}
+                style={styles.brandItem}
+                onPress={() =>
+                  router.push({
+                    pathname: "/brand/[id]",
+                    params: { id: brand.id },
+                  })
+                }
+              >
+                <View style={styles.brandCard}>
+                  <Image source={brand.logo} style={styles.brandLogo} resizeMode="contain" />
+                </View>
+                <Text style={styles.brandName}>{brand.name}</Text>
+              </Pressable>
             ))}
           </ScrollView>
         </View>

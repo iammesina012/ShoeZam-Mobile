@@ -86,6 +86,11 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 32,
   },
+  shopAllCardText: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: COLORS.accent,
+  },
   brandName: {
     fontSize: 12,
     fontWeight: "600",

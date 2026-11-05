@@ -3,9 +3,9 @@ export type HeaderProps = {
   backgroundColor?: string;
   centerTitle?: boolean;
   showBack?: boolean;
+  onBackPress?: () => void;
   showSearch?: boolean;
   showNotification?: boolean;
-  showEdit?: boolean;
   showBag?: boolean;
   showLogo?: boolean;
 };

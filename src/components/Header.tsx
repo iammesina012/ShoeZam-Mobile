@@ -8,10 +8,10 @@ export default function Header({
   title,
   centerTitle,
   showNotification,
-  showEdit,
   showBag,
   showLogo,
   showBack,
+  onBackPress,
   backgroundColor = "transparent",
 }: HeaderProps) {
   return (
@@ -19,7 +19,7 @@ export default function Header({
       {showBack && (
         <TouchableOpacity
           style={styles.headerButton}
-          onPress={() => router.back()}
+          onPress={onBackPress ?? (() => router.back())}
         >
           <Ionicons
             name="arrow-back-outline"
@@ -60,11 +60,6 @@ export default function Header({
         </TouchableOpacity>
       )}
 
-      {showEdit && (
-        <TouchableOpacity style={styles.headerButton}>
-          <Ionicons name="create-outline" size={24} color={COLORS.accent} />
-        </TouchableOpacity>
-      )}
     </View>
   );
 }

@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
-import SearchBar from "@/components/SearchBar";
 import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
@@ -36,54 +35,52 @@ export default function Wishlist() {
     <SafeAreaView style={styles.screen}>
       <StatusBar style="dark" />
       {/* App Bar */}
-      <Header title="My Wishlist" showEdit />
+      <Header title="My Wishlist" />
 
-      {/* Search Bar */}
-      <SearchBar containerStyle={{ marginHorizontal: 20, marginTop: 16 }} />
-
-      {/* Brand Carousel */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.brandScrollView}
-        contentContainerStyle={styles.brandScrollContainer}
-      >
-        <Pressable
-          style={[
-            styles.allCard,
-            selectedBrand === null && styles.selectedBrand,
-          ]}
-          onPress={() => setSelectedBrand(null)}
+      {!isEmpty && (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.brandScrollView}
+          contentContainerStyle={styles.brandScrollContainer}
         >
-          <Text
-            style={[
-              styles.allName,
-              selectedBrand === null && styles.selectedBrandName,
-            ]}
-          >
-            All
-          </Text>
-        </Pressable>
-        {BRANDS.map((brand) => (
           <Pressable
-            key={brand.id}
-            onPress={() => setSelectedBrand(brand.id)}
             style={[
-              styles.brandCard,
-              selectedBrand === brand.id && styles.selectedBrand,
+              styles.allCard,
+              selectedBrand === null && styles.selectedBrand,
             ]}
+            onPress={() => setSelectedBrand(null)}
           >
             <Text
               style={[
-                styles.brandName,
-                selectedBrand === brand.id && styles.selectedBrandName,
+                styles.allName,
+                selectedBrand === null && styles.selectedBrandName,
               ]}
             >
-              {brand.name}
+              All
             </Text>
           </Pressable>
-        ))}
-      </ScrollView>
+          {BRANDS.map((brand) => (
+            <Pressable
+              key={brand.id}
+              onPress={() => setSelectedBrand(brand.id)}
+              style={[
+                styles.brandCard,
+                selectedBrand === brand.id && styles.selectedBrand,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.brandName,
+                  selectedBrand === brand.id && styles.selectedBrandName,
+                ]}
+              >
+                {brand.name}
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+      )}
 
       {/* Product Catalog / Empty State */}
       <View style={styles.catalogWrapper}>
@@ -99,6 +96,22 @@ export default function Wishlist() {
               onPress={() => router.replace("/tabs")}
             >
               <Text style={styles.emptyButtonText}>Browse Products</Text>
+            </Pressable>
+          </View>
+        ) : wishlistedProducts.length === 0 ? (
+          <View style={styles.emptyState}>
+            <Ionicons name="heart-outline" size={56} color={COLORS.secondary} />
+            <Text style={styles.emptyTitle}>
+              No {selectedBrandName} shoes saved yet
+            </Text>
+            <Text style={styles.emptySubtitle}>
+              Try another brand or view all your wishlist items.
+            </Text>
+            <Pressable
+              style={styles.emptyButton}
+              onPress={() => setSelectedBrand(null)}
+            >
+              <Text style={styles.emptyButtonText}>Show All</Text>
             </Pressable>
           </View>
         ) : (
