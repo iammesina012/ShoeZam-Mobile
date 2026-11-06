@@ -32,7 +32,7 @@ export default function Wishlist() {
   );
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView edges={["top", "left", "right"]} style={styles.screen}>
       <StatusBar style="dark" />
       {/* App Bar */}
       <Header title="My Wishlist" />

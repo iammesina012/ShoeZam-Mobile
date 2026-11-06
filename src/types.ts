@@ -54,6 +54,28 @@ export type BagItem = {
   quantity: number;
 };
 
+export type ShippingAddress = {
+  id: string;
+  fullName: string;
+  phoneNumber: string;
+  streetAddress: string;
+  city: string;
+  province: string;
+  barangay: string;
+  postalCode: string;
+};
+
+export type ShippingAddressInput = Omit<ShippingAddress, "id">;
+
+export type AddressContextType = {
+  addresses: ShippingAddress[];
+  selectedAddressId: string | null;
+  selectedAddress: ShippingAddress | null;
+  addAddress: (address: ShippingAddressInput) => void;
+  updateAddress: (addressId: string, address: ShippingAddressInput) => void;
+  selectAddress: (addressId: string) => void;
+};
+
 export type BagContextType = {
   bagItems: BagItem[];
   addToBag: (productId: string, color: string, size: string) => void;

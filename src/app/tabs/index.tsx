@@ -48,7 +48,7 @@ export default function Home() {
             </Pressable>
           </View>
 
-          <Image source={require("@/assets/images/hero/adidas-hero.png")} style={styles.rightImage} />
+          <Image source={require("@/assets/images/hero/newbalance-hero.png")} style={styles.rightImage} />
         </View>
 
         {/* Shop by Brand */}

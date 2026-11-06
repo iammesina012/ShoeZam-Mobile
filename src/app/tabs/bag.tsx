@@ -245,9 +245,12 @@ export default function Bag() {
               </Text>
             </View>
 
-            <Pressable style={styles.checkoutButton}>
+            <TouchableOpacity
+              style={styles.checkoutButton}
+              onPress={() => router.push("/checkout")}
+            >
               <Text style={styles.checkoutButtonText}>Checkout</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </>
       )}
