@@ -16,6 +16,7 @@ export default function Header({
 }: HeaderProps) {
   return (
     <View style={[styles.header, { backgroundColor }]}>
+      {/* use the screen's custom destination when it provides one. */}
       {showBack && (
         <TouchableOpacity
           style={styles.headerButton}
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   headerButton: {
+    // gives header icons a consistent, easy-to-tap area.
     width: 40,
     height: 40,
     alignItems: "center",

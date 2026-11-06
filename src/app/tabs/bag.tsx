@@ -68,6 +68,7 @@ export default function Bag() {
                 style={styles.confirmButton}
                 onPress={() => {
                   if (selectedItemToRemove) {
+                    // remove this product, color, and size entry completely.
                     removeFromBag(
                       selectedItemToRemove.productId,
                       selectedItemToRemove.color,

@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 
+// describes one group of filter choices.
 export type CatalogFilterSection = {
   id: string;
   title: string;
@@ -19,6 +20,7 @@ export type CatalogFilterSection = {
   isSize?: boolean;
 };
 
+// gives each sort choice a label and a value used by the results screen.
 export type CatalogSortOption = {
   label: string;
   value: string;
@@ -43,12 +45,14 @@ export default function CatalogControls({
 }: CatalogControlsProps) {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [isSortVisible, setIsSortVisible] = useState(false);
+  // keep sheet choices separate until the shopper applies them.
   const [draftFilters, setDraftFilters] = useState<Record<string, string[]>>({});
   const [filterSheetTranslateY] = useState(() => new Animated.Value(1000));
   const [sortSheetTranslateY] = useState(() => new Animated.Value(1000));
 
   useEffect(() => {
     if (isFilterVisible) {
+      // animate only the filter sheet, not the dimmed background.
       Animated.spring(filterSheetTranslateY, {
         toValue: 0,
         damping: 24,
@@ -62,6 +66,7 @@ export default function CatalogControls({
 
   useEffect(() => {
     if (isSortVisible) {
+      // animate only the sort sheet, not the dimmed background.
       Animated.spring(sortSheetTranslateY, {
         toValue: 0,
         damping: 24,
@@ -74,6 +79,7 @@ export default function CatalogControls({
   }, [sortSheetTranslateY, isSortVisible]);
 
   function openFilters() {
+    // start with the filters that are already active.
     setDraftFilters(
       Object.fromEntries(
         filterSections.map((section) => [
@@ -86,6 +92,7 @@ export default function CatalogControls({
   }
 
   function toggleFilterOption(sectionId: string, value: string) {
+    // add an option to its group, or remove it if already selected.
     setDraftFilters((currentFilters) => {
       const selectedValues = currentFilters[sectionId] ?? [];
       return {
@@ -98,11 +105,13 @@ export default function CatalogControls({
   }
 
   function clearFilters() {
+    // clear the pending choices in every filter group.
     setDraftFilters(
       Object.fromEntries(filterSections.map((section) => [section.id, []])),
     );
   }
 
+  // preview the number of results before applying the pending filters.
   const draftResultCount = getResultCount(draftFilters);
 
   return (
@@ -132,6 +141,7 @@ export default function CatalogControls({
       <Modal
         visible={isFilterVisible}
         transparent
+        // keep the backdrop still while the sheet has its own animation.
         animationType="none"
         onRequestClose={() => setIsFilterVisible(false)}
       >
@@ -156,6 +166,7 @@ export default function CatalogControls({
               style={styles.filterOptions}
               showsVerticalScrollIndicator={false}
             >
+              {/* show one set of choices for each filter group. */}
               {filterSections.map((section) => (
                 <View key={section.id}>
                   <Text style={styles.filterSectionTitle}>
@@ -204,6 +215,7 @@ export default function CatalogControls({
               <TouchableOpacity
                 style={styles.applyButton}
                 onPress={() => {
+                  // apply the pending choices and close the filter sheet.
                   onApplyFilters(draftFilters);
                   setIsFilterVisible(false);
                 }}
@@ -221,6 +233,7 @@ export default function CatalogControls({
       <Modal
         visible={isSortVisible}
         transparent
+        // keep the backdrop still while the sheet has its own animation.
         animationType="none"
         onRequestClose={() => setIsSortVisible(false)}
       >
@@ -240,6 +253,7 @@ export default function CatalogControls({
                 <Ionicons name="close" size={24} color={COLORS.primary} />
               </TouchableOpacity>
             </View>
+            {/* show each sort choice and mark the active one. */}
             {sortOptions.map((option) => {
               const isSelected = selectedSort === option.value;
               return (
@@ -247,6 +261,7 @@ export default function CatalogControls({
                   key={option.value}
                   style={styles.sortOption}
                   onPress={() => {
+                    // apply the selected sort option and close the sheet.
                     onSortChange(option.value);
                     setIsSortVisible(false);
                   }}

@@ -1,4 +1,6 @@
-export const PRODUCTS = [
+import type { Product } from "@/types";
+
+export const PRODUCTS: Product[] = [
   {
     id: "1",
     name: "Blondey McCoy X Adidas Superstar 80",

@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
-import ProductCard from "@/components/ProductCard";
+import ProductGrid from "@/components/ProductGrid";
 import SearchBar from "@/components/SearchBar";
-import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
 import { styles } from "@/styles/home.styles";
@@ -12,8 +11,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 
 export default function Home() {
+  // keeps the search text until the user submits it.
   const [searchQuery, setSearchQuery] = useState("");
-  const { wishlistIds, toggleWishlist } = useWishlist();
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -27,8 +26,10 @@ export default function Home() {
         onChangeText={setSearchQuery}
         onSubmitEditing={() => {
           const query = searchQuery.trim();
+          // skip navigation when the search is empty.
           if (!query) return;
 
+          // send the search text to the results screen.
           router.push({
             pathname: "/search-results",
             params: { query },
@@ -41,7 +42,7 @@ export default function Home() {
         <View style={styles.heroCard}>
           <View style={styles.leftSide}>
             <Text style={styles.heroLabel}>NEW ARRIVAL!</Text>
-            <Text style={styles.heroTitle}>New Balance 574{"\n"}Core Men's</Text>
+            <Text style={styles.heroTitle}>New Balance 574{"\n"}Core Men&apos;s</Text>
             <Pressable style={styles.heroButton}>
               <Text style={styles.heroButtonText}>View Product</Text>
             </Pressable>
@@ -57,6 +58,7 @@ export default function Home() {
           </Text>
 
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.brandScrollContainer}>
+            {/* opens the full catalog instead of filtering to one brand. */}
             <Pressable
               style={styles.brandItem}
               accessibilityRole="button"
@@ -94,17 +96,7 @@ export default function Home() {
             Most <Text style={styles.highlightText}>Popular</Text>
           </Text>
 
-          <View style={styles.productGrid}>
-            {PRODUCTS.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                isInWishlist={wishlistIds.includes(product.id)}
-                onToggleWishlist={toggleWishlist}
-                onPress={() => router.push(`/product/${product.id}`)}
-              />
-            ))}
-          </View>
+          <ProductGrid products={PRODUCTS} style={styles.productGrid} />
         </View>
       </ScrollView>
     </SafeAreaView>

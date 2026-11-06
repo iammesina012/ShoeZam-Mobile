@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import ProductCard from "@/components/ProductCard";
+import ProductGrid from "@/components/ProductGrid";
 import { useWishlist } from "@/context/WishlistContext";
 import { BRANDS } from "@/data/brands";
 import { PRODUCTS } from "@/data/products";
@@ -14,7 +14,7 @@ import { useState } from "react";
 
 export default function Wishlist() {
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const { wishlistIds, toggleWishlist } = useWishlist();
+  const { wishlistIds } = useWishlist();
   const isEmpty = wishlistIds.length === 0;
 
   const selectedBrandName = BRANDS.find(
@@ -116,17 +116,10 @@ export default function Wishlist() {
           </View>
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.productGrid}>
-              {wishlistedProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  isInWishlist={wishlistIds.includes(product.id)}
-                  onToggleWishlist={toggleWishlist}
-                  onPress={() => router.push(`/product/${product.id}`)}
-                />
-              ))}
-            </View>
+            <ProductGrid
+              products={wishlistedProducts}
+              style={styles.productGrid}
+            />
           </ScrollView>
         )}
       </View>

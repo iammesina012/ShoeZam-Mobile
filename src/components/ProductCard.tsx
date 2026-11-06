@@ -5,12 +5,10 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function ProductCard({
   product,
-  isInWishlist = false,
+  isInWishlist,
   onToggleWishlist,
   onPress,
 }: ProductCardProps) {
-  const isFilled = isInWishlist;
-
   return (
     <Pressable style={styles.productCard} onPress={onPress}>
       <View style={styles.productImageContainer}>
@@ -33,22 +31,16 @@ export default function ProductCard({
           })}
         </Text>
 
-        {onToggleWishlist ? (
-          <Pressable
-            onPress={() => onToggleWishlist(product.id)}
-            style={styles.wishListButton}
-          >
-            <Ionicons
-              name={isFilled ? "heart" : "heart-outline"}
-              size={18}
-              color={isFilled ? "red" : COLORS.primary}
-            />
-          </Pressable>
-        ) : (
-          <Pressable style={styles.wishlistButton}>
-            <Ionicons name="heart-outline" size={18} color={COLORS.primary} />
-          </Pressable>
-        )}
+        <Pressable
+          onPress={() => onToggleWishlist(product.id)}
+          style={styles.wishlistButton}
+        >
+          <Ionicons
+            name={isInWishlist ? "heart" : "heart-outline"}
+            size={18}
+            color={isInWishlist ? "red" : COLORS.primary}
+          />
+        </Pressable>
       </View>
     </Pressable>
   );
@@ -56,6 +48,7 @@ export default function ProductCard({
 
 const styles = StyleSheet.create({
   productCard: {
+    // keeps the image and product details together as one card.
     width: "48%",
     padding: 10,
     backgroundColor: COLORS.background,
@@ -93,14 +86,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: COLORS.accent,
-  },
-  wishListButton: {
-    width: 32,
-    height: 32,
-    backgroundColor: COLORS.surface,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
   },
   wishlistButton: {
     width: 32,

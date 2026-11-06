@@ -1,9 +1,10 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/theme/colors";
+import type { ComponentProps } from "react";
 
 export type MenuItemProps = {
-  icon: string;
+  icon: ComponentProps<typeof Ionicons>["name"];
   label: string;
   onPress?: () => void;
 };
@@ -15,7 +16,7 @@ export default function MenuItem({
 }: MenuItemProps) {
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <Ionicons name={icon as any} size={22} color={COLORS.primary} />
+      <Ionicons name={icon} size={22} color={COLORS.primary} />
       <Text style={styles.label}>{label}</Text>
       <Ionicons name="chevron-forward-outline" size={22} color={COLORS.secondary} />
     </Pressable>

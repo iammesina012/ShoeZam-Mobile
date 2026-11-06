@@ -1,8 +1,11 @@
+import type { StyleProp, ViewStyle } from "react-native";
+
 export type HeaderProps = {
   title?: string;
   backgroundColor?: string;
   centerTitle?: boolean;
   showBack?: boolean;
+  // lets a screen choose where its back button goes.
   onBackPress?: () => void;
   showSearch?: boolean;
   showNotification?: boolean;
@@ -15,7 +18,7 @@ export type SearchBarProps = {
   value?: string;
   onChangeText?: (text: string) => void;
   onSubmitEditing?: () => void;
-  containerStyle?: any;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export type Product = {
@@ -33,9 +36,9 @@ export type Product = {
 
 export type ProductCardProps = {
   product: Product;
-  isInWishlist?: boolean;
-  onToggleWishlist?: (productId: string) => void;
-  onPress?: () => void;
+  isInWishlist: boolean;
+  onToggleWishlist: (productId: string) => void;
+  onPress: () => void;
 };
 
 // just describes what is inside the box: a list of IDs and a toggle button

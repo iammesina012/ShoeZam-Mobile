@@ -1,41 +1,29 @@
 import CatalogControls, {
   type CatalogFilterSection,
-  type CatalogSortOption,
 } from "@/components/CatalogControls";
 import Header from "@/components/Header";
-import ProductCard from "@/components/ProductCard";
-import { useWishlist } from "@/context/WishlistContext";
+import ProductGrid from "@/components/ProductGrid";
 import { PRODUCTS } from "@/data/products";
 import { styles } from "@/styles/catalog.styles";
+import {
+  CATALOG_SORT_OPTIONS,
+  filterCatalogProducts,
+  getCatalogOptions,
+  sortCatalogProducts,
+} from "@/utils/catalog";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 
-const SORT_OPTIONS: CatalogSortOption[] = [
-  { label: "A-Z", value: "name-ascending" },
-  { label: "Z-A", value: "name-descending" },
-  { label: "Price: Low to High", value: "price-ascending" },
-  { label: "Price: High to Low", value: "price-descending" },
-];
-
 export default function ShopAll() {
+  // remember the chosen filters and sort while this screen is open.
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState("name-ascending");
-  const { wishlistIds, toggleWishlist } = useWishlist();
 
-  const colors = [
-    ...new Set(
-      PRODUCTS.flatMap((product) =>
-        product.colors.map((color) => color.name),
-      ),
-    ),
-  ].sort();
-  const sizes = [
-    ...new Set(PRODUCTS.flatMap((product) => product.sizes)),
-  ].sort((first, second) => Number(first) - Number(second));
+  const { colors, sizes } = getCatalogOptions(PRODUCTS);
   const filterSections: CatalogFilterSection[] = [
     {
       id: "colors",
@@ -53,33 +41,21 @@ export default function ShopAll() {
   ];
 
   function getFilteredProducts(filters: Record<string, string[]>) {
-    const colorFilters = filters.colors ?? [];
-    const sizeFilters = filters.sizes ?? [];
-    return PRODUCTS.filter(
-      (product) =>
-        (colorFilters.length === 0 ||
-          product.colors.some((color) => colorFilters.includes(color.name))) &&
-        (sizeFilters.length === 0 ||
-          product.sizes.some((size) => sizeFilters.includes(size))),
-    );
+    return filterCatalogProducts(PRODUCTS, filters);
   }
 
-  const filteredProducts = getFilteredProducts({
-    colors: selectedColors,
-    sizes: selectedSizes,
-  });
-  const sortedProducts = [...filteredProducts].sort((first, second) => {
-    if (sortOption === "price-ascending") return first.price - second.price;
-    if (sortOption === "price-descending") return second.price - first.price;
-    if (sortOption === "name-descending") {
-      return second.name.localeCompare(first.name);
-    }
-    return first.name.localeCompare(second.name);
-  });
+  const sortedProducts = sortCatalogProducts(
+    getFilteredProducts({
+      colors: selectedColors,
+      sizes: selectedSizes,
+    }),
+    sortOption,
+  );
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={styles.screen}>
       <StatusBar style="dark" />
+      {/* return to home even when this screen was opened directly. */}
       <Header
         title="All Products"
         centerTitle
@@ -88,6 +64,7 @@ export default function ShopAll() {
         onBackPress={() => router.replace("/tabs")}
       />
 
+      {/* reuse the same filter and sort sheets as the other catalog screens. */}
       <CatalogControls
         filterSections={filterSections}
         getResultCount={(filters) => getFilteredProducts(filters).length}
@@ -95,24 +72,14 @@ export default function ShopAll() {
           setSelectedColors(filters.colors ?? []);
           setSelectedSizes(filters.sizes ?? []);
         }}
-        sortOptions={SORT_OPTIONS}
+        sortOptions={CATALOG_SORT_OPTIONS}
         selectedSort={sortOption}
         onSortChange={setSortOption}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {sortedProducts.length > 0 ? (
-          <View style={styles.productGrid}>
-            {sortedProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                isInWishlist={wishlistIds.includes(product.id)}
-                onToggleWishlist={toggleWishlist}
-                onPress={() => router.push(`/product/${product.id}`)}
-              />
-            ))}
-          </View>
+          <ProductGrid products={sortedProducts} style={styles.productGrid} />
         ) : (
           <View style={styles.emptyState}>
             <Text style={styles.emptyMessage}>

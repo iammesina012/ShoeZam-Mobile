@@ -108,6 +108,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     borderWidth: 1.5,
     borderColor: "#D6D6D6",
+    borderRadius: 14,
     alignItems: "center",
   },
   productImageContainer: {
