@@ -1,28 +1,33 @@
-# ShoeZam-Mobile
+# ShoeZam
 
-**Welcome to your Expo app 👋**
+ShoeZam is a mobile shoe-shopping app built with Expo and React Native. You can browse shoes by brand, search the catalog, and save products to your wishlist or shopping bag.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Why I Made This
 
-## Get started
+I wanted to recreate one of my old school projects and try building it with modern tech for mobile app development. The original ShoeZam was a desktop app I made with Java, Java Swing, object-oriented programming, and Eclipse IDE. Since a footwear e-commerce app felt more suited to a website or mobile app, I decided to remake it as a mobile app.
 
-1. Install dependencies:
+## Features
 
-   ```bash
-   npm install
-   ```
+- Browse the shoe catalog and brand collections
+- Search products by name or brand
+- Filter products by brand, color, and size
+- Sort products by name or price
+- Add products to a wishlist
+- Add shoes to the shopping bag and adjust quantities
 
-2. Start the app:
+> **Project status:** Shoe and brand information is currently stored locally in the app. Checkout and some account options are not implemented yet.
 
-   ```bash
-   npx expo start
-   ```
+## Project Structure
 
-You can open the app using a development build, Android emulator, iOS simulator, or Expo Go.
+```text
+src/
+  app/         App screens and navigation routes
+  components/  Reusable interface components
+  context/     Shared app state, such as the bag and wishlist
+  data/        Local product and brand data
+  styles/      Styles grouped by screen or component
+  theme/       Shared colors and visual settings
+  utils/       Shared helper functions, including catalog filtering and sorting
+```
 
-You can start developing by editing the files inside the `app` directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction/).
-
-## Learn more
-
-- [Expo documentation](https://docs.expo.dev/)
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/)
+To add or update the sample catalog, edit the files in `src/data/`. App screens are in `src/app/`.
