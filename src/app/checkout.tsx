@@ -9,7 +9,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
-  Alert,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -19,7 +18,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { PRODUCTS } from "@/data/products";
 
 export default function Checkout() {
-  const { bagItems } = useBag();
+  const { bagItems, clearBag } = useBag();
   const { selectedAddress } = useAddress();
 
   const totalPrice = bagItems.reduce((total, bagItem) => {
@@ -31,10 +30,8 @@ export default function Checkout() {
   function handlePlaceOrder() {
     if (!canPlaceOrder) return;
 
-    Alert.alert(
-      "Not available yet",
-      "Placing orders will be added in a future update.",
-    );
+    clearBag();
+    router.replace("/order-confirmation");
   }
 
   return (

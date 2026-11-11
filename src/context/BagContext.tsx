@@ -94,6 +94,10 @@ export function BagProvider({ children }: { children: ReactNode }) {
     );
   }
 
+  function clearBag() {
+    setBagItems([]);
+  }
+
   return (
     <BagContext.Provider
       value={{
@@ -102,6 +106,7 @@ export function BagProvider({ children }: { children: ReactNode }) {
         increaseQuantity,
         decreaseQuantity,
         removeFromBag,
+        clearBag,
       }}
     >
       {children}
