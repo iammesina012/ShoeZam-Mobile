@@ -58,7 +58,8 @@ export type ShippingAddress = {
   id: string;
   fullName: string;
   phoneNumber: string;
-  streetAddress: string;
+  addressLine1: string;
+  addressLine2: string;
   city: string;
   province: string;
   barangay: string;

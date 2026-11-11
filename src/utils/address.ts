@@ -2,10 +2,13 @@ import type { ShippingAddress } from "@/types";
 
 export function formatShippingAddress(address: ShippingAddress) {
   return [
-    address.streetAddress,
+    address.addressLine1,
+    address.addressLine2,
     address.barangay,
     address.city,
     address.province,
     address.postalCode,
-  ].join(", ");
+  ]
+    .filter((part) => part.trim().length > 0)
+    .join(", ");
 }

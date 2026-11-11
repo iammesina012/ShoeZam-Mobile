@@ -53,13 +53,23 @@ export default function Checkout() {
 
           {selectedAddress ? (
             <View style={styles.sectionCard}>
-              <Text style={[styles.addressSummary, styles.addressName]}>
-                {selectedAddress.fullName}
-              </Text>
-              <Text style={styles.addressSummary}>
-                {selectedAddress.phoneNumber}
-              </Text>
-              <Text style={styles.addressSummary}>
+              <View style={styles.addressContactRow}>
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={[styles.addressSummary, styles.addressInlineName]}
+                >
+                  {selectedAddress.fullName}
+                </Text>
+                <Text
+                  numberOfLines={1}
+                  style={[styles.addressSummary, styles.addressPhone]}
+                >
+                  {" "}
+                  {selectedAddress.phoneNumber}
+                </Text>
+              </View>
+              <Text style={[styles.addressSummary, styles.addressDetails]}>
                 {formatShippingAddress(selectedAddress)}
               </Text>
               <TouchableOpacity

@@ -1,7 +1,6 @@
 import CheckoutHeader from "@/components/CheckoutHeader";
 import { useAddress } from "@/context/AddressContext";
 import { styles } from "@/styles/checkout.styles";
-import { COLORS } from "@/theme/colors";
 import type { ShippingAddress, ShippingAddressInput } from "@/types";
 import { router, useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -21,7 +20,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type AddressField = {
   key: keyof ShippingAddressInput;
   label: string;
-  placeholder: string;
   keyboardType?: KeyboardTypeOptions;
   multiline?: boolean;
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
@@ -31,49 +29,46 @@ const PERSONAL_INFORMATION_FIELDS: AddressField[] = [
   {
     key: "fullName",
     label: "Full Name",
-    placeholder: "Enter your full name",
     autoCapitalize: "words",
   },
   {
     key: "phoneNumber",
     label: "Contact Number",
-    placeholder: "Enter your contact number",
     keyboardType: "phone-pad",
   },
 ];
 
-const STREET_ADDRESS_FIELD: AddressField = {
-  key: "streetAddress",
-  label: "Street Address",
-  placeholder: "House number and street",
-  multiline: true,
+const ADDRESS_LINE_FIELDS: AddressField[] = [
+  {
+    key: "addressLine1",
+    label: "Address Line 1",
+  },
+  {
+    key: "addressLine2",
+    label: "Address Line 2 (Optional)",
+  },
+];
+
+const POSTAL_CODE_FIELD: AddressField = {
+  key: "postalCode",
+  label: "ZIP / Postal Code",
 };
 
 const BARANGAY_FIELD: AddressField = {
   key: "barangay",
   label: "Barangay",
-  placeholder: "Enter your barangay",
   autoCapitalize: "words",
-};
-
-const POSTAL_CODE_FIELD: AddressField = {
-  key: "postalCode",
-  label: "Postal Code",
-  placeholder: "Enter your postal code",
-  keyboardType: "number-pad",
 };
 
 const CITY_FIELD: AddressField = {
   key: "city",
-  label: "City",
-  placeholder: "Enter your city",
+  label: "City / Municipality",
   autoCapitalize: "words",
 };
 
 const PROVINCE_FIELD: AddressField = {
   key: "province",
-  label: "Province",
-  placeholder: "Enter your province",
+  label: "Province / State",
   autoCapitalize: "words",
 };
 
@@ -85,7 +80,8 @@ const ADDRESS_FIELD_ROWS: AddressField[][] = [
 const EMPTY_ADDRESS: ShippingAddressInput = {
   fullName: "",
   phoneNumber: "",
-  streetAddress: "",
+  addressLine1: "",
+  addressLine2: "",
   city: "",
   province: "",
   barangay: "",
@@ -98,7 +94,8 @@ function getAddressInput(address?: ShippingAddress): ShippingAddressInput {
   return {
     fullName: address.fullName,
     phoneNumber: address.phoneNumber,
-    streetAddress: address.streetAddress,
+    addressLine1: address.addressLine1,
+    addressLine2: address.addressLine2,
     city: address.city,
     province: address.province,
     barangay: address.barangay,
@@ -125,21 +122,21 @@ function AddressFormFields({ addressId }: { addressId?: string }) {
   const [form, setForm] = useState<ShippingAddressInput>(() =>
     getAddressInput(existingAddress),
   );
-  const [formError, setFormError] = useState("");
+  const [showValidationErrors, setShowValidationErrors] = useState(false);
 
   function saveAddress() {
-    const hasMissingField = Object.values(form).some(
-      (value) => value.trim().length === 0,
+    const hasMissingField = Object.entries(form).some(
+      ([key, value]) =>
+        key !== "addressLine2" && value.trim().length === 0,
     );
 
     if (hasMissingField) {
-      setFormError("Please complete all address and contact information.");
+      setShowValidationErrors(true);
       return;
     }
 
     if (addressId) {
       if (!existingAddress) {
-        setFormError("This address could not be found.");
         return;
       }
 
@@ -149,6 +146,49 @@ function AddressFormFields({ addressId }: { addressId?: string }) {
     }
 
     router.back();
+  }
+
+  function renderField(field: AddressField, isColumn = false) {
+    const hasFieldError =
+      showValidationErrors &&
+      field.key !== "addressLine2" &&
+      form[field.key].trim().length === 0;
+
+    return (
+      <View
+        key={field.key}
+        style={
+          isColumn
+            ? [styles.inputGroup, styles.inputColumn]
+            : styles.inputGroup
+        }
+      >
+        <Text style={styles.inputLabel}>{field.label}</Text>
+        <TextInput
+          accessibilityLabel={field.label}
+          autoCapitalize={field.autoCapitalize ?? "sentences"}
+          keyboardType={field.keyboardType}
+          multiline={field.multiline}
+          onChangeText={(value) => {
+            setForm((currentForm) => ({
+              ...currentForm,
+              [field.key]: value,
+            }));
+          }}
+          style={[
+            styles.input,
+            hasFieldError && styles.inputError,
+            field.multiline && styles.multilineInput,
+          ]}
+          value={form[field.key]}
+        />
+        {hasFieldError ? (
+          <Text accessibilityRole="alert" style={styles.fieldError}>
+            {field.label} is required.
+          </Text>
+        ) : null}
+      </View>
+    );
   }
 
   if (addressId && !existingAddress) {
@@ -185,89 +225,15 @@ function AddressFormFields({ addressId }: { addressId?: string }) {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {formError ? (
-            <Text accessibilityRole="alert" style={styles.formError}>
-              {formError}
-            </Text>
-          ) : null}
-
-          <View style={styles.formSection}>
-            <Text style={styles.formSectionTitle}>Personal Information</Text>
-            <View style={styles.formSectionDivider} />
-          </View>
           {PERSONAL_INFORMATION_FIELDS.map((field) => (
-            <View key={field.key} style={styles.inputGroup}>
-              <Text style={styles.inputLabel}>{field.label}</Text>
-              <TextInput
-                accessibilityLabel={field.label}
-                autoCapitalize={field.autoCapitalize ?? "sentences"}
-                keyboardType={field.keyboardType}
-                multiline={field.multiline}
-                onChangeText={(value) => {
-                  setForm((currentForm) => ({
-                    ...currentForm,
-                    [field.key]: value,
-                  }));
-                  setFormError("");
-                }}
-                placeholder={field.placeholder}
-                placeholderTextColor={COLORS.secondary}
-                style={[
-                  styles.input,
-                  field.multiline && styles.multilineInput,
-                ]}
-                value={form[field.key]}
-              />
-            </View>
+            renderField(field)
           ))}
 
-          <View style={styles.formSection}>
-            <Text style={styles.formSectionTitle}>Address</Text>
-            <View style={styles.formSectionDivider} />
-          </View>
-          <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>{STREET_ADDRESS_FIELD.label}</Text>
-            <TextInput
-              accessibilityLabel={STREET_ADDRESS_FIELD.label}
-              autoCapitalize="sentences"
-              multiline
-              onChangeText={(value) => {
-                setForm((currentForm) => ({
-                  ...currentForm,
-                  streetAddress: value,
-                }));
-                setFormError("");
-              }}
-              placeholder={STREET_ADDRESS_FIELD.placeholder}
-              placeholderTextColor={COLORS.secondary}
-              style={[styles.input, styles.multilineInput]}
-              value={form.streetAddress}
-            />
-          </View>
+          {ADDRESS_LINE_FIELDS.map((field) => renderField(field))}
 
           {ADDRESS_FIELD_ROWS.map((fieldRow) => (
             <View key={fieldRow[0].key} style={styles.inputRow}>
-              {fieldRow.map((field) => (
-                <View key={field.key} style={[styles.inputGroup, styles.inputColumn]}>
-                  <Text style={styles.inputLabel}>{field.label}</Text>
-                  <TextInput
-                    accessibilityLabel={field.label}
-                    autoCapitalize={field.autoCapitalize ?? "sentences"}
-                    keyboardType={field.keyboardType}
-                    onChangeText={(value) => {
-                      setForm((currentForm) => ({
-                        ...currentForm,
-                        [field.key]: value,
-                      }));
-                      setFormError("");
-                    }}
-                    placeholder={field.placeholder}
-                    placeholderTextColor={COLORS.secondary}
-                    style={styles.input}
-                    value={form[field.key]}
-                  />
-                </View>
-              ))}
+              {fieldRow.map((field) => renderField(field, true))}
             </View>
           ))}
         </ScrollView>

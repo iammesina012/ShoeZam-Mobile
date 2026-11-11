@@ -36,9 +36,23 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
   },
-  addressName: {
+  addressInlineName: {
+    flexShrink: 1,
     fontWeight: "700",
-    marginBottom: 4,
+  },
+  addressPhone: {
+    color: COLORS.secondary,
+    flexShrink: 0,
+  },
+  addressContactRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  addressDetails: {
+    marginTop: 4,
+    color: "#666666",
+    fontSize: 12,
+    lineHeight: 18,
   },
   addressAction: {
     minHeight: 48,
@@ -146,19 +160,6 @@ export const styles = StyleSheet.create({
     paddingBottom: 28,
     gap: 16,
   },
-  formSection: {
-    gap: 12,
-    marginTop: 4,
-  },
-  formSectionTitle: {
-    color: COLORS.primary,
-    fontSize: 17,
-    fontWeight: "700",
-  },
-  formSectionDivider: {
-    height: 1,
-    backgroundColor: "#E5E5EA",
-  },
   inputRow: {
     flexDirection: "row",
     gap: 12,
@@ -183,15 +184,18 @@ export const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: 15,
   },
+  inputError: {
+    borderColor: COLORS.accent,
+  },
+  fieldError: {
+    color: COLORS.accent,
+    fontSize: 12,
+    lineHeight: 16,
+  },
   multilineInput: {
     minHeight: 76,
     paddingTop: 12,
     textAlignVertical: "top",
-  },
-  formError: {
-    color: COLORS.accent,
-    fontSize: 14,
-    lineHeight: 20,
   },
   formFooter: {
     backgroundColor: COLORS.background,
