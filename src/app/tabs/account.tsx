@@ -3,6 +3,7 @@ import MenuItem from "@/components/MenuItem";
 import { styles } from "@/styles/account.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Image, Pressable, ScrollView, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -34,7 +35,11 @@ export default function Account() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>My Orders</Text>
 
-          <MenuItem icon="receipt-outline" label="Order History" />
+          <MenuItem
+            icon="receipt-outline"
+            label="Order History"
+            onPress={() => router.push("/order-history")}
+          />
         </View>
 
         <View style={styles.sectionDivider} />

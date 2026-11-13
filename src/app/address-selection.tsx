@@ -39,10 +39,10 @@ export default function AddressSelection() {
           <View style={styles.emptyState}>
             <Ionicons
               name="location-outline"
-              size={56}
+              size={80}
               color={COLORS.secondary}
             />
-            <Text style={[styles.emptyTitle, { marginTop: 16 }]}>
+            <Text style={styles.emptyTitle}>
               No addresses yet
             </Text>
             <Text style={styles.emptyMessage}>
@@ -127,6 +127,9 @@ export default function AddressSelection() {
           })
         )}
 
+      </ScrollView>
+
+      <SafeAreaView edges={["bottom"]} style={styles.formFooter}>
         <TouchableOpacity
           accessibilityRole="button"
           onPress={() => router.push("/address-form")}
@@ -135,7 +138,7 @@ export default function AddressSelection() {
           <Ionicons name="add" size={21} color={COLORS.background} />
           <Text style={styles.addAddressButtonText}>Add a New Address</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </SafeAreaView>
     </SafeAreaView>
   );
 }

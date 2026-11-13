@@ -5,21 +5,27 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type CheckoutHeaderProps = {
   title: string;
+  backIconSize?: number;
+  onBackPress?: () => void;
 };
 
-export default function CheckoutHeader({ title }: CheckoutHeaderProps) {
+export default function CheckoutHeader({
+  title,
+  backIconSize = 24,
+  onBackPress,
+}: CheckoutHeaderProps) {
   return (
     <View style={styles.header}>
       <Text style={styles.title}>{title}</Text>
       <TouchableOpacity
         accessibilityLabel="Go back"
         accessibilityRole="button"
-        onPress={() => router.back()}
+        onPress={onBackPress ?? (() => router.back())}
         style={styles.backButton}
       >
         <Ionicons
           name="arrow-back-outline"
-          size={24}
+          size={backIconSize}
           color={COLORS.primary}
         />
       </TouchableOpacity>

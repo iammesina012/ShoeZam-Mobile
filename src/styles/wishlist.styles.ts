@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
     marginTop: 16,
     textAlign: "center",
   },
-  emptySubtitle: {
+  emptyMessage: {
     fontSize: 14,
     color: COLORS.secondary,
     textAlign: "center",

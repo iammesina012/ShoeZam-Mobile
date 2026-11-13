@@ -88,7 +88,7 @@ export default function Wishlist() {
           <View style={styles.emptyState}>
             <Ionicons name="heart-outline" size={80} color={COLORS.secondary} />
             <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
-            <Text style={styles.emptySubtitle}>
+            <Text style={styles.emptyMessage}>
               Start adding your favorite shoes to your wishlist.
             </Text>
             <Pressable
@@ -104,7 +104,7 @@ export default function Wishlist() {
             <Text style={styles.emptyTitle}>
               No {selectedBrandName} shoes saved yet
             </Text>
-            <Text style={styles.emptySubtitle}>
+            <Text style={styles.emptyMessage}>
               Try another brand or view all your wishlist items.
             </Text>
             <Pressable

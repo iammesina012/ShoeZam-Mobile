@@ -27,7 +27,7 @@ export default function OrderConfirmation() {
 
           <TouchableOpacity
             accessibilityRole="button"
-            onPress={() => router.replace("/tabs/account")}
+            onPress={() => router.push("/order-history")}
             style={styles.viewOrderButton}
           >
             <Text style={styles.viewOrderButtonText}>View Order</Text>

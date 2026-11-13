@@ -123,20 +123,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     paddingVertical: 48,
   },
   emptyTitle: {
     color: COLORS.primary,
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: 20,
+    fontWeight: "bold",
     textAlign: "center",
+    marginTop: 16,
   },
   emptyMessage: {
     color: COLORS.secondary,
     fontSize: 14,
     lineHeight: 20,
-    marginTop: 8,
+    marginTop: 6,
     textAlign: "center",
   },
   addAddressButton: {
@@ -201,5 +202,6 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     paddingHorizontal: 20,
     paddingTop: 12,
+    paddingBottom: 8,
   },
 });

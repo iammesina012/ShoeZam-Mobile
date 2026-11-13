@@ -91,7 +91,7 @@ export default function Bag() {
         <View style={styles.emptyState}>
           <Ionicons name="bag-outline" size={80} color={COLORS.secondary} />
           <Text style={styles.emptyTitle}>Your bag is empty</Text>
-          <Text style={styles.emptySubtitle}>
+          <Text style={styles.emptyMessage}>
             Add a pair of shoes and they’ll show up here.
           </Text>
           <Pressable
@@ -164,7 +164,7 @@ export default function Bag() {
                         {product.name}
                       </Text>
                       <Text style={styles.productBrand}>
-                        {product.brand} · {item.color} · {item.size}
+                        Color: {item.color} · Size: {item.size}
                       </Text>
 
                       {/* Bottom Row */}

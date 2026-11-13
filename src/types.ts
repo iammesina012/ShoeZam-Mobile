@@ -54,6 +54,39 @@ export type BagItem = {
   quantity: number;
 };
 
+export type OrderStatus =
+  | "placed"
+  | "processing"
+  | "shipping"
+  | "delivered"
+  | "cancelled";
+
+export type OrderItem = {
+  productId: string;
+  productName: string;
+  image: number;
+  color: string;
+  size: string;
+  quantity: number;
+  unitPrice: number;
+};
+
+export type Order = {
+  id: string;
+  date: string;
+  status: OrderStatus;
+  paymentMethod: string;
+  items: OrderItem[];
+  total: number;
+};
+
+export type NewOrder = Pick<Order, "paymentMethod" | "items" | "total">;
+
+export type OrderContextType = {
+  orders: Order[];
+  createOrder: (order: NewOrder) => void;
+};
+
 export type ShippingAddress = {
   id: string;
   fullName: string;

@@ -16,10 +16,12 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { PRODUCTS } from "@/data/products";
+import { useOrders } from "@/context/OrderContext";
 
 export default function Checkout() {
   const { bagItems, clearBag } = useBag();
   const { selectedAddress } = useAddress();
+  const { createOrder } = useOrders();
 
   const totalPrice = bagItems.reduce((total, bagItem) => {
     const product = PRODUCTS.find((item) => item.id === bagItem.productId);
@@ -30,6 +32,29 @@ export default function Checkout() {
   function handlePlaceOrder() {
     if (!canPlaceOrder) return;
 
+    const orderItems = bagItems.map((bagItem) => {
+      const product = PRODUCTS.find((item) => item.id === bagItem.productId);
+
+      if (!product) {
+        throw new Error(`Product ${bagItem.productId} was not found.`);
+      }
+
+      return {
+        productId: bagItem.productId,
+        productName: product.name,
+        image: product.image,
+        color: bagItem.color,
+        size: bagItem.size,
+        quantity: bagItem.quantity,
+        unitPrice: product.price,
+      };
+    });
+
+    createOrder({
+      items: orderItems,
+      total: totalPrice,
+      paymentMethod: "Cash on Delivery",
+    });
     clearBag();
     router.replace("/order-confirmation");
   }
