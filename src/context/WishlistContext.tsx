@@ -1,5 +1,12 @@
 import type { WishlistContextType } from "@/types";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
 // make an empty box (it starts with nothing inside)
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
@@ -8,6 +15,21 @@ const WishlistContext = createContext<WishlistContextType | undefined>(undefined
 export function WishlistProvider({ children }: { children: ReactNode }) {
   // list of hearted IDs, the one who sets the new array, and the array starts empty
   const [wishlistIds, setWishlistIds] = useState<string[]>([]);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastTime = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTime.current) clearTimeout(toastTime.current);
+    };
+  }, []);
+
+  function showWishlistToast(message: string) {
+    setToastMessage(message);
+
+    if (toastTime.current) clearTimeout(toastTime.current);
+    toastTime.current = setTimeout(() => setToastMessage(null), 3000);
+  }
 
   // the wishlist button logic
   function toggleWishlist(productId: string) {
@@ -21,7 +43,9 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
   // put the list and toggle button into the box
   return (
-    <WishlistContext.Provider value={{ wishlistIds, toggleWishlist }}>
+    <WishlistContext.Provider
+      value={{ wishlistIds, toggleWishlist, toastMessage, showWishlistToast }}
+    >
       {/* everything between the WishlistProvider tags can open or access the box */}
       {children}
     </WishlistContext.Provider>

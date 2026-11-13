@@ -10,7 +10,15 @@ type ProductGridProps = {
 };
 
 export default function ProductGrid({ products, style }: ProductGridProps) {
-  const { wishlistIds, toggleWishlist } = useWishlist();
+  const { wishlistIds, toggleWishlist, showWishlistToast } = useWishlist();
+
+  function handleToggleWishlist(productId: string) {
+    const isAdding = !wishlistIds.includes(productId);
+    toggleWishlist(productId);
+    showWishlistToast(
+      isAdding ? "Added to wishlist" : "Removed from wishlist",
+    );
+  }
 
   return (
     <View style={style}>
@@ -19,7 +27,7 @@ export default function ProductGrid({ products, style }: ProductGridProps) {
           key={product.id}
           product={product}
           isInWishlist={wishlistIds.includes(product.id)}
-          onToggleWishlist={toggleWishlist}
+          onToggleWishlist={handleToggleWishlist}
           onPress={() => router.push(`/product/${product.id}`)}
         />
       ))}

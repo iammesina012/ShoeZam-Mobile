@@ -45,6 +45,8 @@ export type ProductCardProps = {
 export type WishlistContextType = {
   wishlistIds: string[];
   toggleWishlist: (productId: string) => void;
+  toastMessage: string | null;
+  showWishlistToast: (message: string) => void;
 };
 
 export type BagItem = {

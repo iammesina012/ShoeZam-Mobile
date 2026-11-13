@@ -141,23 +141,59 @@ export const styles = StyleSheet.create({
   addToBagFooter: {
     backgroundColor: COLORS.background,
   },
-  // ---------- Add to Bag Success Toast ----------
-  addedToast: {
+  // ---------- Add to Bag Confirmation Modal ----------
+  addedModalOverlay: {
     position: "absolute",
-    bottom: 100,
-    alignSelf: "center",
-    flexDirection: "row",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
     alignItems: "center",
-    gap: 8,
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 24,
-    zIndex: 1,
-    elevation: 4,
+    padding: 20,
   },
-  addedToastText: {
+  addedModal: {
+    width: "100%",
+    maxWidth: 400,
+    backgroundColor: COLORS.background,
+    borderRadius: 20,
+    padding: 20,
+    elevation: 8,
+  },
+  addedModalHeading: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginBottom: 20,
+    paddingTop: 4,
+  },
+  addedModalTitle: {
+    fontSize: 20,
+    fontWeight: 700,
+    color: COLORS.primary,
+  },
+  viewBagButton: {
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: COLORS.accent,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  viewBagButtonText: {
     color: COLORS.background,
+    fontSize: 15,
+    fontWeight: 600,
+  },
+  continueShoppingButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+  },
+  continueShoppingText: {
+    color: COLORS.primary,
+    fontSize: 13,
     fontWeight: 600,
   },
 });

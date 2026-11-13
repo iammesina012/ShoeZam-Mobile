@@ -5,11 +5,12 @@ import { PRODUCTS } from "@/data/products";
 import { styles } from "@/styles/product.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
   Image,
+  Modal,
   Pressable,
   ScrollView,
   Text,
@@ -21,22 +22,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ProductDetails() {
   // Context and route values
   const { addToBag } = useBag();
-  const { wishlistIds, toggleWishlist } = useWishlist();
+  const { wishlistIds, toggleWishlist, showWishlistToast } = useWishlist();
   const { id } = useLocalSearchParams();
 
   // Screen state
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [showOptionsError, setShowOptionsError] = useState(false);
-  const [showAddedToast, setShowAddedToast] = useState(false);
-  const toastTime = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Clean up the toast timer if the user leaves this screen
-  useEffect(() => {
-    return () => {
-      if (toastTime.current) clearTimeout(toastTime.current);
-    };
-  }, []);
+  const [showAddedModal, setShowAddedModal] = useState(false);
 
   // Find the product for this route
   const product = PRODUCTS.find((shoe) => shoe.id === id);
@@ -48,13 +41,6 @@ export default function ProductDetails() {
   const productId = product.id;
 
   // Button handlers
-  function showToast() {
-    setShowAddedToast(true);
-
-    if (toastTime.current) clearTimeout(toastTime.current);
-    toastTime.current = setTimeout(() => setShowAddedToast(false), 3000);
-  }
-
   function handleAddToBag() {
     if (!selectedColor || !selectedSize) {
       setShowOptionsError(true);
@@ -62,11 +48,23 @@ export default function ProductDetails() {
     }
 
     addToBag(productId, selectedColor, selectedSize);
-    showToast();
+    setShowAddedModal(true);
+  }
+
+  function handleViewBag() {
+    setShowAddedModal(false);
+    router.push("/tabs/bag");
   }
 
   // Values used by the rendered screen
   const isInWishlist = wishlistIds.includes(product.id);
+
+  function handleToggleWishlist() {
+    toggleWishlist(productId);
+    showWishlistToast(
+      isInWishlist ? "Removed from wishlist" : "Added to wishlist",
+    );
+  }
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "left", "right"]}>
@@ -87,7 +85,7 @@ export default function ProductDetails() {
         <View style={styles.productDetailsSection}>
           <View style={styles.firstRow}>
             <Text style={styles.brandName}>{product.brand}</Text>
-            <Pressable onPress={() => toggleWishlist(product.id)}>
+            <Pressable onPress={handleToggleWishlist}>
               <Ionicons
                 name={isInWishlist ? "heart" : "heart-outline"}
                 size={24}
@@ -187,16 +185,41 @@ export default function ProductDetails() {
         </TouchableOpacity>
       </SafeAreaView>
 
-      {showAddedToast && (
-        <View pointerEvents="none" style={styles.addedToast}>
-          <Ionicons
-            name="checkmark-circle"
-            size={20}
-            color={COLORS.background}
-          />
-          <Text style={styles.addedToastText}>Added to bag</Text>
+      <Modal
+        visible={showAddedModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowAddedModal(false)}
+      >
+        <View style={styles.addedModalOverlay}>
+          <View style={styles.addedModal}>
+            <View style={styles.addedModalHeading}>
+              <Ionicons
+                name="checkmark-circle"
+                size={36}
+                color={COLORS.accent}
+              />
+              <Text style={styles.addedModalTitle}>Added to bag</Text>
+            </View>
+
+            <TouchableOpacity
+              style={styles.viewBagButton}
+              onPress={handleViewBag}
+            >
+              <Text style={styles.viewBagButtonText}>View Bag</Text>
+            </TouchableOpacity>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => setShowAddedModal(false)}
+              style={styles.continueShoppingButton}
+            >
+              <Text style={styles.continueShoppingText}>
+                Continue Shopping
+              </Text>
+            </Pressable>
+          </View>
         </View>
-      )}
+      </Modal>
     </SafeAreaView>
   );
 }
