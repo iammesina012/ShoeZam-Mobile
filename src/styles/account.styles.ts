@@ -11,23 +11,11 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 20,
   },
-  profileImageContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderWidth: 1,
-    overflow: "hidden",
-    borderColor: COLORS.primary,
-    backgroundColor: COLORS.surface,
-  },
-  profileImage: {
-    width: "100%",
-    height: "100%",
-  },
   profileInfo: {
     marginTop: 20,
     paddingHorizontal: 20,
     alignItems: "center",
+    gap: 4,
   },
   profileName: {
     fontSize: 18,

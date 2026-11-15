@@ -21,6 +21,13 @@
           "imageWidth": 76
         }
       ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow ShoeZam to access your photos to update your profile picture.",
+          "microphonePermission": false
+        }
+      ],
       "expo-web-browser",
       "expo-image",
       "expo-status-bar"

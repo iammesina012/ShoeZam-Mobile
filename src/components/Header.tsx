@@ -61,6 +61,9 @@ export default function Header({
         </TouchableOpacity>
       )}
 
+      {centerTitle && showBack && !showBag && !showNotification && (
+        <View style={styles.headerButton} />
+      )}
     </View>
   );
 }
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     height: 32,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "700",
   },
   centerTitle: {

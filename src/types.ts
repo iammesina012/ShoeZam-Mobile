@@ -112,6 +112,19 @@ export type AddressContextType = {
   selectAddress: (addressId: string) => void;
 };
 
+export type UserProfile = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobileNumber: string;
+  photoUri: string | null;
+};
+
+export type ProfileContextType = {
+  profile: UserProfile;
+  updateProfile: (profile: UserProfile) => void;
+};
+
 export type BagContextType = {
   bagItems: BagItem[];
   addToBag: (productId: string, color: string, size: string) => void;

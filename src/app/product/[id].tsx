@@ -196,7 +196,7 @@ export default function ProductDetails() {
             <View style={styles.addedModalHeading}>
               <Ionicons
                 name="checkmark-circle"
-                size={36}
+                size={40}
                 color={COLORS.accent}
               />
               <Text style={styles.addedModalTitle}>Added to bag</Text>

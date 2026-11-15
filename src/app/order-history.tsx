@@ -57,7 +57,6 @@ export default function OrderHistory() {
       <StatusBar style="dark" />
       <CheckoutHeader
         title="Order History"
-        backIconSize={20}
         onBackPress={() => router.replace("/tabs/account")}
       />
 

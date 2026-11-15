@@ -183,7 +183,7 @@ export const styles = StyleSheet.create({
   },
   viewBagButtonText: {
     color: COLORS.background,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: 600,
   },
   continueShoppingButton: {
@@ -193,7 +193,7 @@ export const styles = StyleSheet.create({
   },
   continueShoppingText: {
     color: COLORS.primary,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: 600,
   },
 });
