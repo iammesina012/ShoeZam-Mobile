@@ -10,6 +10,8 @@ import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 
+const FEATURED_PRODUCT_ID = "3";
+
 export default function Home() {
   // keeps the search text until the user submits it.
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,7 +45,16 @@ export default function Home() {
           <View style={styles.leftSide}>
             <Text style={styles.heroLabel}>NEW ARRIVAL!</Text>
             <Text style={styles.heroTitle}>New Balance 574{"\n"}Core Men&apos;s</Text>
-            <Pressable style={styles.heroButton}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() =>
+                router.push({
+                  pathname: "/product/[id]",
+                  params: { id: FEATURED_PRODUCT_ID },
+                })
+              }
+              style={styles.heroButton}
+            >
               <Text style={styles.heroButtonText}>View Product</Text>
             </Pressable>
           </View>

@@ -12,11 +12,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Account() {
   const { profile } = useProfile();
-  const savedName = [profile.firstName, profile.lastName]
-    .filter((name) => name.trim().length > 0)
-    .join(" ");
-  const accountName = savedName || "Test Account";
-  const accountEmail = profile.email || "testaccount@email.com";
+  const accountName = profile.fullName.trim() || "Test Account";
+  const savedUsername = profile.username.trim();
+  const accountUsername = savedUsername
+    ? `@${savedUsername}`
+    : "Username not set";
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -32,7 +32,7 @@ export default function Account() {
             <Text style={styles.profileName} numberOfLines={2}>
               {accountName}
             </Text>
-            <Text style={styles.profileEmail}>{accountEmail}</Text>
+            <Text style={styles.profileEmail}>{accountUsername}</Text>
           </View>
         </View>
 
@@ -63,7 +63,11 @@ export default function Account() {
 
           <MenuItem icon="lock-closed-outline" label="Change Password" />
 
-          <MenuItem icon="location-outline" label="Addresses" />
+          <MenuItem
+            icon="location-outline"
+            label="Addresses"
+            onPress={() => router.push("/my-addresses")}
+          />
 
           <MenuItem icon="card-outline" label="Payment Methods" />
         </View>

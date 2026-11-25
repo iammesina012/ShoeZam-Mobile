@@ -25,15 +25,15 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function Profile() {
   const { profile, updateProfile } = useProfile();
-  const [firstName, setFirstName] = useState(profile.firstName);
-  const [lastName, setLastName] = useState(profile.lastName);
+  const [fullName, setFullName] = useState(profile.fullName);
+  const [username, setUsername] = useState(profile.username);
   const [email, setEmail] = useState(profile.email);
   const [mobileNumber, setMobileNumber] = useState(profile.mobileNumber);
   const [photoUri, setPhotoUri] = useState(profile.photoUri);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
 
-  const hasFirstNameError = showValidationErrors && !firstName.trim();
-  const hasLastNameError = showValidationErrors && !lastName.trim();
+  const hasFullNameError = showValidationErrors && !fullName.trim();
+  const hasUsernameError = showValidationErrors && !username.trim();
   const hasEmailError =
     showValidationErrors && !EMAIL_PATTERN.test(email.trim());
   const hasMobileError = showValidationErrors && !mobileNumber.trim();
@@ -63,8 +63,8 @@ export default function Profile() {
     setShowValidationErrors(true);
 
     if (
-      !firstName.trim() ||
-      !lastName.trim() ||
+      !fullName.trim() ||
+      !username.trim() ||
       !EMAIL_PATTERN.test(email.trim()) ||
       !mobileNumber.trim()
     ) {
@@ -72,8 +72,8 @@ export default function Profile() {
     }
 
     updateProfile({
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
+      fullName: fullName.trim(),
+      username: username.trim(),
       email: email.trim(),
       mobileNumber: mobileNumber.trim(),
       photoUri,
@@ -114,40 +114,39 @@ export default function Profile() {
           </View>
 
           <View style={styles.formSection}>
-            <Text style={styles.sectionTitle}>Personal Information</Text>
-
             <View style={styles.inputGroup}>
-              <Text style={styles.inputLabel}>First Name</Text>
+              <Text style={styles.inputLabel}>Full Name</Text>
               <TextInput
-                accessibilityLabel="First Name"
+                accessibilityLabel="Full Name"
                 autoCapitalize="words"
-                onChangeText={setFirstName}
-                placeholder="Enter your first name"
+                onChangeText={setFullName}
+                placeholder="Enter your full name"
                 placeholderTextColor={COLORS.secondary}
-                style={[styles.input, hasFirstNameError && styles.inputError]}
-                value={firstName}
+                style={[styles.input, hasFullNameError && styles.inputError]}
+                value={fullName}
               />
-              {hasFirstNameError ? (
+              {hasFullNameError ? (
                 <Text accessibilityRole="alert" style={styles.fieldError}>
-                  Enter your first name.
+                  Enter your full name.
                 </Text>
               ) : null}
             </View>
 
             <View style={styles.inputGroup}>
-              <Text style={styles.inputLabel}>Last Name</Text>
+              <Text style={styles.inputLabel}>Username</Text>
               <TextInput
-                accessibilityLabel="Last Name"
-                autoCapitalize="words"
-                onChangeText={setLastName}
-                placeholder="Enter your last name"
+                accessibilityLabel="Username"
+                autoCapitalize="none"
+                autoCorrect={false}
+                onChangeText={setUsername}
+                placeholder="Choose a username"
                 placeholderTextColor={COLORS.secondary}
-                style={[styles.input, hasLastNameError && styles.inputError]}
-                value={lastName}
+                style={[styles.input, hasUsernameError && styles.inputError]}
+                value={username}
               />
-              {hasLastNameError ? (
+              {hasUsernameError ? (
                 <Text accessibilityRole="alert" style={styles.fieldError}>
-                  Enter your last name.
+                  Enter a username.
                 </Text>
               ) : null}
             </View>

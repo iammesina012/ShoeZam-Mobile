@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     borderColor: "#D6D6D6",
     borderRadius: 12,
     paddingHorizontal: 14,
-    color: COLORS.primary,
+    color: COLORS.fieldValue,
     fontSize: 15,
   },
   inputError: {

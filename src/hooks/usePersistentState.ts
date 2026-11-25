@@ -11,6 +11,7 @@ type PersistentStateResult<T> = {
 export function usePersistentState<T>(
   storageKey: string,
   initialValue: T,
+  restoreValue?: (storedValue: unknown) => T,
 ): PersistentStateResult<T> {
   const [value, setValue] = useState(initialValue);
   const [status, setStatus] = useState<PersistenceStatus>("loading");
@@ -25,8 +26,11 @@ export function usePersistentState<T>(
         const storedValue = await AsyncStorage.getItem(storageKey);
 
         if (storedValue !== null) {
-          const parsedValue: T = JSON.parse(storedValue);
-          if (isActive) setValue(parsedValue);
+          const parsedValue: unknown = JSON.parse(storedValue);
+          const restoredValue = restoreValue
+            ? restoreValue(parsedValue)
+            : (parsedValue as T);
+          if (isActive) setValue(restoredValue);
         }
 
         if (isActive) setStatus("ready");
@@ -41,7 +45,7 @@ export function usePersistentState<T>(
     return () => {
       isActive = false;
     };
-  }, [loadAttempt, storageKey]);
+  }, [loadAttempt, restoreValue, storageKey]);
 
   useEffect(() => {
     if (status !== "ready") return;

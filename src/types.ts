@@ -123,8 +123,8 @@ export type AddressContextType = {
 };
 
 export type UserProfile = {
-  firstName: string;
-  lastName: string;
+  fullName: string;
+  username: string;
   email: string;
   mobileNumber: string;
   photoUri: string | null;
