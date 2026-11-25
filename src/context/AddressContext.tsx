@@ -3,15 +3,27 @@ import type {
   ShippingAddress,
   ShippingAddressInput,
 } from "@/types";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { usePersistentState } from "@/hooks/usePersistentState";
+import { createContext, useContext, type ReactNode } from "react";
 
 const AddressContext = createContext<AddressContextType | undefined>(undefined);
+const STORAGE_KEY = "shoezam:addresses:v1";
+
+type SavedAddressData = {
+  addresses: ShippingAddress[];
+  selectedAddressId: string | null;
+};
 
 export function AddressProvider({ children }: { children: ReactNode }) {
-  const [addresses, setAddresses] = useState<ShippingAddress[]>([]);
-  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
-    null,
-  );
+  const {
+    value: savedAddressData,
+    setValue: setSavedAddressData,
+    persistence,
+  } = usePersistentState<SavedAddressData>(STORAGE_KEY, {
+    addresses: [],
+    selectedAddressId: null,
+  });
+  const { addresses, selectedAddressId } = savedAddressData;
 
   const selectedAddress =
     addresses.find((address) => address.id === selectedAddressId) ?? null;
@@ -22,23 +34,29 @@ export function AddressProvider({ children }: { children: ReactNode }) {
       id: `address-${Date.now()}`,
     };
 
-    setAddresses((currentAddresses) => [...currentAddresses, address]);
-    setSelectedAddressId(address.id);
+    setSavedAddressData((currentData) => ({
+      addresses: [...currentData.addresses, address],
+      selectedAddressId: address.id,
+    }));
   }
 
   function updateAddress(
     addressId: string,
     addressInput: ShippingAddressInput,
   ) {
-    setAddresses((currentAddresses) =>
-      currentAddresses.map((address) =>
+    setSavedAddressData((currentData) => ({
+      ...currentData,
+      addresses: currentData.addresses.map((address) =>
         address.id === addressId ? { ...address, ...addressInput } : address,
       ),
-    );
+    }));
   }
 
   function selectAddress(addressId: string) {
-    setSelectedAddressId(addressId);
+    setSavedAddressData((currentData) => ({
+      ...currentData,
+      selectedAddressId: addressId,
+    }));
   }
 
   return (
@@ -50,6 +68,7 @@ export function AddressProvider({ children }: { children: ReactNode }) {
         addAddress,
         updateAddress,
         selectAddress,
+        persistence,
       }}
     >
       {children}

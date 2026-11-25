@@ -41,12 +41,20 @@ export type ProductCardProps = {
   onPress: () => void;
 };
 
+export type PersistenceStatus = "loading" | "ready" | "error";
+
+export type PersistenceState = {
+  status: PersistenceStatus;
+  retry: () => void;
+};
+
 // just describes what is inside the box: a list of IDs and a toggle button
 export type WishlistContextType = {
   wishlistIds: string[];
   toggleWishlist: (productId: string) => void;
   toastMessage: string | null;
   showWishlistToast: (message: string) => void;
+  persistence: PersistenceState;
 };
 
 export type BagItem = {
@@ -87,6 +95,7 @@ export type NewOrder = Pick<Order, "paymentMethod" | "items" | "total">;
 export type OrderContextType = {
   orders: Order[];
   createOrder: (order: NewOrder) => void;
+  persistence: PersistenceState;
 };
 
 export type ShippingAddress = {
@@ -110,6 +119,7 @@ export type AddressContextType = {
   addAddress: (address: ShippingAddressInput) => void;
   updateAddress: (addressId: string, address: ShippingAddressInput) => void;
   selectAddress: (addressId: string) => void;
+  persistence: PersistenceState;
 };
 
 export type UserProfile = {
@@ -123,6 +133,7 @@ export type UserProfile = {
 export type ProfileContextType = {
   profile: UserProfile;
   updateProfile: (profile: UserProfile) => void;
+  persistence: PersistenceState;
 };
 
 export type BagContextType = {
@@ -132,4 +143,5 @@ export type BagContextType = {
   decreaseQuantity: (productId: string, color: string, size: string) => void;
   removeFromBag: (productId: string, color: string, size: string) => void;
   clearBag: () => void;
+  persistence: PersistenceState;
 };

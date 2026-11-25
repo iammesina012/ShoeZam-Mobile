@@ -1,5 +1,6 @@
 import type { ProfileContextType, UserProfile } from "@/types";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { usePersistentState } from "@/hooks/usePersistentState";
+import { createContext, useContext, type ReactNode } from "react";
 
 const INITIAL_PROFILE: UserProfile = {
   firstName: "",
@@ -10,16 +11,21 @@ const INITIAL_PROFILE: UserProfile = {
 };
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
+const STORAGE_KEY = "shoezam:profile:v1";
 
 export function ProfileProvider({ children }: { children: ReactNode }) {
-  const [profile, setProfile] = useState(INITIAL_PROFILE);
+  const {
+    value: profile,
+    setValue: setProfile,
+    persistence,
+  } = usePersistentState(STORAGE_KEY, INITIAL_PROFILE);
 
   function updateProfile(updatedProfile: UserProfile) {
     setProfile(updatedProfile);
   }
 
   return (
-    <ProfileContext.Provider value={{ profile, updateProfile }}>
+    <ProfileContext.Provider value={{ profile, updateProfile, persistence }}>
       {children}
     </ProfileContext.Provider>
   );

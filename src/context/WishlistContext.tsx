@@ -1,4 +1,5 @@
 import type { WishlistContextType } from "@/types";
+import { usePersistentState } from "@/hooks/usePersistentState";
 import {
   createContext,
   useContext,
@@ -10,11 +11,16 @@ import {
 
 // make an empty box (it starts with nothing inside)
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
+const STORAGE_KEY = "shoezam:wishlist:v1";
 
 // it is the component or function that owns the wishlist and shares it with everything inside its tags
 export function WishlistProvider({ children }: { children: ReactNode }) {
   // list of hearted IDs, the one who sets the new array, and the array starts empty
-  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
+  const {
+    value: wishlistIds,
+    setValue: setWishlistIds,
+    persistence,
+  } = usePersistentState<string[]>(STORAGE_KEY, []);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const toastTime = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -44,7 +50,13 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   // put the list and toggle button into the box
   return (
     <WishlistContext.Provider
-      value={{ wishlistIds, toggleWishlist, toastMessage, showWishlistToast }}
+      value={{
+        wishlistIds,
+        toggleWishlist,
+        toastMessage,
+        showWishlistToast,
+        persistence,
+      }}
     >
       {/* everything between the WishlistProvider tags can open or access the box */}
       {children}

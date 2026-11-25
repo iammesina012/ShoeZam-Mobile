@@ -1,10 +1,16 @@
 import type { BagContextType, BagItem } from "@/types";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { usePersistentState } from "@/hooks/usePersistentState";
+import { createContext, useContext, type ReactNode } from "react";
 
 const BagContext = createContext<BagContextType | undefined>(undefined);
+const STORAGE_KEY = "shoezam:bag:v1";
 
 export function BagProvider({ children }: { children: ReactNode }) {
-  const [bagItems, setBagItems] = useState<BagItem[]>([]);
+  const {
+    value: bagItems,
+    setValue: setBagItems,
+    persistence,
+  } = usePersistentState<BagItem[]>(STORAGE_KEY, []);
 
   function addToBag(productId: string, color: string, size: string) {
     // use the latest bag state to check whether this exact shoe option is already in it.
@@ -107,6 +113,7 @@ export function BagProvider({ children }: { children: ReactNode }) {
         decreaseQuantity,
         removeFromBag,
         clearBag,
+        persistence,
       }}
     >
       {children}

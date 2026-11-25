@@ -14,8 +14,9 @@ I wanted to recreate one of my old school projects and try building it with mode
 - Sort products by name or price
 - Add products to a wishlist
 - Add shoes to the shopping bag and adjust quantities
+- Keep the bag, wishlist, addresses, profile, and order history saved on the device between app launches
 
-> **Project status:** Shoe and brand information is currently stored locally in the app. Checkout and some account options are not implemented yet.
+> **Project status:** Shoe and brand information is stored locally in the app. Checkout currently supports Cash on Delivery; account options that require authentication or payment integration are not implemented yet.
 
 ## Project Structure
 

@@ -1,10 +1,16 @@
 import type { NewOrder, Order, OrderContextType } from "@/types";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { usePersistentState } from "@/hooks/usePersistentState";
+import { createContext, useContext, type ReactNode } from "react";
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
+const STORAGE_KEY = "shoezam:orders:v1";
 
 export function OrderProvider({ children }: { children: ReactNode }) {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const {
+    value: orders,
+    setValue: setOrders,
+    persistence,
+  } = usePersistentState<Order[]>(STORAGE_KEY, []);
 
   function createOrder(order: NewOrder) {
     const newOrder: Order = {
@@ -18,7 +24,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <OrderContext.Provider value={{ orders, createOrder }}>
+    <OrderContext.Provider value={{ orders, createOrder, persistence }}>
       {children}
     </OrderContext.Provider>
   );
