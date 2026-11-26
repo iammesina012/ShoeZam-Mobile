@@ -106,9 +106,17 @@ export default function Account() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Support</Text>
 
-          <MenuItem icon="help-circle-outline" label="Help Center" />
+          <MenuItem
+            icon="help-circle-outline"
+            label="Help Center"
+            onPress={() => router.push("/help-center")}
+          />
 
-          <MenuItem icon="document-text-outline" label="Terms & Privacy" />
+          <MenuItem
+            icon="document-text-outline"
+            label="Terms & Privacy"
+            onPress={() => router.push("/terms-privacy")}
+          />
         </View>
 
         <View style={styles.sectionDivider} />
