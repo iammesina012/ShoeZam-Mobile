@@ -15,8 +15,9 @@ I wanted to recreate one of my old school projects and try building it with mode
 - Add products to a wishlist
 - Add shoes to the shopping bag and adjust quantities
 - Keep the bag, wishlist, addresses, profile, and order history saved on the device between app launches
+- Sign in and create an account with Supabase Auth
 
-> **Project status:** Shoe and brand information is stored locally in the app. Checkout currently supports Cash on Delivery; account options that require authentication or payment integration are not implemented yet.
+> **Project status:** Shoe and brand information and shopping data are stored locally in the app. Supabase authentication requires a project and local environment configuration before sign-in and registration can be used. Checkout currently supports Cash on Delivery.
 
 ## Project Structure
 
@@ -32,3 +33,12 @@ src/
 ```
 
 To add or update the sample catalog, edit the files in `src/data/`. App screens are in `src/app/`.
+
+## Supabase Authentication Setup
+
+1. Create a Supabase project and enable email/password authentication with email confirmation.
+2. In the Supabase Auth URL configuration, allow the app callback URL `shoezam://auth/callback`.
+3. Copy `.env.example` to `.env.local` and add the project URL and publishable key from the Supabase project settings. Use the `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_KEY` variable names.
+4. Restart Expo after changing environment variables.
+
+The app uses only the Supabase publishable key. Never put a service-role key in the mobile app or commit `.env.local`. Expo Go creates a temporary callback URL, so use a development build with the `shoezam` scheme for reliable email-confirmation testing.

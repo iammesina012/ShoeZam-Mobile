@@ -1,5 +1,8 @@
+import { useAuth } from "@/context/AuthContext";
 import { Redirect } from "expo-router";
 
 export default function Index() {
-  return <Redirect href="/tabs" />;
+  const { session } = useAuth();
+
+  return <Redirect href={session ? "/tabs" : "/login"} />;
 }

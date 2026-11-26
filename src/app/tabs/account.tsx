@@ -1,22 +1,48 @@
 import Header from "@/components/Header";
 import MenuItem from "@/components/MenuItem";
 import ProfileAvatar from "@/components/ProfileAvatar";
+import { useAuth } from "@/context/AuthContext";
 import { useProfile } from "@/context/ProfileContext";
 import { styles } from "@/styles/account.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Pressable, ScrollView, Switch, Text, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Switch,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Account() {
+  const { session, signOut } = useAuth();
   const { profile } = useProfile();
-  const accountName = profile.fullName.trim() || "Test Account";
+  const authFullName = session?.user.user_metadata.full_name;
+  const accountName =
+    profile.fullName.trim() ||
+    (typeof authFullName === "string" ? authFullName.trim() : "") ||
+    "Account";
   const savedUsername = profile.username.trim();
   const accountUsername = savedUsername
     ? `@${savedUsername}`
-    : "Username not set";
+    : session?.user.email ?? "Email not set";
+
+  async function handleSignOut() {
+    try {
+      await signOut();
+    } catch (error) {
+      Alert.alert(
+        "Signed out on this device",
+        `Your session may remain active on the server until it expires. ${
+          error instanceof Error ? error.message : "Please try again."
+        }`,
+      );
+    }
+  }
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -122,7 +148,7 @@ export default function Account() {
         <View style={styles.sectionDivider} />
 
         <View style={styles.logoutContainer}>
-          <Pressable style={styles.logoutButton}>
+          <Pressable onPress={handleSignOut} style={styles.logoutButton}>
             <Ionicons name="log-out-outline" size={22} color={COLORS.accent} />
             <Text style={styles.logoutText}>Log Out</Text>
           </Pressable>
