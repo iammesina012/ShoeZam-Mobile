@@ -1,6 +1,7 @@
 import { AddressProvider } from "@/context/AddressContext";
 import { BagProvider } from "@/context/BagContext";
 import { OrderProvider } from "@/context/OrderContext";
+import { PaymentProvider } from "@/context/PaymentContext";
 import { ProfileProvider } from "@/context/ProfileContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import WishlistToast from "@/components/WishlistToast";
@@ -14,19 +15,21 @@ export default function RootLayout() {
       <AddressProvider>
         <WishlistProvider>
           <OrderProvider>
-            <BagProvider>
-              <GestureHandlerRootView style={{ flex: 1 }}>
-                <PersistenceGate>
-                  <>
-                    <Stack screenOptions={{ headerShown: false }}>
-                      <Stack.Screen name="index" />
-                      <Stack.Screen name="tabs" />
-                    </Stack>
-                    <WishlistToast />
-                  </>
-                </PersistenceGate>
-              </GestureHandlerRootView>
-            </BagProvider>
+            <PaymentProvider>
+              <BagProvider>
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                  <PersistenceGate>
+                    <>
+                      <Stack screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="index" />
+                        <Stack.Screen name="tabs" />
+                      </Stack>
+                      <WishlistToast />
+                    </>
+                  </PersistenceGate>
+                </GestureHandlerRootView>
+              </BagProvider>
+            </PaymentProvider>
           </OrderProvider>
         </WishlistProvider>
       </AddressProvider>

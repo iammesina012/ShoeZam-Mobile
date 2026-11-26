@@ -1,6 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { PersistenceState, PersistenceStatus } from "@/types";
+import type {
+  PersistenceError,
+  PersistenceState,
+  PersistenceStatus,
+} from "@/types";
 
 type PersistentStateResult<T> = {
   value: T;
@@ -14,8 +18,13 @@ export function usePersistentState<T>(
   restoreValue?: (storedValue: unknown) => T,
 ): PersistentStateResult<T> {
   const [value, setValue] = useState(initialValue);
-  const [status, setStatus] = useState<PersistenceStatus>("loading");
+  const [loadStatus, setLoadStatus] =
+    useState<Exclude<PersistenceStatus, "error">>("loading");
+  const [loadError, setLoadError] = useState(false);
+  const [saveError, setSaveError] = useState(false);
+  const [saveRetrying, setSaveRetrying] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
+  const [saveAttempt, setSaveAttempt] = useState(0);
   const writeQueue = useRef<Promise<void>>(Promise.resolve());
 
   useEffect(() => {
@@ -33,10 +42,16 @@ export function usePersistentState<T>(
           if (isActive) setValue(restoredValue);
         }
 
-        if (isActive) setStatus("ready");
+        if (isActive) {
+          setLoadError(false);
+          setLoadStatus("ready");
+        }
       } catch (error) {
         console.error(`Unable to load saved data for "${storageKey}":`, error);
-        if (isActive) setStatus("error");
+        if (isActive) {
+          setLoadError(true);
+          setLoadStatus("ready");
+        }
       }
     }
 
@@ -48,32 +63,71 @@ export function usePersistentState<T>(
   }, [loadAttempt, restoreValue, storageKey]);
 
   useEffect(() => {
-    if (status !== "ready") return;
+    if (loadStatus !== "ready" || loadError) return;
 
-    try {
-      const serializedValue = JSON.stringify(value);
-      if (serializedValue === undefined) {
-        throw new Error(`Saved data for "${storageKey}" could not be serialized.`);
-      }
+    let isActive = true;
+    writeQueue.current = writeQueue.current
+      .then(() => {
+        const serializedValue = JSON.stringify(value);
+        if (serializedValue === undefined) {
+          throw new Error(
+            `Saved data for "${storageKey}" could not be serialized.`,
+          );
+        }
 
-      writeQueue.current = writeQueue.current
-        .then(() => AsyncStorage.setItem(storageKey, serializedValue))
-        .catch((error: unknown) => {
-          console.error(`Unable to save data for "${storageKey}":`, error);
-        });
-    } catch (error) {
-      console.error(`Unable to serialize data for "${storageKey}":`, error);
-    }
-  }, [status, storageKey, value]);
+        return AsyncStorage.setItem(storageKey, serializedValue);
+      })
+      .then(() => {
+        if (isActive) {
+          setSaveError(false);
+          setSaveRetrying(false);
+        }
+      })
+      .catch((error: unknown) => {
+        console.error(
+          `Unable to serialize or save data for "${storageKey}":`,
+          error,
+        );
+        if (isActive) {
+          setSaveError(true);
+          setSaveRetrying(false);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [loadError, loadStatus, saveAttempt, storageKey, value]);
 
   const retry = useCallback(() => {
-    setStatus("loading");
-    setLoadAttempt((attempt) => attempt + 1);
-  }, []);
+    if (loadError) {
+      setLoadError(false);
+      setLoadStatus("loading");
+      setLoadAttempt((attempt) => attempt + 1);
+      return;
+    }
+
+    if (saveError) {
+      setSaveRetrying(true);
+      setSaveAttempt((attempt) => attempt + 1);
+    }
+  }, [loadError, saveError]);
+
+  const error: PersistenceError | null = loadError
+    ? "load"
+    : saveError
+      ? "save"
+      : null;
+  const status: PersistenceStatus =
+    loadStatus === "loading" || saveRetrying
+      ? "loading"
+      : error
+        ? "error"
+        : "ready";
 
   return {
     value,
     setValue,
-    persistence: { status, retry },
+    persistence: { status, error, retry },
   };
 }

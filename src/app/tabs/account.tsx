@@ -69,7 +69,11 @@ export default function Account() {
             onPress={() => router.push("/my-addresses")}
           />
 
-          <MenuItem icon="card-outline" label="Payment Methods" />
+          <MenuItem
+            icon="card-outline"
+            label="Payment Methods"
+            onPress={() => router.push("/payment-methods")}
+          />
         </View>
 
         <View style={styles.sectionDivider} />

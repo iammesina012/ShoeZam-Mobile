@@ -7,6 +7,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 export default function Header({
   title,
   centerTitle,
+  backIconSize = 24,
   showNotification,
   showBag,
   showLogo,
@@ -24,7 +25,7 @@ export default function Header({
         >
           <Ionicons
             name="arrow-back-outline"
-            size={24}
+            size={backIconSize}
             color={COLORS.primary}
           />
         </TouchableOpacity>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "700",
+    color: COLORS.primary,
   },
   centerTitle: {
     flex: 1,

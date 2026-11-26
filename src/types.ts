@@ -1,10 +1,16 @@
 import type { StyleProp, ViewStyle } from "react-native";
+import type { PaymentMethodId } from "@/data/paymentMethods";
+import type {
+  PaymentProvider,
+  SavedPaymentCategory,
+} from "@/data/paymentProviders";
 
 export type HeaderProps = {
   title?: string;
   backgroundColor?: string;
   centerTitle?: boolean;
   showBack?: boolean;
+  backIconSize?: number;
   // lets a screen choose where its back button goes.
   onBackPress?: () => void;
   showSearch?: boolean;
@@ -43,8 +49,11 @@ export type ProductCardProps = {
 
 export type PersistenceStatus = "loading" | "ready" | "error";
 
+export type PersistenceError = "load" | "save";
+
 export type PersistenceState = {
   status: PersistenceStatus;
+  error: PersistenceError | null;
   retry: () => void;
 };
 
@@ -121,6 +130,29 @@ export type AddressContextType = {
   selectAddress: (addressId: string) => void;
   persistence: PersistenceState;
 };
+
+export type PaymentContextType = {
+  selectedPaymentMethodId: PaymentMethodId;
+  selectPaymentMethod: (paymentMethodId: PaymentMethodId) => void;
+  savedPaymentMethods: SavedPaymentMethod[];
+  addSavedPaymentMethod: (method: NewSavedPaymentMethod) => void;
+  updateSavedPaymentMethod: (
+    methodId: string,
+    method: NewSavedPaymentMethod,
+  ) => void;
+  removeSavedPaymentMethod: (methodId: string) => void;
+  persistence: PersistenceState;
+};
+
+export type SavedPaymentMethod = {
+  id: string;
+  provider: PaymentProvider;
+  category: SavedPaymentCategory;
+  accountName: string;
+  maskedIdentifier: string;
+};
+
+export type NewSavedPaymentMethod = Omit<SavedPaymentMethod, "id">;
 
 export type UserProfile = {
   fullName: string;

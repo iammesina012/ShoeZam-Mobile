@@ -82,9 +82,22 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   paymentName: {
-    flex: 1,
     color: COLORS.primary,
     fontSize: 15,
+    fontWeight: "600",
+  },
+  paymentDetails: {
+    flex: 1,
+    gap: 4,
+  },
+  paymentDescription: {
+    color: COLORS.secondary,
+    fontSize: 12,
+    lineHeight: 17,
+  },
+  paymentAction: {
+    color: COLORS.accent,
+    fontSize: 13,
     fontWeight: "600",
   },
   selectionScreen: {

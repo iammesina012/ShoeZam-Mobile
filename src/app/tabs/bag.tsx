@@ -1,10 +1,10 @@
 import Header from "@/components/Header";
+import ConfirmationModal from "@/components/ConfirmationModal";
 import { styles } from "@/styles/bag.styles";
 import { COLORS } from "@/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import {
-  Modal,
   Image,
   TouchableOpacity,
   Pressable,
@@ -42,49 +42,28 @@ export default function Bag() {
       {/* App Bar */}
       <Header title="My Shopping Bag" />
 
-      {/* Remove Modal */}
-      <Modal visible={isRemoveModalVisible} transparent animationType="fade">
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Remove Item?</Text>
-
-            <Text style={styles.modalMessage}>
-              Are you sure you want to remove this product from your shopping
-              bag?
-            </Text>
-
-            <View style={styles.modalButtons}>
-              <TouchableOpacity
-                style={styles.cancelButton}
-                onPress={() => {
-                  setIsRemoveModalVisible(false); // hide the modal
-                  setSelectedItemToRemove(null); // reset the selected item to null
-                }}
-              >
-                <Text style={styles.cancelButtonText}>No</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.confirmButton}
-                onPress={() => {
-                  if (selectedItemToRemove) {
-                    // remove this product, color, and size entry completely.
-                    removeFromBag(
-                      selectedItemToRemove.productId,
-                      selectedItemToRemove.color,
-                      selectedItemToRemove.size,
-                    );
-                    setIsRemoveModalVisible(false);
-                    setSelectedItemToRemove(null);
-                  }
-                }}
-              >
-                <Text style={styles.confirmButtonText}>Yes, remove</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <ConfirmationModal
+        visible={isRemoveModalVisible}
+        title="Remove Item?"
+        message="Are you sure you want to remove this product from your shopping bag?"
+        cancelText="No"
+        confirmText="Yes, remove"
+        onCancel={() => {
+          setIsRemoveModalVisible(false);
+          setSelectedItemToRemove(null);
+        }}
+        onConfirm={() => {
+          if (selectedItemToRemove) {
+            removeFromBag(
+              selectedItemToRemove.productId,
+              selectedItemToRemove.color,
+              selectedItemToRemove.size,
+            );
+          }
+          setIsRemoveModalVisible(false);
+          setSelectedItemToRemove(null);
+        }}
+      />
 
       {/* Empty state */}
       {isBagEmpty ? (

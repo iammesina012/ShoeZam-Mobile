@@ -1,6 +1,7 @@
 import { useAddress } from "@/context/AddressContext";
 import { useBag } from "@/context/BagContext";
 import { useOrders } from "@/context/OrderContext";
+import { usePayment } from "@/context/PaymentContext";
 import { useProfile } from "@/context/ProfileContext";
 import { useWishlist } from "@/context/WishlistContext";
 import {
@@ -24,10 +25,14 @@ export default function PersistenceGate({
     useAddress().persistence,
     useProfile().persistence,
     useOrders().persistence,
+    usePayment().persistence,
   ];
 
   const hasError = persistenceStates.some(
     (state) => state.status === "error",
+  );
+  const hasSaveError = persistenceStates.some(
+    (state) => state.error === "save",
   );
   const isLoading = persistenceStates.some(
     (state) => state.status === "loading",
@@ -38,16 +43,24 @@ export default function PersistenceGate({
       {children}
       {hasError ? (
         <SafeAreaView style={styles.overlay}>
-          <Text style={styles.title}>Saved data couldn’t be loaded</Text>
+          <Text style={styles.title}>
+            {hasSaveError
+              ? "Your changes couldn’t be saved"
+              : "Saved data couldn’t be loaded"}
+          </Text>
           <Text style={styles.message}>
-            Please try again to load your ShoeZam data.
+            {hasSaveError
+              ? "Your latest changes may not be stored on this device. Please try saving them again."
+              : "Please try again to load your ShoeZam data."}
           </Text>
           <Pressable
             accessibilityRole="button"
             onPress={() => persistenceStates.forEach((state) => state.retry())}
             style={styles.retryButton}
           >
-            <Text style={styles.retryButtonText}>Try Again</Text>
+            <Text style={styles.retryButtonText}>
+              {hasSaveError ? "Retry Save" : "Try Again"}
+            </Text>
           </Pressable>
         </SafeAreaView>
       ) : isLoading ? (
